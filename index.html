@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Atelier Impression 3D – FDM (PLA & PETG) | Catalogue</title>
+  <meta name="description" content="Atelier d'impression 3D FDM (PLA, PETG) : déco, objets utiles et figurines. Commande simple par WhatsApp, Instagram ou e-mail.">
+  <meta name="theme-color" content="#0b0f14">
+  <!-- Favicon SVG inline (aucun fichier à ajouter) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b0f14'/%3E%3Cpath d='M50 18 80 35v30L50 82 20 65V35z' fill='none' stroke='%2322d3ee' stroke-width='7' stroke-linejoin='round'/%3E%3Cpath d='M20 35 50 52 80 35M50 52v30' fill='none' stroke='%2322d3ee' stroke-width='7' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+  <!-- Polices : Google Fonts (avec repli sur polices système si hors-ligne) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+  <!-- FontAwesome (icônes) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <style>
+    /* =========================================================
+       1. VARIABLES & RESET
+       ========================================================= */
+    :root {
+      --bg:        #0b0f14;
+      --bg-soft:   #111821;
+      --card:      #141c26;
+      --card-hi:   #1a2431;
+      --border:    #243040;
+      --text:      #e7edf4;
+      --muted:     #8b9bb0;
+      --accent:    #22d3ee;   /* cyan  */
+      --accent-2:  #a78bfa;   /* violet */
+      --ok:        #34d399;
+
+      /* Couleurs des matières */
+      --pla:    #34d399;
+      --petg:   #38bdf8;
+
+      --radius: 16px;
+      --shadow: 0 10px 30px -12px rgba(0,0,0,.6);
+      --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      margin: 0; font-family: var(--font); color: var(--text);
+      background:
+        radial-gradient(900px 500px at 85% -10%, rgba(34,211,238,.10), transparent 60%),
+        radial-gradient(700px 500px at -10% 10%, rgba(167,139,250,.10), transparent 60%),
+        var(--bg);
+      line-height: 1.6; -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; color: inherit; }
+    .container { width: min(1280px, 100% - 2rem); margin-inline: auto; }
+    @media (min-width: 720px)  { .container { width: min(1280px, 100% - 3rem); } }
+    @media (min-width: 1280px) { .container { width: min(1280px, 100% - 4rem); } }
+    body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+    /* =========================================================
+       2. NAVIGATION
+       ========================================================= */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(12px); background: rgba(11,15,20,.75);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 1rem; padding-top: .55rem; }
+    .logo { display: flex; align-items: center; gap: .6rem; font-weight: 800; letter-spacing: -.02em; min-height: 40px; }
+    .logo i { color: var(--accent); font-size: 1.3rem; }
+
+    /* Onglets (Catalogue / Sur-mesure / Infos) : 2e ligne sur mobile, centrés sur PC */
+    .tabs { order: 3; flex: 1 1 100%; display: flex; gap: .3rem; padding: .5rem 0; }
+    .tab {
+      flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+      min-height: 42px; padding: .5rem .6rem; border-radius: 10px; border: 1px solid transparent;
+      background: transparent; color: var(--muted); font-weight: 600; font-size: .92rem; cursor: pointer; transition: all .2s;
+    }
+    .tab:hover { color: var(--text); background: rgba(255,255,255,.04); }
+    .tab[aria-selected="true"] { color: var(--accent); background: rgba(34,211,238,.1); border-color: rgba(34,211,238,.45); }
+    @media (max-width: 899px) { .tab i { display: none; } }
+    @media (max-width: 440px) { .tab { font-size: .86rem; padding: .5rem .2rem; white-space: nowrap; min-width: 0; } }
+    @media (max-width: 380px) { .tab { font-size: .8rem; padding: .5rem .1rem; } }
+    .tabs { min-width: 0; overflow-x: auto; scrollbar-width: none; }
+    @media (min-width: 720px) {
+      .nav__inner { flex-wrap: nowrap; padding-top: 0; height: 62px; }
+      .tabs { order: 0; flex: 0 0 auto; padding: 0; gap: .4rem; }
+      .tab { flex: none; padding: .5rem 1rem; }
+    }
+
+    /* Panneaux d'onglets */
+    .panel[hidden] { display: none; }
+    .panel { animation: fade .3s ease; }
+    @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    /* =========================================================
+       3. BOUTONS
+       ========================================================= */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+      padding: .75rem 1.2rem; border-radius: 12px; border: 1px solid transparent;
+      font-weight: 600; cursor: pointer; transition: transform .15s, box-shadow .2s, background .2s, border-color .2s;
+      white-space: nowrap;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn--primary { background: linear-gradient(135deg, var(--accent), #0ea5e9); color: #04202a; box-shadow: 0 8px 24px -8px rgba(34,211,238,.6); }
+    .btn--primary:hover { box-shadow: 0 10px 30px -6px rgba(34,211,238,.8); transform: translateY(-1px); }
+    .btn--ghost { background: transparent; border-color: var(--border); color: var(--text); }
+    .btn--ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn--sm { padding: .6rem .9rem; font-size: .92rem; }
+
+    /* =========================================================
+       4. HERO
+       ========================================================= */
+    .hero { padding: 2.5rem 0 1.5rem; text-align: center; }
+    @media (min-width: 720px)  { .hero { padding: 4rem 0 2.5rem; } }
+    @media (min-width: 1100px) { .hero { padding: 5.5rem 0 3rem; } }
+    .badges { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-bottom: 1.4rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: .45rem;
+      font-family: var(--mono); font-size: .78rem; font-weight: 700; letter-spacing: .02em;
+      padding: .38rem .8rem; border-radius: 999px;
+      background: rgba(255,255,255,.04); border: 1px solid var(--border);
+    }
+    .badge .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; }
+    .badge--pla    { color: var(--pla); }
+    .badge--petg   { color: var(--petg); }
+    .hero h1 {
+      font-size: clamp(2.2rem, 7vw, 4.2rem); line-height: 1.05; letter-spacing: -.035em;
+      margin: 0 0 1rem; font-weight: 800;
+    }
+    .gradient-text { background: linear-gradient(120deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero p { color: var(--muted); max-width: 640px; margin: 0 auto 1.8rem; font-size: clamp(1rem, 2.5vw, 1.15rem); }
+    .hero__cta { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+    @media (max-width: 479px) { .hero__cta .btn { flex: 1 1 100%; } .stat b { font-size: 1.05rem; } .stat span { font-size: .7rem; } }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; max-width: 620px; margin: 2rem auto 0; }
+    .stat { padding: .9rem .5rem; border: 1px solid var(--border); border-radius: 14px; background: rgba(255,255,255,.02); }
+    .stat b { display: block; font-family: var(--mono); font-size: 1.3rem; color: var(--accent); }
+    .stat span { font-size: .78rem; color: var(--muted); }
+
+    /* =========================================================
+       5. BARRE D'OUTILS (recherche + filtres + tri)
+       ========================================================= */
+    .catalogue { padding: 2rem 0 3rem; }
+    .section-title { font-size: clamp(1.5rem, 4vw, 2.1rem); letter-spacing: -.02em; margin: 0 0 .3rem; }
+    .section-sub { color: var(--muted); margin: 0 0 1.5rem; }
+
+    .toolbar {
+      position: relative; z-index: 40;
+      display: grid; grid-template-columns: minmax(0, 1fr); gap: .75rem; padding: .9rem 0;
+      background: linear-gradient(var(--bg) 75%, transparent);
+    }
+    @media (min-width: 720px) { .toolbar { position: sticky; top: 62px; } }   /* collante sur tablette & PC uniquement */
+    .search { position: relative; }
+    .search i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+    .search input {
+      width: 100%; font-size: 1rem; /* 16px mini : évite le zoom auto sur iPhone */
+      padding: .85rem 2.6rem .85rem 2.7rem; border-radius: 12px;
+      background: var(--card); border: 1px solid var(--border); outline: none; transition: border-color .2s, box-shadow .2s;
+    }
+    .search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(34,211,238,.15); }
+    .search input::placeholder { color: #5f6f84; }
+    .search button {
+      position: absolute; right: .4rem; top: 50%; transform: translateY(-50%);
+      width: 34px; height: 34px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); cursor: pointer;
+    }
+    .search button[hidden] { display: none; }
+    .search button:hover { color: var(--text); }
+
+    .toolbar__row { display: flex; gap: .75rem; align-items: center; }
+    .filters { display: flex; gap: .5rem; overflow-x: auto; padding-bottom: 2px; flex: 1; min-width: 0; scrollbar-width: none; }
+    .filters::-webkit-scrollbar { display: none; }
+    .chip {
+      flex: none; display: inline-flex; align-items: center; gap: .45rem;
+      padding: .5rem .95rem; border-radius: 999px; cursor: pointer;
+      background: var(--card); border: 1px solid var(--border); color: var(--muted);
+      font-weight: 600; font-size: .9rem; transition: all .2s;
+    }
+    .chip:hover { color: var(--text); border-color: #36475d; }
+    .chip small { font-family: var(--mono); font-size: .72rem; opacity: .7; }
+    .chip[aria-pressed="true"] { background: rgba(34,211,238,.12); border-color: var(--accent); color: var(--accent); }
+    .sort {
+      flex: none; padding: .55rem .7rem; border-radius: 10px; background: var(--card);
+      border: 1px solid var(--border); font-size: 1rem; cursor: pointer; max-width: 170px;
+    }
+    @media (min-width: 720px) { .sort { font-size: .9rem; } .chip { font-size: .95rem; } }
+    @media (max-width: 559px) {
+      .toolbar__row { flex-direction: column; align-items: stretch; gap: .6rem; }
+      .sort { max-width: none; width: 100%; }
+      .chip { padding: .6rem 1rem; }          /* zones tactiles plus grandes */
+      .filters { margin-inline: -1rem; padding-inline: 1rem; }  /* défilement bord à bord */
+    }
+    .result-count { color: var(--muted); font-size: .85rem; margin: .4rem 0 1rem; font-family: var(--mono); }
+
+    /* =========================================================
+       6. GRILLE PRODUITS
+       ========================================================= */
+    /* Grille auto-adaptative : 1 colonne téléphone, 2-3 tablette, 4 sur grand écran */
+    .grid { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+    @media (min-width: 540px)  { .grid { grid-template-columns: repeat(2, 1fr); gap: 1.1rem; } }
+    @media (min-width: 900px)  { .grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; } }
+    @media (min-width: 1240px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .card {
+      display: flex; flex-direction: column; overflow: hidden;
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+      animation: pop .4s ease both;
+    }
+    @media (hover: hover) { .card:hover { transform: translateY(-4px); border-color: #38506b; box-shadow: var(--shadow); } }
+    @keyframes pop { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
+
+    .card__media { position: relative; aspect-ratio: 4 / 3; background: var(--bg-soft); overflow: hidden; }
+    .card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    @media (hover: hover) { .card:hover .card__media img { transform: scale(1.06); } }
+    .tag {
+      position: absolute; top: .7rem; left: .7rem;
+      font-family: var(--mono); font-size: .72rem; font-weight: 700;
+      padding: .25rem .6rem; border-radius: 8px; backdrop-filter: blur(8px);
+      background: rgba(11,15,20,.72); border: 1px solid currentColor;
+    }
+    .tag--pla    { color: var(--pla); }
+    .tag--petg   { color: var(--petg); }
+    .ribbon {
+      position: absolute; top: .7rem; right: .7rem; font-size: .7rem; font-weight: 700;
+      padding: .25rem .6rem; border-radius: 8px; background: linear-gradient(135deg, #f59e0b, #ef4444); color: #fff;
+    }
+
+    .card__body { display: flex; flex-direction: column; flex: 1; padding: 1rem 1.05rem 1.05rem; gap: .35rem; }
+    .card__cat { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
+    .card__title { margin: 0; font-size: 1.05rem; line-height: 1.3; letter-spacing: -.01em; }
+    .card__desc { margin: 0; color: var(--muted); font-size: .9rem; flex: 1; }
+    .card__title { overflow-wrap: anywhere; }
+    .card__meta { display: flex; gap: .9rem; color: var(--muted); font-size: .78rem; margin-top: .3rem; }
+    .card__meta i { margin-right: .3rem; color: #5f7088; }
+    .card__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem; margin-top: .8rem; }
+    .order { flex: 1 1 auto; justify-content: flex-end; }
+    .order .btn--primary { flex: 1 1 auto; min-height: 44px; }
+    @media (min-width: 540px) and (max-width: 1239px) { .price { flex: 1 0 100%; } .order { flex-basis: 100%; } }  /* cartes étroites : prix au-dessus */
+    .price { font-family: var(--mono); font-weight: 700; font-size: 1.35rem; }
+    .price small { font-size: .8rem; color: var(--muted); font-weight: 500; }
+    .order { display: flex; gap: .4rem; }
+    .order .btn { padding: .6rem .85rem; font-size: .9rem; }
+    .btn-icon {
+      width: 44px; height: 44px; padding: 0; border-radius: 10px; flex: none;
+      background: transparent; border: 1px solid var(--border); color: var(--muted);
+      display: inline-flex; align-items: center; justify-content: center; transition: all .2s;
+    }
+    .btn-icon:hover { color: var(--accent); border-color: var(--accent); }
+
+    .empty { text-align: center; padding: 3rem 1rem; color: var(--muted); border: 1px dashed var(--border); border-radius: var(--radius); }
+    .empty i { font-size: 2.2rem; color: var(--accent); margin-bottom: .8rem; display: block; }
+    .empty[hidden] { display: none; }
+
+    /* =========================================================
+       6a. FENÊTRE DÉTAIL PRODUIT
+       ========================================================= */
+    .card { cursor: pointer; }
+    .card__open { all: unset; cursor: pointer; display: block; }
+    .card__open:hover { color: var(--accent); }
+    .card__open:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    .card__hint { font-size: .75rem; color: var(--muted); display: inline-flex; gap: .35rem; align-items: center; }
+    .card__hint.warn { color: #fbbf24; }
+    body.modal-open { overflow: hidden; }
+    #product-dialog { width: min(960px, 100% - 1rem); max-height: calc(100dvh - 1rem); padding: 0; overflow: hidden; border-radius: 20px; border: 1px solid var(--border); background: var(--card); color: var(--text); }
+    #product-dialog::backdrop { background: rgba(0,0,0,.78); backdrop-filter: blur(4px); }
+    #product-dialog[open] { animation: pdIn .22s ease; }
+    @keyframes pdIn { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+    .pd { display: grid; max-height: calc(100dvh - 1rem); overflow-y: auto; overscroll-behavior: contain; }
+    @media (min-width: 800px) {
+      .pd { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); overflow: hidden; }
+      .pd__body { overflow-y: auto; max-height: calc(100dvh - 1rem); overscroll-behavior: contain; }   /* sur grand écran : l'image reste fixe, seul le texte défile */
+    }
+    .pd__close { position: absolute; top: .6rem; right: .6rem; z-index: 5; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border);
+      background: rgba(11,15,20,.85); backdrop-filter: blur(6px); color: var(--text); cursor: pointer; display: grid; place-items: center; font-size: 1.1rem; }
+    .pd__close:hover { border-color: var(--accent); color: var(--accent); }
+    .pd__media { position: relative; background: radial-gradient(circle at 50% 40%, #1b2735, #0c121a); aspect-ratio: 4 / 3; }
+    @media (min-width: 800px) { .pd__media { aspect-ratio: auto; min-height: 100%; } .pd__media img { position: absolute; inset: 0; } }
+    .pd__media img { width: 100%; height: 100%; object-fit: contain; }
+    .pd__media .tag { top: .9rem; left: .9rem; }
+    .pd__media .ribbon { top: .9rem; right: 4rem; }
+    .pd__body { padding: 1.3rem 1.3rem 1.5rem; display: flex; flex-direction: column; gap: .9rem; min-width: 0; }
+    @media (min-width: 800px) { .pd__body { padding: 1.8rem 1.6rem; } }
+    .pd__cat { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
+    .pd__title { margin: -.5rem 0 0; font-size: clamp(1.4rem, 4vw, 1.9rem); line-height: 1.2; letter-spacing: -.02em; padding-right: 3rem; overflow-wrap: anywhere; }
+    .pd__price { font-family: var(--mono); font-weight: 700; font-size: 1.7rem; }
+    .pd__price small { font-size: .9rem; color: var(--muted); font-weight: 500; }
+    .pd__chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .pd__chips span { display: inline-flex; gap: .45rem; align-items: center; font-size: .82rem; padding: .3rem .7rem; border-radius: 999px; background: rgba(255,255,255,.05); border: 1px solid var(--border); color: var(--muted); }
+    .pd__chips i { color: var(--accent); }
+    .pd__desc p { margin: 0 0 .6rem; color: #c3cfdd; }
+    .pd__desc p:last-child { margin: 0; }
+    .pd__warn { padding: .95rem 1.05rem; border-radius: 14px; background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.4); }
+    .pd__warn h3 { margin: 0 0 .5rem; font-size: .98rem; color: #fde68a; display: flex; gap: .55rem; align-items: center; }
+    .pd__warn ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .4rem; color: #d9cdaa; font-size: .92rem; }
+    .pd__warn li::marker { color: #fbbf24; }
+    .pd__actions { display: flex; gap: .6rem; margin-top: auto; padding-top: .3rem; }
+    .pd__actions .btn { flex: 1 1 0; min-width: 0; min-height: 48px; white-space: normal; text-align: center; }
+    .pd__actions .btn-icon { width: 48px; height: 48px; }
+    .pd.is-oos .pd__media img { filter: grayscale(1); opacity: .6; }
+
+    /* =========================================================
+       6b. STOCK, CHARGEMENT, CASE "EN STOCK"
+       ========================================================= */
+    .check { flex: none; display: inline-flex; align-items: center; gap: .5rem; cursor: pointer; font-size: .9rem; color: var(--muted); font-weight: 500; min-height: 40px; user-select: none; }
+    .check[hidden] { display: none; }
+    .check input { width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
+    .check:hover { color: var(--text); }
+    .card--oos .card__media img { filter: grayscale(1); opacity: .5; }
+    .card--oos .card__title, .card--oos .price { opacity: .65; }
+    .ribbon--oos { background: #374151; color: #fff; border: 1px solid #6b7280; }
+    .oos-note { color: #fca5a5; font-size: .82rem; font-weight: 600; }
+    .skeleton { pointer-events: none; }
+    .skeleton .card__media, .skeleton i { background: linear-gradient(100deg, #151e2a 30%, #1e2a3a 50%, #151e2a 70%); background-size: 200% 100%; animation: shimmer 1.2s infinite linear; }
+    .skeleton .line { height: 12px; border-radius: 6px; margin: .35rem 0; background: linear-gradient(100deg, #151e2a 30%, #1e2a3a 50%, #151e2a 70%); background-size: 200% 100%; animation: shimmer 1.2s infinite linear; }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+
+    /* =========================================================
+       6c. SUR-MESURE / STL
+       ========================================================= */
+    .custom { padding: 2rem 0 4rem; }
+    .custom__box {
+      position: relative; overflow: hidden; padding: clamp(1.25rem, 5vw, 3rem);
+      border-radius: 24px; border: 1px solid #2c4a5c;
+      background:
+        radial-gradient(500px 300px at 100% 0%, rgba(34,211,238,.18), transparent 60%),
+        radial-gradient(500px 300px at 0% 100%, rgba(167,139,250,.16), transparent 60%),
+        var(--card);
+    }
+    .custom__grid { display: grid; gap: 2rem; }
+    @media (min-width: 900px) { .custom__grid { grid-template-columns: 1.15fr .85fr; align-items: start; } }
+    .custom__pill { display: inline-flex; gap: .5rem; align-items: center; color: var(--ok); font-family: var(--mono); font-size: .8rem; font-weight: 700; margin-bottom: .8rem; }
+    .custom h2 { margin: 0 0 .7rem; font-size: clamp(1.6rem, 4.5vw, 2.4rem); line-height: 1.15; letter-spacing: -.025em; }
+    .custom p { color: var(--muted); margin: 0 0 1.2rem; }
+    .custom__cta { display: flex; flex-wrap: wrap; gap: .7rem; }
+    @media (max-width: 479px) { .custom__cta .btn { flex: 1 1 100%; } }
+    .notice {
+      display: flex; gap: .85rem; align-items: flex-start; margin: 0 0 1.4rem; padding: 1rem 1.1rem;
+      border-radius: 14px; background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.45);
+    }
+    .notice > i { color: #fbbf24; font-size: 1.2rem; margin-top: .15rem; }
+    .notice b { display: block; color: #fde68a; margin-bottom: .25rem; }
+    .notice p { margin: 0 0 .5rem; color: #d6c9a6; font-size: .92rem; }
+    .notice p:last-child { margin: 0; }
+    .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: .8rem; counter-reset: s; }
+    .steps li {
+      counter-increment: s; display: flex; gap: .9rem; align-items: flex-start;
+      padding: .9rem 1rem; border: 1px solid var(--border); border-radius: 14px; background: rgba(11,15,20,.55);
+    }
+    .steps li::before {
+      content: counter(s); flex: none; width: 30px; height: 30px; border-radius: 50%;
+      display: grid; place-items: center; font-family: var(--mono); font-weight: 700;
+      background: rgba(34,211,238,.14); color: var(--accent); border: 1px solid var(--accent);
+    }
+    .steps b { display: block; }
+    .steps span { color: var(--muted); font-size: .88rem; }
+    .formats { margin-top: 1.2rem; font-family: var(--mono); font-size: .76rem; color: var(--muted); }
+    .formats code { padding: .15rem .45rem; border-radius: 6px; background: rgba(255,255,255,.06); margin-right: .25rem; }
+
+    /* =========================================================
+       6e. ONGLET FILAMENTS (pastilles de couleur)
+       ========================================================= */
+    .fil { padding: 2rem 0 4rem; }
+    .fil__bar { display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: center; margin-bottom: .4rem; }
+    .fil__bar .filters { flex: 1 1 260px; }
+    .fil__grid { display: grid; gap: .8rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (min-width: 560px)  { .fil__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (min-width: 820px)  { .fil__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+    @media (min-width: 1100px) { .fil__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+    .fcard { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .35rem; padding: 1.1rem .7rem .9rem;
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); animation: pop .35s ease both; }
+    .fcard--out { opacity: .55; }
+    .fcard--out .swatch { filter: grayscale(.8); }
+    .fcard b { line-height: 1.25; overflow-wrap: anywhere; }
+    .fcard__meta { display: flex; flex-wrap: wrap; gap: .3rem; justify-content: center; font-family: var(--mono); font-size: .7rem; }
+    .fcard__meta span { padding: .1rem .45rem; border-radius: 6px; border: 1px solid currentColor; }
+    .fcard__meta .m-pla { color: var(--pla); } .fcard__meta .m-petg { color: var(--petg); } .fcard__meta .m-fin { color: var(--muted); }
+    .avail { display: inline-flex; align-items: center; gap: .4rem; font-size: .78rem; font-weight: 600; margin-top: .15rem; }
+    .avail::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; box-shadow: 0 0 8px currentColor; }
+    .avail--ok { color: var(--ok); } .avail--no { color: #fca5a5; }
+    .fcard__cta { margin-top: .3rem; font-size: .8rem; font-weight: 600; color: var(--accent); min-height: 36px; display: inline-flex; align-items: center; padding: 0 .6rem; border-radius: 8px; border: 1px solid transparent; }
+    .fcard__cta:hover { border-color: var(--accent); }
+    /* Bobine : pastille colorée avec un trou au centre */
+    .swatch { --c: #888; position: relative; width: 76px; height: 76px; border-radius: 50%; background: var(--c);
+      box-shadow: inset 0 0 0 5px rgba(0,0,0,.18), inset 0 -8px 14px rgba(0,0,0,.25), 0 6px 16px -6px rgba(0,0,0,.7); }
+    .swatch::after { content: ""; position: absolute; inset: 31%; border-radius: 50%; background: var(--card); box-shadow: inset 0 2px 5px rgba(0,0,0,.6); }
+    .swatch--silk { background-image: linear-gradient(135deg, rgba(255,255,255,.6), rgba(255,255,255,0) 38%, rgba(255,255,255,.28) 62%, rgba(0,0,0,.2)); background-color: var(--c); }
+    .swatch--glass { background: color-mix(in srgb, var(--c) 55%, transparent); outline: 1px dashed rgba(255,255,255,.35); }
+
+    /* =========================================================
+       6d. ONGLET INFOS (matières + FAQ)
+       ========================================================= */
+    .infos { padding: 2rem 0 4rem; }
+    .mats { display: grid; gap: 1rem; margin-bottom: 2rem; }
+    @media (min-width: 720px) { .mats { grid-template-columns: 1fr 1fr; } }
+    .mat { padding: 1.3rem; border-radius: var(--radius); background: var(--card); border: 1px solid var(--border); border-top: 3px solid currentColor; }
+    .mat--pla { color: var(--pla); } .mat--petg { color: var(--petg); }
+    .mat h3 { margin: 0 0 .15rem; font-size: 1.3rem; color: var(--text); display: flex; align-items: center; gap: .6rem; }
+    .mat h3 small { font-family: var(--mono); font-size: .72rem; padding: .15rem .5rem; border: 1px solid currentColor; border-radius: 6px; }
+    .mat > p { margin: 0 0 .9rem; color: var(--muted); font-size: .92rem; }
+    .mat ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; color: var(--text); font-size: .92rem; }
+    .mat li::before { content: "\2713"; font-weight: 800; margin-right: .55rem; color: currentColor; }
+    .faq { display: grid; gap: .6rem; }
+    .faq details { border: 1px solid var(--border); background: var(--card); border-radius: 14px; }
+    .faq summary { cursor: pointer; list-style: none; padding: 1rem 1.1rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 48px; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: "+"; font-family: var(--mono); font-size: 1.3rem; color: var(--accent); transition: transform .2s; }
+    .faq details[open] summary::after { transform: rotate(45deg); }
+    .faq details p { margin: 0; padding: 0 1.1rem 1.1rem; color: var(--muted); font-size: .94rem; }
+    .faq details p a { color: var(--accent); text-decoration: underline; }
+
+    /* =========================================================
+       7. FOOTER & MODALE MENTIONS LÉGALES
+       ========================================================= */
+    .footer { border-top: 1px solid var(--border); background: var(--bg-soft); padding: 2.5rem 0 calc(1.5rem + env(safe-area-inset-bottom)); }
+    .footer__top { display: grid; gap: 1.5rem; }
+    @media (min-width: 720px) { .footer__top { grid-template-columns: 1.4fr 1fr; align-items: center; } }
+    .footer p { color: var(--muted); font-size: .9rem; margin: .5rem 0 0; max-width: 420px; }
+    .socials { display: flex; gap: .6rem; flex-wrap: wrap; }
+    @media (max-width: 479px) { .social { flex: 1 1 100%; justify-content: center; } .footer__bottom { flex-direction: column; text-align: center; } }
+    @media (min-width: 720px) { .socials { justify-content: flex-end; } }
+    .social {
+      display: inline-flex; align-items: center; gap: .55rem; padding: .65rem 1rem; border-radius: 12px;
+      border: 1px solid var(--border); background: var(--card); font-weight: 600; font-size: .92rem; transition: all .2s;
+    }
+    .social:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--accent); }
+    .footer__bottom {
+      display: flex; flex-wrap: wrap; gap: .6rem 1.5rem; justify-content: space-between;
+      margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid var(--border);
+      color: var(--muted); font-size: .82rem;
+    }
+    .linkbtn { background: none; border: 0; padding: 0; color: var(--muted); text-decoration: underline; cursor: pointer; }
+    .linkbtn:hover { color: var(--accent); }
+
+    dialog { max-width: min(640px, 92vw); max-height: 85vh; padding: 0; border-radius: 18px; border: 1px solid var(--border); background: var(--card); color: var(--text); }
+    dialog::backdrop { background: rgba(0,0,0,.7); backdrop-filter: blur(3px); }
+    .dialog__head { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.3rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--card); }
+    .dialog__head h3 { margin: 0; }
+    .dialog__body { padding: 1.2rem 1.3rem 1.5rem; color: var(--muted); font-size: .92rem; }
+    .dialog__body h4 { color: var(--text); margin: 1.2rem 0 .3rem; }
+    .dialog__body h4:first-child { margin-top: 0; }
+    .dialog__body p { margin: 0 0 .5rem; }
+
+    /* Accessibilité : réduit les animations si demandé par l'utilisateur */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ NAVIGATION + ONGLETS ============ -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="#catalogue" class="logo" aria-label="Accueil"><i class="fa-solid fa-cube"></i><span data-bind="brand">Atelier 3D</span></a>
+
+      <nav class="tabs" role="tablist" aria-label="Sections du site">
+        <button class="tab" role="tab" id="tab-catalogue"  data-tab="catalogue"  aria-controls="panel-catalogue"  aria-selected="true"><i class="fa-solid fa-boxes-stacked"></i><span>Catalogue</span></button>
+        <button class="tab" role="tab" id="tab-sur-mesure" data-tab="sur-mesure" aria-controls="panel-sur-mesure" aria-selected="false" tabindex="-1"><i class="fa-solid fa-pen-ruler"></i><span>Sur-mesure</span></button>
+        <button class="tab" role="tab" id="tab-filaments"  data-tab="filaments"  aria-controls="panel-filaments"  aria-selected="false" tabindex="-1"><i class="fa-solid fa-fill-drip"></i><span>Filaments</span></button>
+        <button class="tab" role="tab" id="tab-infos"      data-tab="infos"      aria-controls="panel-infos"      aria-selected="false" tabindex="-1"><i class="fa-solid fa-circle-info"></i><span>Infos</span></button>
+      </nav>
+
+      <a href="#contact" class="btn btn--ghost btn--sm"><i class="fa-regular fa-paper-plane"></i> Contact</a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ################ ONGLET 1 : CATALOGUE ################ -->
+    <div class="panel" id="panel-catalogue" role="tabpanel" aria-labelledby="tab-catalogue" data-panel="catalogue">
+
+      <!-- ============ HERO ============ -->
+      <section class="hero">
+        <div class="container">
+          <div class="badges" aria-label="Matériaux et qualité">
+            <span class="badge"><i class="fa-solid fa-layer-group"></i>FDM</span>
+            <span class="badge badge--pla"><span class="dot"></span>PLA</span>
+            <span class="badge badge--petg"><span class="dot"></span>PETG</span>
+          </div>
+          <h1>Atelier <span class="gradient-text">Impression 3D</span></h1>
+          <p>Objets déco, accessoires utiles et figurines : tout est imprimé à la commande en FDM, en PLA ou en PETG. Fabrication artisanale, finitions soignées, envoi rapide depuis la France.</p>
+          <div class="hero__cta">
+            <a href="#produits" class="btn btn--primary"><i class="fa-solid fa-boxes-stacked"></i> Voir le catalogue</a>
+            <a href="#sur-mesure" class="btn btn--ghost"><i class="fa-solid fa-pen-ruler"></i> Envoyer mon modèle 3D</a>
+          </div>
+          <div class="stats">
+            <div class="stat"><b>0.2mm</b><span>Finesse des couches</span></div>
+            <div class="stat"><b>2-5j</b><span>Délai de fabrication</span></div>
+            <div class="stat"><b>100%</b><span>Fait maison</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CATALOGUE ============ -->
+      <section class="catalogue" id="produits">
+        <div class="container">
+          <h2 class="section-title">Le catalogue</h2>
+          <p class="section-sub">Tous les objets sont imprimés à la commande. Cliquez sur « Commander » pour m'envoyer un message pré-rempli.</p>
+
+          <!-- Barre d'outils : recherche, filtres, tri -->
+          <div class="toolbar">
+            <div class="search">
+              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+              <label for="search" class="sr-only">Rechercher un produit</label>
+              <input id="search" type="search" placeholder="Rechercher : vase, manette, dragon, PETG…" autocomplete="off" enterkeyhint="search">
+              <button id="clear" type="button" aria-label="Effacer la recherche" hidden><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="toolbar__row">
+              <div class="filters" id="filters" role="group" aria-label="Filtrer par catégorie"></div>
+              <label class="check" id="stock-filter" hidden><input type="checkbox" id="only-stock"><span>En stock</span></label>
+              <label for="sort" class="sr-only">Trier</label>
+              <select id="sort" class="sort">
+                <option value="default">Tri : par défaut</option>
+                <option value="asc">Prix croissant</option>
+                <option value="desc">Prix décroissant</option>
+                <option value="az">Nom A → Z</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="result-count" id="count" aria-live="polite"></div>
+          <div class="grid" id="grid" aria-busy="true"></div>
+
+          <div class="empty" id="empty" hidden>
+            <i class="fa-regular fa-face-frown"></i>
+            <b>Aucun produit trouvé</b>
+            <p>Essayez un autre mot-clé ou une autre catégorie… ou envoyez-moi votre idée !</p>
+            <a href="#sur-mesure" class="btn btn--ghost btn--sm">Projet sur-mesure</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ################ ONGLET 2 : SUR-MESURE / STL ################ -->
+    <div class="panel" id="panel-sur-mesure" role="tabpanel" aria-labelledby="tab-sur-mesure" data-panel="sur-mesure" hidden>
+      <section class="custom">
+        <div class="container">
+          <div class="custom__box">
+            <div class="custom__grid">
+              <div>
+                <div class="custom__pill"><i class="fa-solid fa-bolt"></i> DEVIS GRATUIT · RÉPONSE SOUS 24H</div>
+                <h2>Vous avez votre propre fichier 3D ?</h2>
+                <p>Envoyez-moi votre fichier <strong>STL</strong>, 3MF ou OBJ (ou simplement une photo / un croquis) et je vous renvoie un devis personnalisé sous 24h, avec la matière et la finition que je vous conseille.</p>
+
+                <!-- ⚠️ Avertissement : pas de garantie sur les modèles fournis -->
+                <div class="notice" role="note">
+                  <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                  <div>
+                    <b>À savoir avant d'envoyer votre fichier</b>
+                    <p>Je dois d'abord vérifier que votre modèle est correct et qu'il est imprimable. Même après vérification, <strong>je ne peux pas garantir qu'il fonctionne</strong> une fois imprimé : emboîtements, tolérances, solidité, pièces mobiles…</p>
+                    <p>Le résultat dépend de la qualité du fichier. Si le modèle pose problème, je vous le signale et je vous propose des ajustements, ou je peux refuser l'impression.</p>
+                  </div>
+                </div>
+
+                <div class="custom__cta">
+                  <a class="btn btn--primary" data-link="custom-mail"><i class="fa-solid fa-envelope"></i> Envoyer par e-mail</a>
+                  <a class="btn btn--ghost" data-link="custom-wa" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                  <a class="btn btn--ghost" data-link="instagram" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                </div>
+                <div class="formats">Formats acceptés : <code>.stl</code><code>.3mf</code><code>.obj</code><code>.step</code></div>
+              </div>
+
+              <ol class="steps">
+                <li><div><b>Envoyez votre fichier</b><span>Par e-mail, WhatsApp ou Instagram. Précisez matière, couleur et quantité.</span></div></li>
+                <li><div><b>Vérification du modèle</b><span>Je contrôle que le fichier est propre et imprimable, et je vous signale les problèmes éventuels.</span></div></li>
+                <li><div><b>Devis sous 24h</b><span>Prix, délai et matière conseillée (PLA ou PETG).</span></div></li>
+                <li><div><b>Impression &amp; envoi</b><span>Après votre validation, je lance l'impression puis j'expédie votre commande.</span></div></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ################ ONGLET 3 : FILAMENTS ################ -->
+    <div class="panel" id="panel-filaments" role="tabpanel" aria-labelledby="tab-filaments" data-panel="filaments" hidden>
+      <section class="fil">
+        <div class="container">
+          <h2 class="section-title">Filaments disponibles</h2>
+          <p class="section-sub">Les couleurs actuellement en atelier, par matière. Indiquez la couleur souhaitée dans votre message de commande.</p>
+
+          <div class="fil__bar">
+            <div class="filters" id="fil-types" role="group" aria-label="Filtrer par matière"></div>
+            <label class="check"><input type="checkbox" id="fil-avail"><span>Disponibles uniquement</span></label>
+          </div>
+          <div class="result-count" id="fil-count" aria-live="polite"></div>
+          <div class="fil__grid" id="fil-grid"></div>
+
+          <div class="empty" id="fil-empty" hidden>
+            <i class="fa-solid fa-fill-drip"></i>
+            <b>Aucun filament à afficher</b>
+            <p>Essayez un autre filtre, ou demandez-moi si une couleur peut être commandée.</p>
+            <a href="#contact" class="btn btn--ghost btn--sm">Me contacter</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ################ ONGLET 4 : INFOS ################ -->
+    <div class="panel" id="panel-infos" role="tabpanel" aria-labelledby="tab-infos" data-panel="infos" hidden>
+      <section class="infos">
+        <div class="container">
+          <h2 class="section-title">PLA ou PETG ?</h2>
+          <p class="section-sub">Deux matières, deux usages. En cas de doute, demandez-moi conseil.</p>
+
+          <div class="mats">
+            <article class="mat mat--pla">
+              <h3>PLA <small>Polyvalent</small></h3>
+              <p>Le choix idéal pour la décoration, les figurines et les objets à regarder.</p>
+              <ul>
+                <li>Excellent rendu de surface et détails fins</li>
+                <li>Très large choix de couleurs</li>
+                <li>Rigide, facile à peindre</li>
+                <li>Usage en intérieur (supporte mal la chaleur, ~55 °C)</li>
+              </ul>
+            </article>
+            <article class="mat mat--petg">
+              <h3>PETG <small>Résistant</small></h3>
+              <p>Le choix pour les accessoires qu'on utilise tous les jours.</p>
+              <ul>
+                <li>Résiste aux chocs, légère souplesse</li>
+                <li>Supporte mieux la chaleur (~70 °C) et l'humidité</li>
+                <li>Adapté aux objets utiles et à l'extérieur</li>
+                <li>Aspect légèrement brillant</li>
+              </ul>
+            </article>
+          </div>
+
+          <h2 class="section-title">Questions fréquentes</h2>
+          <div class="faq">
+            <details><summary>Comment passer commande ?</summary><p>Cliquez sur « Commander » sur le produit de votre choix : un message pré-rempli s'ouvre (WhatsApp, Instagram ou e-mail). Je vous confirme la disponibilité, la couleur et le délai.</p></details>
+            <details><summary>Quels sont les délais ?</summary><p>Comptez en général 2 à 5 jours de fabrication selon l'objet, auxquels s'ajoute le délai de livraison. Le délai exact est indiqué sur chaque produit.</p></details>
+            <details><summary>Puis-je choisir la couleur ?</summary><p>Oui, précisez-la dans votre message. Retrouvez les couleurs en stock dans l'onglet <a href="#filaments">Filaments</a> ; je vous confirme la disponibilité à la commande.</p></details>
+            <details><summary>Un produit est « Hors stock », que faire ?</summary><p>Pas de panique : je peux le réimprimer. Cliquez sur « Me prévenir » et je reviens vers vous dès qu'il est de nouveau disponible.</p></details>
+            <details><summary>Je veux faire imprimer mon propre modèle</summary><p>C'est possible ! Rendez-vous dans l'onglet <a href="#sur-mesure">Sur-mesure</a>. Je vérifie votre fichier avant impression, mais son bon fonctionnement ne peut pas être garanti.</p></details>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="footer__top">
+        <div>
+          <a href="#top" class="logo"><i class="fa-solid fa-cube"></i><span data-bind="brand">Atelier 3D</span></a>
+          <p>Impression 3D FDM (PLA & PETG). Objets déco, accessoires utiles et figurines, imprimés à la commande.</p>
+        </div>
+        <div class="socials">
+          <a class="social" data-link="instagram" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a>
+          <a class="social" data-link="tiktok" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+          <a class="social" data-link="email"><i class="fa-solid fa-envelope"></i> E-mail</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© <span id="year"></span> <span data-bind="brand">Atelier 3D</span>. Tous droits réservés.</span>
+        <button class="linkbtn" id="open-legal" type="button">Mentions légales</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ FENÊTRE DÉTAIL PRODUIT ============ -->
+  <dialog id="product-dialog" aria-labelledby="pd-title">
+    <button class="pd__close" id="pd-close" type="button" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
+    <div class="pd" id="pd"></div>
+  </dialog>
+
+  <!-- ============ MENTIONS LÉGALES (modale) ============ -->
+  <dialog id="legal" aria-labelledby="legal-title">
+    <div class="dialog__head">
+      <h3 id="legal-title">Mentions légales</h3>
+      <button class="btn-icon" id="close-legal" type="button" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="dialog__body">
+      <!-- ⚠️ À COMPLÉTER avec vos vraies informations -->
+      <h4>Éditeur du site</h4>
+      <p>[Nom Prénom / Raison sociale] – Entrepreneur individuel (micro-entreprise)<br>
+         SIRET : [XXX XXX XXX XXXXX]<br>
+         Adresse : [Adresse postale]<br>
+         E-mail : <span data-bind="email"></span></p>
+      <h4>Hébergement</h4>
+      <p>Netlify, Inc. – 512 2nd Street, Suite 200, San Francisco, CA 94107, USA.</p>
+      <h4>Propriété intellectuelle</h4>
+      <p>Les photos, textes et visuels de ce site sont la propriété de l'éditeur. Les fichiers 3D fournis par les clients restent leur propriété ; le client garantit disposer des droits nécessaires à leur reproduction. Ces fichiers sont vérifiés avant impression, mais leur bon fonctionnement une fois imprimés (dimensions, tolérances, solidité) ne peut pas être garanti.</p>
+      <h4>Données personnelles</h4>
+      <p>Ce site ne dépose aucun cookie de suivi et ne collecte aucune donnée. Les messages envoyés par e-mail, WhatsApp ou réseaux sociaux ne sont utilisés que pour répondre à votre demande.</p>
+      <h4>Vente à distance</h4>
+      <p>Les objets étant fabriqués à la demande, le droit de rétractation peut ne pas s'appliquer aux commandes personnalisées (art. L221-28 du Code de la consommation). À adapter selon votre situation.</p>
+    </div>
+  </dialog>
+
+<script>
+/* =============================================================
+   ⚙️  CONFIGURATION  – modifiez ici vos informations
+   ============================================================= */
+const CONFIG = {
+  brand:     "Atelier 3D",              // Nom affiché (logo, footer)
+  email:     "contact@exemple.fr",      // Votre e-mail
+  whatsapp:  "33600000000",             // N° WhatsApp format international, SANS "+" ni espaces
+  instagram: "votre_compte",            // Pseudo Instagram (sans @)
+  tiktok:    "votre_compte",            // Pseudo TikTok (sans @)
+
+  // Bouton principal "Commander" : "whatsapp" | "instagram" | "email"
+  // (les 2 autres canaux restent disponibles via les petites icônes)
+  orderMethod: "whatsapp",
+
+  currency: "€"
+};
+
+/* =============================================================
+   📦  PRODUITS (catalogue de secours) – copiez un bloc { … } pour en ajouter un
+   -------------------------------------------------------------
+   id        : identifiant unique
+   title     : nom du produit
+   desc      : courte description
+   category  : "Déco" | "Gaming/Utile" | "Figurines"  (ou une nouvelle catégorie : le filtre se crée tout seul)
+   material  : "PLA" | "PETG"
+   price     : prix en euros (nombre)
+   image     : "./images/mon-image.jpg" ou URL  (laisser "" => visuel de remplacement automatique)
+   time      : (optionnel) délai de fabrication
+   size      : (optionnel) dimensions
+   badge     : (optionnel) ex "Nouveau", "Best-seller"
+   keywords  : (optionnel) mots-clés supplémentaires pour la recherche
+   details   : (optionnel) description détaillée, affichée dans la fenêtre du produit
+   issues    : (optionnel) problèmes possibles / conseils d'utilisation — UNE LIGNE = UN POINT (séparez par \n)
+   visible   : (optionnel) false = produit MASQUÉ pour les clients (défaut : true)
+   inStock   : (optionnel) false = affiché « Hors stock », non commandable (défaut : true)
+
+   ℹ️  Si vous utilisez l'espace admin (/admin), ce tableau sert seulement de catalogue
+       de secours : le catalogue géré dans l'admin le remplace automatiquement.
+   ============================================================= */
+const PRODUCTS = [
+  { id: 1,  title: "Vase spirale « Twist »",        desc: "Vase design en mode vase (paroi unique), parfait pour fleurs séchées. Plusieurs couleurs.", category: "Déco", material: "PLA",    price: 14.90, image: "./images/vase-twist.jpg",      time: "2-3 jours", size: "18 cm", badge: "Best-seller", keywords: "vase fleurs spirale salon", details: "Vase imprimé en « mode vase » : une seule paroi continue, ce qui donne cette texture spiralée et un rendu très léger. Idéal pour des fleurs séchées, des herbes de la pampa ou comme simple objet déco. Plusieurs couleurs disponibles.", issues: "Paroi très fine (≈ 0,6 mm) : évitez les chocs et ne le serrez pas fort.\nNon étanche : pour des fleurs fraîches, placez un verre ou un tube à l'intérieur.\nLe PLA se déforme à la chaleur (dès ~55 °C) : pas de soleil direct derrière une vitre, ni dans une voiture l'été.\nNettoyage : chiffon sec ou légèrement humide, sans produit agressif." },
+  { id: 2,  title: "Lampe lithophane photo",        desc: "Votre photo gravée en relief, révélée par la lumière. Livrée avec socle LED USB.",          category: "Déco", material: "PLA",    price: 29.00, image: "./images/lithophane.jpg",      time: "4-5 jours", size: "15 × 20 cm", badge: "Perso", keywords: "photo cadeau personnalisé veilleuse lumière", details: "Votre photo est transformée en relief : plus l'épaisseur est fine, plus la lumière passe. L'image se révèle une fois la lampe allumée. Livrée avec socle et LED USB. Choisissez une photo nette et bien contrastée.", issues: "Éteinte, la photo est peu lisible : c'est normal, l'image n'apparaît que rétro-éclairée.\nLes photos sombres, floues ou très chargées donnent un rendu moyen.\nManipulez-la par le socle : la partie photo est fine et fragile.\nUtilisez uniquement une LED : une ampoule chauffante déformerait le PLA." },
+  { id: 3,  title: "Lampe géométrique low-poly",    desc: "Abat-jour facetté qui crée de superbes jeux d'ombres. Compatible ampoule E14.",             category: "Déco", material: "PLA",    price: 24.50, image: "./images/lampe-lowpoly.jpg",   time: "3 jours",   size: "22 cm", keywords: "luminaire abat-jour ombre chambre", details: "Abat-jour facetté (low-poly) qui crée de beaux jeux d'ombres et de lumière sur les murs. Compatible ampoule E14.", issues: "Ampoule LED uniquement (pas d'halogène ni d'incandescence : trop chaude pour le PLA).\nLes teintes foncées laissent passer moins de lumière.\nÀ contre-jour, les lignes de couches peuvent être visibles : c'est le rendu typique de l'impression 3D.\nMontez et démontez l'abat-jour sans forcer pour éviter les fissures." },
+  { id: 4,  title: "Support manette double",        desc: "Range deux manettes PS5 / Xbox proprement sur votre bureau. Base lestable.",                category: "Gaming/Utile", material: "PETG", price: 12.00, image: "./images/support-manette.jpg", time: "1-2 jours", size: "20 × 12 cm", keywords: "gaming ps5 xbox rangement bureau controller", details: "Range proprement deux manettes (PS5, Xbox…) sur votre bureau. Base lestable pour plus de stabilité. Imprimé en PETG pour sa résistance.", issues: "Base légère : lestez-la (pièces, sable) si vous posez de grosses manettes.\nÉloignez-la des radiateurs et du plein soleil : le PETG ramollit vers 70 °C.\nManettes avec coque ou étui : vérifiez qu'elles entrent dans les logements (modèle standard).\nFines lignes de couches visibles : c'est normal en impression FDM." },
+  { id: 5,  title: "Support casque gaming",         desc: "Potence stable et élégante, pass-câbles intégré. Résistant, finition mate.",                category: "Gaming/Utile", material: "PETG", price: 16.90, image: "./images/support-casque.jpg",  time: "2 jours",   size: "25 cm", badge: "Nouveau", keywords: "headset audio setup bureau", details: "Potence stable et élégante avec pass-câbles intégré, finition mate. Imprimé en PETG pour sa résistance.", issues: "Casques très lourds (> 500 g) : posez le support sur un bureau stable et évitez de tirer dessus.\nLe PETG peut plier légèrement sous une forte charge prolongée.\nLe pass-câbles est prévu pour des câbles standards, pas pour de gros connecteurs." },
+  { id: 6,  title: "Organiseur de câbles",          desc: "Lot de 6 clips adhésifs pour ranger câbles de chargeur, souris, écouteurs.",                category: "Gaming/Utile", material: "PETG", price: 6.50,  image: "./images/clips-cables.jpg",    time: "1 jour",    size: "Lot de 6", keywords: "cable clip rangement usb", details: "Lot de 6 clips adhésifs pour ranger les câbles de chargeur, souris et écouteurs. Fini les câbles qui tombent derrière le bureau.", issues: "Collez-les sur une surface propre, sèche et lisse (pas sur une surface poreuse ou texturée).\nLaissez l'adhésif prendre 24 h avant utilisation.\nSur une peinture fragile, l'adhésif peut abîmer la surface au retrait.\nPrévus pour des câbles fins : les câbles épais ne rentrent pas." },
+  { id: 7,  title: "Support smartphone réglable",   desc: "Pliable, léger et ultra-solide. Angle réglable pour bureau, cuisine ou table de nuit.",     category: "Gaming/Utile", material: "PETG", price: 8.90,  image: "./images/support-phone.jpg",   time: "1 jour",    size: "Pliable", keywords: "telephone iphone android stand", details: "Support pliable, léger et solide pour poser votre téléphone sur un bureau, en cuisine ou sur une table de nuit. Angle réglable.", issues: "Avec une grosse coque, la fente peut être trop étroite : demandez-moi une version adaptée.\nDépliez et pliez-le sans forcer, surtout les premières fois.\nNon conçu pour les tablettes ni pour des charges lourdes.\nPeut laisser des traces sur les surfaces fragiles : un patin adhésif peut être ajouté." },
+  { id: 8,  title: "Dragon articulé",               desc: "Dragon flexible imprimé en une seule pièce, articulations mobiles. Effet bois / soie.",      category: "Figurines", material: "PLA", price: 18.00, image: "./images/dragon.jpg",          time: "2 jours",   size: "35 cm", badge: "Best-seller", keywords: "jouet articulé flexible fantasy animal", details: "Dragon flexible imprimé en une seule pièce, avec des articulations mobiles. Effet bois ou soie selon la couleur. Un grand classique, amusant à manipuler.", issues: "Articulations un peu raides à la réception : bougez-le doucement plusieurs fois pour les assouplir.\nNe le tordez pas de force : une articulation pourrait céder.\nPetites pièces : ne convient pas aux enfants de moins de 3 ans.\nÉvitez la chaleur (voiture, radiateur) : le PLA peut se déformer." },
+  { id: 9,  title: "Chat articulé",                 desc: "Chat flexible imprimé d'un seul bloc, queue et corps mobiles. Un classique anti-stress.",   category: "Figurines", material: "PLA",  price: 11.90, image: "./images/chat-articule.jpg",   time: "1-2 jours", size: "25 cm", keywords: "animal jouet flexible articulé cadeau enfant", details: "Chat flexible imprimé d'un seul bloc, avec une queue et un corps mobiles. Un classique anti-stress, parfait en cadeau.", issues: "Articulations un peu raides au début : assouplissez-les doucement.\nNe le tordez pas de force : une articulation pourrait céder.\nPetites pièces : ne convient pas aux enfants de moins de 3 ans.\nÉvitez la chaleur (voiture, radiateur) : le PLA peut se déformer." },
+  { id: 10, title: "Mini robot rétro",              desc: "Petit robot de bureau façon années 50, bras et tête amovibles. Se peint facilement.",     category: "Figurines", material: "PLA",  price: 9.90,  image: "./images/robot-retro.jpg",     time: "2 jours",   size: "12 cm", badge: "Nouveau", keywords: "robot vintage collection bureau déco", details: "Petit robot de bureau au style années 50. Les bras et la tête sont amovibles. Se peint facilement si vous voulez le personnaliser.", issues: "Bras et tête amovibles : petites pièces, pas pour les moins de 3 ans.\nAjustement serré à la livraison : poussez sans forcer, un léger ponçage peut aider.\nPour le peindre : poncez légèrement, appliquez un apprêt, puis de la peinture acrylique.\nLe PLA est sensible à la chaleur." },
+  { id: 11, title: "Tour à dés JDR",                desc: "Tour de lancer de dés pliable avec rampes internes. Idéale pour vos parties de jeu de rôle.", category: "Gaming/Utile", material: "PETG", price: 19.90, image: "./images/tour-des.jpg", time: "3 jours", size: "14 cm", keywords: "dés dice donjon dragons jeu de rôle plateau", details: "Tour de lancer de dés pliable avec rampes internes, idéale pour vos parties de jeu de rôle. Garantit des jets équitables et évite que les dés tombent de la table.", issues: "Les dés très gros ou irréguliers peuvent se coincer dans les rampes.\nLe bruit est plus fort dans la tour : posez un tapis ou un feutre dessous.\nOuvrez et fermez la tour lentement, sans forcer sur les charnières.\nLe PETG peut se rayer avec le temps : c'est normal." },
+  { id: 12, title: "Porte-clés personnalisé",       desc: "Votre prénom, logo ou texte en relief. Idéal cadeau ou goodies d'entreprise.",              category: "Déco", material: "PLA", price: 4.50, image: "./images/porte-cles.jpg", time: "1-2 jours", size: "6 cm", badge: "Perso", keywords: "cadeau prénom nom logo personnalisé goodies", details: "Votre prénom, votre logo ou votre texte en relief. Idéal en cadeau ou comme goodie d'entreprise.", issues: "Les textes très fins ou les polices fantaisie peuvent perdre des détails à petite taille.\nNe le tordez pas et ne le laissez pas dans une voiture chaude (PLA).\nLa couleur peut varier légèrement d'un lot de filament à l'autre." }
+];
+
+/* =============================================================
+   🎨  FILAMENTS (liste de secours) – utilisée tant que l'admin n'a pas enregistré les siens
+   -------------------------------------------------------------
+   type    : "PLA" | "PETG" (ou autre)
+   color   : nom de la couleur
+   hex     : couleur de la pastille, ex "#d62828"
+   finish  : (optionnel) "Mat", "Silk", "Translucide"…
+   inStock : (optionnel) false = affiché « Épuisé »
+   visible : (optionnel) false = masqué
+   ============================================================= */
+const FILAMENTS = [
+  { type: "PLA", color: "Noir", hex: "#1a1a1a", finish: "Mat" },
+  { type: "PLA", color: "Blanc", hex: "#f2f2f2", finish: "Mat" },
+  { type: "PLA", color: "Gris", hex: "#8a8f98", finish: "Mat" },
+  { type: "PLA", color: "Rouge", hex: "#d62828" },
+  { type: "PLA", color: "Bleu", hex: "#1d4ed8" },
+  { type: "PLA", color: "Bleu ciel", hex: "#38bdf8" },
+  { type: "PLA", color: "Vert", hex: "#16a34a" },
+  { type: "PLA", color: "Jaune", hex: "#facc15" },
+  { type: "PLA", color: "Orange", hex: "#f97316" },
+  { type: "PLA", color: "Rose", hex: "#ec4899", inStock: false },
+  { type: "PLA", color: "Violet", hex: "#8b5cf6", inStock: false },
+  { type: "PLA", color: "Marron", hex: "#7c4a2d", finish: "Mat" },
+  { type: "PLA", color: "Or", hex: "#d4a017", finish: "Silk" },
+  { type: "PLA", color: "Argent", hex: "#c0c6cf", finish: "Silk" },
+  { type: "PETG", color: "Noir", hex: "#1a1a1a" },
+  { type: "PETG", color: "Blanc", hex: "#f2f2f2" },
+  { type: "PETG", color: "Transparent", hex: "#cfe8f1", finish: "Translucide" },
+  { type: "PETG", color: "Bleu", hex: "#2563eb" },
+  { type: "PETG", color: "Rouge", hex: "#dc2626", inStock: false },
+  { type: "PETG", color: "Vert", hex: "#15803d" }
+];
+
+/* =============================================================
+   🧠  CODE  – (normalement, pas besoin d'y toucher)
+   ============================================================= */
+
+/* ---------- Raccourcis & utilitaires ---------- */
+const $  = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+
+/** Supprime accents + majuscules : "Déco" => "deco" (recherche tolérante) */
+const normalize = (s) => String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+
+/** Échappe le HTML pour éviter toute injection via les données produits */
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+/** Formate un prix : 14.9 => "14,90" */
+const formatPrice = (n) => Number(n).toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+/** Classe CSS d'une matière : "PETG" => "petg" */
+const matClass = (m) => normalize(m).replace(/[^a-z]/g, "");
+
+/* ---------- Liens de contact (recalculés si l'admin change les réglages) ---------- */
+let LINKS = {};
+function buildLinks() {
+  LINKS = {
+    email:     `mailto:${CONFIG.email}`,
+    instagram: `https://instagram.com/${CONFIG.instagram}`,
+    tiktok:    `https://www.tiktok.com/@${CONFIG.tiktok}`,
+    "custom-mail": `mailto:${CONFIG.email}?subject=${encodeURIComponent("Demande de devis – fichier STL")}&body=${encodeURIComponent("Bonjour,\n\nJe souhaite un devis pour l'impression du fichier 3D ci-joint.\nJ'ai bien compris que le fichier sera vérifié avant impression et que son bon fonctionnement ne peut pas être garanti.\n\nMatière souhaitée (PLA / PETG) :\nCouleur :\nQuantité :\n\nMerci !")}`,
+    "custom-wa":   `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent("Bonjour, je souhaite un devis pour un fichier 3D personnalisé.")}`
+  };
+}
+
+/** Construit les 3 liens (WhatsApp, Instagram DM, E-mail) pour un produit.
+ *  mode "order" = commande · mode "notify" = « me prévenir » (produit hors stock) */
+function orderLinks(p, mode = "order") {
+  const msg = mode === "notify"
+    ? `Bonjour, pouvez-vous me prévenir quand « ${p.title} » (${p.material}) sera de nouveau disponible ?`
+    : `Bonjour, je souhaite commander : ${p.title} (${p.material}) – ${formatPrice(p.price)} ${CONFIG.currency}.`;
+  const subject = (mode === "notify" ? "Retour en stock : " : "Commande : ") + p.title;
+  const extra = mode === "notify" ? "" : "\n\nCouleur souhaitée :\nQuantité :\nAdresse de livraison :\n";
+  return {
+    whatsapp:  { url: `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`, icon: "fa-brands fa-whatsapp",  label: "WhatsApp" },
+    instagram: { url: `https://ig.me/m/${CONFIG.instagram}`,                              icon: "fa-brands fa-instagram", label: "Instagram" },
+    email:     { url: `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(msg + extra)}`, icon: "fa-solid fa-envelope", label: "E-mail" }
+  };
+}
+
+/* ---------- Image de remplacement (SVG généré, 0 requête réseau) ---------- */
+const PLACEHOLDER_COLORS = { pla: ["#064e3b", "#34d399"], petg: ["#0c4a6e", "#38bdf8"] };
+function placeholder(p) {
+  const [c1, c2] = PLACEHOLDER_COLORS[matClass(p.material)] || ["#1e293b", "#22d3ee"];
+  const lines = Array.from({ length: 14 }, (_, i) => `<rect x="60" y="${70 + i * 12}" width="180" height="5" rx="2.5" fill="${c2}" opacity="${0.18 + (i % 3) * 0.08}"/>`).join("");
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 225"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="#0b0f14"/></linearGradient></defs><rect width="300" height="225" fill="url(#g)"/>${lines}<path d="M150 55 205 86v63l-55 31-55-31V86z" fill="none" stroke="${c2}" stroke-width="3" stroke-linejoin="round" opacity=".9"/><path d="M95 86l55 31 55-31M150 117v63" fill="none" stroke="${c2}" stroke-width="3" stroke-linejoin="round" opacity=".9"/></svg>`;
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
+
+/* ---------- État de l'application ---------- */
+let products = [];                       // catalogue affiché (rempli par loadCatalog)
+let filaments = [];                      // filaments affichés
+const fstate = { type: "Tous", onlyAvail: false };
+const state = { query: "", category: "Tous", sort: "default", onlyStock: false };
+
+/** Normalise un produit : valeurs par défaut pour visible / inStock */
+const prepare = (p) => ({ ...p, visible: p.visible !== false, inStock: p.inStock !== false });
+const prepareFil = (f, i) => ({ ...f, id: f.id || "f" + i, visible: f.visible !== false, inStock: f.inStock !== false,
+  hex: /^#[0-9a-f]{6}$/i.test(f.hex || "") ? f.hex : "#888888", finish: f.finish || "" });
+
+/* ---------- Chargement du catalogue ----------
+   1) Essaie l'API de l'espace admin (/api/catalog)
+   2) Sinon (admin non configuré / hors-ligne / ouverture locale) => tableau PRODUCTS ci-dessus */
+async function loadCatalog() {
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 5000);
+    const res = await fetch("/api/catalog", { signal: ctrl.signal, headers: { Accept: "application/json" } });
+    clearTimeout(timer);
+    if (res.ok && (res.headers.get("content-type") || "").includes("json")) {
+      const data = await res.json();
+      if (Array.isArray(data.products)) {
+        if (data.settings) {
+          // On n'écrase la config que par des valeurs renseignées
+          for (const k of ["brand", "email", "whatsapp", "instagram", "tiktok", "orderMethod"]) if (data.settings[k]) CONFIG[k] = data.settings[k];
+        }
+        return { products: data.products, filaments: Array.isArray(data.filaments) ? data.filaments : FILAMENTS };
+      }
+    }
+  } catch { /* pas d'API : on utilise le catalogue de secours */ }
+  return { products: PRODUCTS, filaments: FILAMENTS };
+}
+
+/* ---------- Rendu des filtres (catégories auto-détectées) ---------- */
+function renderFilters() {
+  const cats = ["Tous", ...new Set(products.map((p) => p.category))];
+  if (!cats.includes(state.category)) state.category = "Tous";
+  const countOf = (c) => (c === "Tous" ? products.length : products.filter((p) => p.category === c).length);
+  $("#filters").innerHTML = cats.map((c) =>
+    `<button class="chip" type="button" data-cat="${esc(c)}" aria-pressed="${c === state.category}">${esc(c)} <small>${countOf(c)}</small></button>`
+  ).join("");
+  // La case « En stock » n'apparaît que s'il existe au moins un produit hors stock
+  $("#stock-filter").hidden = !products.some((p) => !p.inStock);
+}
+
+/* ---------- Rendu d'une carte produit ---------- */
+function cardHTML(p, i) {
+  const mat = matClass(p.material);
+  const delay = `animation-delay:${Math.min(i, 8) * 40}ms`;
+  let action;
+  if (p.inStock) {
+    const links = orderLinks(p);
+    const main = links[CONFIG.orderMethod] || links.whatsapp;
+    const others = Object.values(links).filter((l) => l !== main);
+    action = `
+      <div class="price">${formatPrice(p.price)}<small> ${CONFIG.currency}</small></div>
+      <div class="order">
+        <a class="btn btn--primary" href="${main.url}" target="_blank" rel="noopener" aria-label="Commander ${esc(p.title)} via ${main.label}"><i class="${main.icon}"></i> Commander</a>
+        ${others.map((l) => `<a class="btn-icon" href="${l.url}" target="_blank" rel="noopener" title="Commander via ${l.label}" aria-label="Commander via ${l.label}"><i class="${l.icon}"></i></a>`).join("")}
+      </div>`;
+  } else {
+    const links = orderLinks(p, "notify");
+    const main = links[CONFIG.orderMethod] || links.whatsapp;
+    action = `
+      <div><div class="price">${formatPrice(p.price)}<small> ${CONFIG.currency}</small></div><div class="oos-note">Temporairement indisponible</div></div>
+      <div class="order"><a class="btn btn--ghost" href="${main.url}" target="_blank" rel="noopener" aria-label="Me prévenir du retour en stock de ${esc(p.title)}"><i class="fa-regular fa-bell"></i> Me prévenir</a></div>`;
+  }
+  return `
+  <article class="card ${p.inStock ? "" : "card--oos"}" style="${delay}">
+    <div class="card__media">
+      <img src="${esc(p.image || placeholder(p))}" alt="${esc(p.title)}" loading="lazy" decoding="async" width="400" height="300" data-fallback="${esc(p.id)}">
+      <span class="tag tag--${mat}">${esc(p.material)}</span>
+      ${!p.inStock ? `<span class="ribbon ribbon--oos">Hors stock</span>` : p.badge ? `<span class="ribbon">${esc(p.badge)}</span>` : ""}
+    </div>
+    <div class="card__body">
+      <span class="card__cat">${esc(p.category)}</span>
+      <h3 class="card__title"><button class="card__open" type="button" data-open="${esc(p.id)}" aria-haspopup="dialog">${esc(p.title)}</button></h3>
+      <p class="card__desc">${esc(p.desc)}</p>
+      ${(p.time || p.size) ? `<div class="card__meta">
+        ${p.size ? `<span><i class="fa-solid fa-ruler-combined"></i>${esc(p.size)}</span>` : ""}
+        ${p.time ? `<span><i class="fa-regular fa-clock"></i>${esc(p.time)}</span>` : ""}
+      </div>` : ""}
+      <span class="card__hint ${p.issues ? "warn" : ""}"><i class="fa-solid ${p.issues ? "fa-triangle-exclamation" : "fa-magnifying-glass-plus"}"></i>${p.issues ? "Détails & points d'attention" : "Voir les détails"}</span>
+      <div class="card__foot">${action}</div>
+    </div>
+  </article>`;
+}
+
+/** Cartes « squelette » affichées pendant le chargement */
+const skeletonHTML = () => Array.from({ length: 8 }, () =>
+  `<article class="card skeleton" aria-hidden="true"><div class="card__media"></div><div class="card__body"><div class="line" style="width:35%"></div><div class="line" style="width:80%"></div><div class="line" style="width:95%"></div><div class="line" style="width:50%;margin-top:1rem"></div></div></article>`
+).join("");
+
+/* ---------- Filtrage + tri + rendu de la grille ---------- */
+function render() {
+  const words = normalize(state.query).split(/\s+/).filter(Boolean);
+
+  let list = products.filter((p) => {
+    if (state.category !== "Tous" && p.category !== state.category) return false;
+    if (state.onlyStock && !p.inStock) return false;
+    if (!words.length) return true;
+    const haystack = normalize([p.title, p.desc, p.category, p.material, p.keywords || ""].join(" "));
+    return words.every((w) => haystack.includes(w));
+  });
+
+  if (state.sort === "asc")  list.sort((a, b) => a.price - b.price);
+  if (state.sort === "desc") list.sort((a, b) => b.price - a.price);
+  if (state.sort === "az")   list.sort((a, b) => a.title.localeCompare(b.title, "fr"));
+  // Les produits hors stock passent toujours en dernier (tri stable)
+  list = [...list.filter((p) => p.inStock), ...list.filter((p) => !p.inStock)];
+
+  const grid = $("#grid");
+  grid.innerHTML = list.map(cardHTML).join("");
+  grid.setAttribute("aria-busy", "false");
+  $("#empty").hidden = list.length > 0;
+  $("#count").textContent = `${list.length} produit${list.length > 1 ? "s" : ""}`;
+  $("#clear").hidden = !state.query;
+}
+
+/* ---------- Filaments : liste par matière et couleur ---------- */
+function filLink(f) {
+  const msg = `Bonjour, je souhaite commander en ${f.type} ${f.color}${f.finish ? ` (${f.finish})` : ""}.`;
+  const m = CONFIG.orderMethod;
+  if (m === "instagram") return `https://ig.me/m/${CONFIG.instagram}`;
+  if (m === "email") return `mailto:${CONFIG.email}?subject=${encodeURIComponent("Couleur : " + f.type + " " + f.color)}&body=${encodeURIComponent(msg)}`;
+  return `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+}
+function renderFilaments() {
+  const types = ["Tous", ...new Set(filaments.map((f) => f.type))];
+  if (!types.includes(fstate.type)) fstate.type = "Tous";
+  const nOf = (t) => (t === "Tous" ? filaments.length : filaments.filter((f) => f.type === t).length);
+  $("#fil-types").innerHTML = types.map((t) => `<button class="chip" type="button" data-type="${esc(t)}" aria-pressed="${t === fstate.type}">${esc(t)} <small>${nOf(t)}</small></button>`).join("");
+
+  const order = (t) => { const i = ["PLA", "PETG"].indexOf(t); return i < 0 ? 99 : i; };
+  const list = filaments
+    .filter((f) => (fstate.type === "Tous" || f.type === fstate.type) && (!fstate.onlyAvail || f.inStock))
+    .sort((a, b) => order(a.type) - order(b.type) || a.type.localeCompare(b.type) || b.inStock - a.inStock || a.color.localeCompare(b.color, "fr"));
+
+  $("#fil-grid").innerHTML = list.map((f, i) => {
+    const fin = normalize(f.finish);
+    const cls = /silk|soie|metal/.test(fin) ? "swatch--silk" : /transparent|translucide/.test(fin) ? "swatch--glass" : "";
+    return `
+    <article class="fcard ${f.inStock ? "" : "fcard--out"}" style="animation-delay:${Math.min(i, 12) * 25}ms">
+      <div class="swatch ${cls}" style="--c:${f.hex}" role="img" aria-label="Couleur ${esc(f.color)}"></div>
+      <b>${esc(f.color)}</b>
+      <div class="fcard__meta"><span class="m-${matClass(f.type)}">${esc(f.type)}</span>${f.finish ? `<span class="m-fin">${esc(f.finish)}</span>` : ""}</div>
+      <span class="avail ${f.inStock ? "avail--ok" : "avail--no"}">${f.inStock ? "Disponible" : "Épuisé"}</span>
+      ${f.inStock ? `<a class="fcard__cta" href="${filLink(f)}" target="_blank" rel="noopener" aria-label="Demander ${esc(f.type)} ${esc(f.color)}">Demander</a>` : ""}
+    </article>`;
+  }).join("");
+  $("#fil-empty").hidden = list.length > 0;
+  const avail = list.filter((f) => f.inStock).length;
+  $("#fil-count").textContent = `${list.length} couleur${list.length > 1 ? "s" : ""} · ${avail} disponible${avail > 1 ? "s" : ""}`;
+}
+
+/* ---------- Fenêtre détail produit ---------- */
+const pdDialog = () => $("#product-dialog");
+let openedViaApp = false;                         // ouvert par un clic (donc « retour » ferme la fenêtre)
+let pendingProductId = null;                      // lien direct #produit/ID en attente du chargement
+
+const paragraphs = (t) => String(t || "").split(/\n{2,}|\n/).map((x) => x.trim()).filter(Boolean);
+const bullets = (t) => String(t || "").split("\n").map((x) => x.replace(/^[-•*]\s*/, "").trim()).filter(Boolean);
+
+function openProduct(id) {
+  const p = products.find((x) => String(x.id) === String(id));
+  if (!p) return false;
+  const mat = matClass(p.material);
+  const links = orderLinks(p, p.inStock ? "order" : "notify");
+  const main = links[CONFIG.orderMethod] || links.whatsapp;
+  const others = Object.values(links).filter((l) => l !== main);
+  const desc = paragraphs(p.details || p.desc);
+  const issues = bullets(p.issues);
+  const img = esc(p.image || placeholder(p));
+
+  $("#pd").className = "pd" + (p.inStock ? "" : " is-oos");
+  $("#pd").innerHTML = `
+    <div class="pd__media">
+      <img src="${img}" alt="${esc(p.title)}" decoding="async" data-fallback="${esc(p.id)}">
+      <span class="tag tag--${mat}">${esc(p.material)}</span>
+      ${!p.inStock ? `<span class="ribbon ribbon--oos">Hors stock</span>` : p.badge ? `<span class="ribbon">${esc(p.badge)}</span>` : ""}
+    </div>
+    <div class="pd__body">
+      <span class="pd__cat">${esc(p.category)}</span>
+      <h2 class="pd__title" id="pd-title">${esc(p.title)}</h2>
+      <div class="pd__price">${formatPrice(p.price)}<small> ${CONFIG.currency}</small></div>
+      <div class="pd__chips">
+        <span><i class="fa-solid fa-cube"></i>${esc(p.material)}</span>
+        ${p.size ? `<span><i class="fa-solid fa-ruler-combined"></i>${esc(p.size)}</span>` : ""}
+        ${p.time ? `<span><i class="fa-regular fa-clock"></i>Fabrication : ${esc(p.time)}</span>` : ""}
+      </div>
+      <div class="pd__desc">${desc.map((t) => `<p>${esc(t)}</p>`).join("")}</div>
+      ${issues.length ? `<section class="pd__warn" aria-labelledby="pd-warn"><h3 id="pd-warn"><i class="fa-solid fa-triangle-exclamation"></i>Points d'attention &amp; problèmes possibles</h3><ul>${issues.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></section>` : ""}
+      <div class="pd__actions">
+        ${p.inStock
+          ? `<a class="btn btn--primary" href="${main.url}" target="_blank" rel="noopener"><i class="${main.icon}"></i> Commander</a>`
+          : `<a class="btn btn--ghost" href="${main.url}" target="_blank" rel="noopener"><i class="fa-regular fa-bell"></i> Me prévenir du retour en stock</a>`}
+        ${others.map((l) => `<a class="btn-icon" href="${l.url}" target="_blank" rel="noopener" title="Via ${l.label}" aria-label="Via ${l.label}"><i class="${l.icon}"></i></a>`).join("")}
+      </div>
+    </div>`;
+  const dlg = pdDialog();
+  if (!dlg.open) dlg.showModal();
+  $("#pd").scrollTop = 0;
+  document.body.classList.add("modal-open");
+  return true;
+}
+
+/** Clic sur une carte (hors boutons/liens de commande) => ouvre la fenêtre via l'URL #produit/ID */
+function requestOpen(id) {
+  openedViaApp = true;
+  location.hash = "produit/" + encodeURIComponent(id);
+}
+function closeProduct() {
+  const dlg = pdDialog();
+  if (dlg.open) dlg.close();
+}
+
+/* ---------- Onglets (Catalogue / Sur-mesure / Filaments / Infos) ----------
+   Navigation par hash : #catalogue, #sur-mesure, #infos (liens partageables, bouton « retour » OK) */
+const TABS = ["catalogue", "sur-mesure", "filaments", "infos"];
+let currentTab = null;
+function showTab(name, { scroll = true } = {}) {
+  if (name === currentTab) scroll = false;           // pas de saut en haut si on reste sur le même onglet
+  currentTab = name;
+  $$(".tab").forEach((t) => {
+    const on = t.dataset.tab === name;
+    t.setAttribute("aria-selected", on);
+    t.tabIndex = on ? 0 : -1;
+  });
+  $$(".panel").forEach((pn) => (pn.hidden = pn.dataset.panel !== name));
+  if (scroll) window.scrollTo({ top: 0 });
+}
+function routeFromHash() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  if (h.startsWith("produit/")) {                    // lien direct vers un produit
+    showTab("catalogue", { scroll: false });
+    const id = h.slice(8);
+    if (!openProduct(id)) pendingProductId = id;     // produits pas encore chargés : on réessaie après le chargement
+    return;
+  }
+  if (pdDialog().open) closeProduct();               // « retour » du navigateur => ferme la fenêtre
+  if (TABS.includes(h)) return showTab(h);
+  if (h === "produits") { showTab("catalogue", { scroll: false }); $("#produits").scrollIntoView(); return; }
+  if (h === "contact") return;                       // simple ancre vers le footer
+  showTab("catalogue", { scroll: false });
+}
+
+/* ---------- Événements ---------- */
+function bindEvents() {
+  // Onglets : clic + navigation clavier (← → Début Fin)
+  const tabs = $$(".tab");
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => { location.hash = t.dataset.tab; });
+    t.addEventListener("keydown", (e) => {
+      const keys = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 };
+      if (!(e.key in keys)) return;
+      e.preventDefault();
+      const next = tabs[(keys[e.key] + tabs.length) % tabs.length];
+      next.focus(); location.hash = next.dataset.tab;
+    });
+  });
+  window.addEventListener("hashchange", routeFromHash);
+
+  // Recherche instantanée
+  $("#search").addEventListener("input", (e) => { state.query = e.target.value; render(); });
+  $("#clear").addEventListener("click", () => { state.query = ""; $("#search").value = ""; $("#search").focus(); render(); });
+
+  // Filtres par catégorie (délégation d'événement)
+  $("#filters").addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (!chip) return;
+    state.category = chip.dataset.cat;
+    $$(".chip").forEach((c) => c.setAttribute("aria-pressed", c === chip));
+    render();
+  });
+
+  // Fenêtre produit : clic sur une carte, fermeture (croix, fond, Échap, retour navigateur)
+  $("#grid").addEventListener("click", (e) => {
+    if (e.target.closest("a, .btn-icon")) return;      // liens de commande : comportement normal
+    const card = e.target.closest(".card");
+    const id = card?.querySelector("[data-open]")?.dataset.open;
+    if (id) requestOpen(id);
+  });
+  const pd = pdDialog();
+  $("#pd-close").addEventListener("click", closeProduct);
+  pd.addEventListener("click", (e) => { if (e.target === pd) closeProduct(); });    // clic sur le fond sombre
+  pd.addEventListener("close", () => {
+    document.body.classList.remove("modal-open");
+    if (location.hash.startsWith("#produit/")) {
+      if (openedViaApp) history.back();                 // retire l'entrée d'historique ajoutée à l'ouverture
+      else history.replaceState(null, "", location.pathname + location.search + "#catalogue");
+    }
+    openedViaApp = false;
+  });
+  pd.addEventListener("error", (e) => {                 // image cassée dans la fenêtre
+    if (e.target.tagName !== "IMG" || e.target.dataset.failed) return;
+    e.target.dataset.failed = "1";
+    const p = products.find((x) => String(x.id) === e.target.dataset.fallback);
+    if (p) e.target.src = placeholder(p);
+  }, true);
+
+  // Filaments
+  $("#fil-types").addEventListener("click", (e) => { const c = e.target.closest(".chip"); if (c) { fstate.type = c.dataset.type; renderFilaments(); } });
+  $("#fil-avail").addEventListener("change", (e) => { fstate.onlyAvail = e.target.checked; renderFilaments(); });
+
+  $("#sort").addEventListener("change", (e) => { state.sort = e.target.value; render(); });
+  $("#only-stock").addEventListener("change", (e) => { state.onlyStock = e.target.checked; render(); });
+
+  // Image cassée => visuel de remplacement (capture car "error" ne "bubble" pas)
+  $("#grid").addEventListener("error", (e) => {
+    const img = e.target;
+    if (img.tagName !== "IMG" || img.dataset.failed) return;
+    img.dataset.failed = "1";
+    const p = products.find((x) => String(x.id) === img.dataset.fallback);
+    if (p) img.src = placeholder(p);
+  }, true);
+
+  // Modale mentions légales
+  const legal = $("#legal");
+  $("#open-legal").addEventListener("click", () => legal.showModal());
+  $("#close-legal").addEventListener("click", () => legal.close());
+  legal.addEventListener("click", (e) => { if (e.target === legal) legal.close(); });
+}
+
+/** Injecte la config dans les éléments marqués data-bind / data-link */
+function applyConfig() {
+  buildLinks();
+  $$("[data-bind='brand']").forEach((el) => (el.textContent = CONFIG.brand));
+  $$("[data-bind='email']").forEach((el) => (el.textContent = CONFIG.email));
+  $$("[data-link]").forEach((el) => (el.href = LINKS[el.dataset.link] || "#"));
+  document.title = document.title.replace(/^.*?( – FDM)/, `${CONFIG.brand} – FDM`);
+}
+
+/* ---------- Initialisation ---------- */
+async function init() {
+  $("#year").textContent = new Date().getFullYear();
+  applyConfig();
+  bindEvents();
+  routeFromHash();
+
+  $("#grid").innerHTML = skeletonHTML();                 // squelettes pendant le chargement
+  const cat = await loadCatalog();
+  products = cat.products.map(prepare).filter((p) => p.visible);            // masqués = jamais affichés
+  filaments = cat.filaments.map(prepareFil).filter((f) => f.visible);
+  applyConfig();                                         // réglages éventuels venus de l'admin
+  renderFilters();
+  render();
+  renderFilaments();
+  if (pendingProductId) { openProduct(pendingProductId); pendingProductId = null; }   // lien direct #produit/ID
+}
+init();
+</script>
+</body>
+</html>
