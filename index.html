@@ -6,6 +6,17 @@
   <title>Atelier Impression 3D – FDM (PLA & PETG) | Catalogue</title>
   <meta name="description" content="Atelier d'impression 3D FDM (PLA, PETG) : déco, objets utiles et figurines. Commande simple par WhatsApp, Instagram ou e-mail.">
   <meta name="theme-color" content="#0b0f14">
+  <!-- Application installable (PWA) -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <!-- Aperçu quand le site est partagé (WhatsApp, Facebook, Messenger…).
+       Les adresses ci-dessous doivent être celles de votre site (2 endroits : og:image et og:url). -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Atelier Impression 3D – FDM (PLA & PETG)">
+  <meta property="og:description" content="Objets déco, accessoires utiles et figurines imprimés à la commande. Commande simple par WhatsApp, Instagram ou e-mail.">
+  <meta property="og:image" content="https://steady-moxie-bc7519.netlify.app/og-image.png">
+  <meta property="og:url" content="https://steady-moxie-bc7519.netlify.app/">
+  <meta name="twitter:card" content="summary_large_image">
   <!-- Favicon SVG inline (aucun fichier à ajouter) -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b0f14'/%3E%3Cpath d='M50 18 80 35v30L50 82 20 65V35z' fill='none' stroke='%2322d3ee' stroke-width='7' stroke-linejoin='round'/%3E%3Cpath d='M20 35 50 52 80 35M50 52v30' fill='none' stroke='%2322d3ee' stroke-width='7' stroke-linejoin='round'/%3E%3C/svg%3E">
 
@@ -82,11 +93,12 @@
     }
     .tab:hover { color: var(--text); background: rgba(255,255,255,.04); }
     .tab[aria-selected="true"] { color: var(--accent); background: rgba(34,211,238,.1); border-color: rgba(34,211,238,.45); }
-    @media (max-width: 899px) { .tab i { display: none; } }
+    @media (max-width: 1199px) { .tab i { display: none; } }
     @media (max-width: 440px) { .tab { font-size: .86rem; padding: .5rem .2rem; white-space: nowrap; min-width: 0; } }
-    @media (max-width: 380px) { .tab { font-size: .8rem; padding: .5rem .1rem; } }
+    @media (max-width: 440px) { .tab { flex: 1 0 auto; min-width: auto; padding: .5rem .3rem; font-size: .8rem; } .tabs { gap: .2rem; } }   /* jamais de chevauchement : si ça ne rentre pas, la barre défile */
+    @media (max-width: 380px) { .tab { font-size: .8rem; padding: .5rem .35rem; } }
     .tabs { min-width: 0; overflow-x: auto; scrollbar-width: none; }
-    @media (min-width: 720px) {
+    @media (min-width: 1000px) {   /* une seule ligne seulement si tout rentre (logo + 5 onglets + outils) */
       .nav__inner { flex-wrap: nowrap; padding-top: 0; height: 62px; }
       .tabs { order: 0; flex: 0 0 auto; padding: 0; gap: .4rem; }
       .tab { flex: none; padding: .5rem 1rem; }
@@ -226,7 +238,7 @@
     .tag--pla    { color: var(--pla); }
     .tag--petg   { color: var(--petg); }
     .ribbon {
-      position: absolute; top: .7rem; right: .7rem; font-size: .7rem; font-weight: 700;
+      font-size: .7rem; font-weight: 700;
       padding: .25rem .6rem; border-radius: 8px; background: linear-gradient(135deg, #f59e0b, #ef4444); color: #fff;
     }
 
@@ -240,7 +252,7 @@
     .card__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem; margin-top: .8rem; }
     .order { flex: 1 1 auto; justify-content: flex-end; }
     .order .btn--primary { flex: 1 1 auto; min-height: 44px; }
-    @media (min-width: 540px) and (max-width: 1239px) { .price { flex: 1 0 100%; } .order { flex-basis: 100%; } }  /* cartes étroites : prix au-dessus */
+    /* pied de carte : prix + bouton panier sur la 1re ligne, boutons de commande sur la 2e (voir section 8) */
     .price { font-family: var(--mono); font-weight: 700; font-size: 1.35rem; }
     .price small { font-size: .8rem; color: var(--muted); font-weight: 500; }
     .order { display: flex; gap: .4rem; }
@@ -279,10 +291,9 @@
       background: rgba(11,15,20,.85); backdrop-filter: blur(6px); color: var(--text); cursor: pointer; display: grid; place-items: center; font-size: 1.1rem; }
     .pd__close:hover { border-color: var(--accent); color: var(--accent); }
     .pd__media { position: relative; background: radial-gradient(circle at 50% 40%, #1b2735, #0c121a); aspect-ratio: 4 / 3; }
-    @media (min-width: 800px) { .pd__media { aspect-ratio: auto; min-height: 100%; } .pd__media img { position: absolute; inset: 0; } }
+    @media (min-width: 800px) { .pd__media { aspect-ratio: auto; min-height: 100%; } }
     .pd__media img { width: 100%; height: 100%; object-fit: contain; }
     .pd__media .tag { top: .9rem; left: .9rem; }
-    .pd__media .ribbon { top: .9rem; right: 4rem; }
     .pd__body { padding: 1.3rem 1.3rem 1.5rem; display: flex; flex-direction: column; gap: .9rem; min-width: 0; }
     @media (min-width: 800px) { .pd__body { padding: 1.8rem 1.6rem; } }
     .pd__cat { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
@@ -302,6 +313,21 @@
     .pd__actions .btn { flex: 1 1 0; min-width: 0; min-height: 48px; white-space: normal; text-align: center; }
     .pd__actions .btn-icon { width: 48px; height: 48px; }
     .pd.is-oos .pd__media img { filter: grayscale(1); opacity: .6; }
+
+    /* =========================================================
+       6a-bis. PRODUITS PERSONNALISABLES
+       ========================================================= */
+    .cust-tag { position: absolute; left: .7rem; bottom: .7rem; display: inline-flex; align-items: center; gap: .4rem; font-size: .72rem; font-weight: 700;
+      padding: .28rem .6rem; border-radius: 8px; color: #e9d5ff; background: rgba(76,29,149,.78); border: 1px solid rgba(192,132,252,.7); backdrop-filter: blur(8px); }
+    .chip--custom[aria-pressed="false"] { color: #d8b4fe; border-color: rgba(192,132,252,.5); }
+    .chip--custom[aria-pressed="true"] { background: rgba(167,139,250,.15); border-color: var(--accent-2); color: #ddd6fe; }
+    .pd__custom { padding: .95rem 1.05rem; border-radius: 14px; background: rgba(167,139,250,.08); border: 1px solid rgba(167,139,250,.5); }
+    .pd__custom h3 { margin: 0 0 .5rem; font-size: .98rem; color: #ddd6fe; display: flex; gap: .55rem; align-items: center; }
+    .pd__custom ul { margin: 0 0 .7rem; padding-left: 1.15rem; display: grid; gap: .35rem; color: #cfc8ee; font-size: .92rem; }
+    .pd__custom li::marker { color: var(--accent-2); }
+    .pd__custom p { margin: 0 0 .7rem; color: #cfc8ee; font-size: .92rem; }
+    .pd__custom-warn { display: flex !important; gap: .6rem; align-items: flex-start; margin: 0 !important; padding: .7rem .8rem; border-radius: 10px; background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.45); color: #fde68a !important; }
+    .pd__custom-warn i { color: #fbbf24; margin-top: .2rem; }
 
     /* =========================================================
        6b. STOCK, CHARGEMENT, CASE "EN STOCK"
@@ -445,6 +471,196 @@
     .dialog__body h4:first-child { margin-top: 0; }
     .dialog__body p { margin: 0 0 .5rem; }
 
+
+    /* =========================================================
+       8. NOUVEAUTÉS : bandeau, panier, favoris, galerie, estimateur, formulaire…
+       ========================================================= */
+    .hide-xs { }
+    @media (max-width: 479px) { .hide-xs { display: none; } }
+    .tab[hidden] { display: none; }
+
+    /* --- Bandeau d'annonce --- */
+    .announce { font-size: .9rem; font-weight: 600; border-bottom: 1px solid var(--border); }
+    .announce[hidden] { display: none; }
+    .announce__inner { display: flex; align-items: center; gap: .7rem; padding-block: .45rem; }
+    .announce__inner > span { flex: 1; min-width: 0; text-align: center; overflow-wrap: anywhere; }
+    .announce button { flex: none; width: 36px; height: 36px; border: 0; border-radius: 8px; background: transparent; color: inherit; cursor: pointer; opacity: .8; }
+    .announce button:hover { opacity: 1; background: rgba(255,255,255,.08); }
+    .announce--info  { background: rgba(34,211,238,.12);  color: #a5f3fc; border-color: rgba(34,211,238,.35); }
+    .announce--warn  { background: rgba(245,158,11,.14);  color: #fde68a; border-color: rgba(245,158,11,.45); }
+    .announce--promo { background: linear-gradient(90deg, rgba(167,139,250,.28), rgba(34,211,238,.2)); color: #f5f3ff; border-color: rgba(167,139,250,.5); }
+
+    /* --- Outils de l'en-tête : langue, panier, contact --- */
+    .nav__right { display: flex; align-items: center; gap: .4rem; }
+    .iconbtn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .35rem; min-width: 40px; height: 40px; padding: 0 .6rem; border-radius: 10px;
+      background: var(--card); border: 1px solid var(--border); color: var(--text); cursor: pointer; font-weight: 700; font-size: .8rem; transition: border-color .2s, color .2s; }
+    .iconbtn:hover { border-color: var(--accent); color: var(--accent); }
+    .iconbtn i { font-size: 1rem; }
+    .cart-count { position: absolute; top: -6px; right: -6px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 99px; display: grid; place-items: center;
+      background: var(--accent); color: #04202a; font-size: .72rem; font-family: var(--mono); font-weight: 800; }
+    .cart-count[hidden] { display: none; }
+    @media (max-width: 479px) { .nav__right .btn--sm { padding: .6rem; min-width: 40px; } }
+    @media (max-width: 359px) { .nav__right .btn--ghost { display: none; } .logo { min-width: 0; } }   /* très petits écrans : on garde langue + panier sur la 1re ligne */
+
+    /* --- Cartes : favoris, pastilles, prix barré, bouton panier --- */
+    .ribbons { position: absolute; top: .7rem; right: .7rem; z-index: 2; display: flex; flex-direction: column; align-items: flex-end; gap: .3rem; }
+    .ribbon--promo { background: linear-gradient(135deg, #ef4444, #be123c); }
+    .ribbon--new { background: linear-gradient(135deg, #22d3ee, #0ea5e9); color: #04202a; }
+    .price .old, .pd__price .old { font-size: .8rem; font-weight: 500; color: var(--muted); text-decoration: line-through; margin-right: .25rem; }
+    .pd__price .old { font-size: 1rem; }
+    .card__foot > :first-child { flex: 1 1 auto; }
+    .card__foot .order { flex: 1 0 100%; }
+    .btn-cart { color: var(--accent); border-color: rgba(34,211,238,.45); }
+    .btn-cart:hover { background: rgba(34,211,238,.1); }
+    .fav { position: absolute; right: .7rem; bottom: .7rem; z-index: 2; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); cursor: pointer;
+      background: rgba(11,15,20,.72); backdrop-filter: blur(6px); color: #94a3b8; font-size: 1.15rem; line-height: 1; display: grid; place-items: center; transition: transform .15s, color .2s, border-color .2s; }
+    .fav:hover { color: #fca5a5; border-color: #fca5a5; }
+    .fav:active { transform: scale(.9); }
+    .fav[aria-pressed="true"] { color: #f87171; border-color: #f87171; background: rgba(127,29,29,.55); }
+    .fav--inline { position: static; width: 48px; height: 48px; flex: none; background: transparent; }
+    .chip--fav .heart { color: #f87171; }
+
+    /* --- Fenêtre produit : diaporama, couleurs, personnalisation, outils --- */
+    .pd__media .ribbons { top: .9rem; right: 4rem; }
+    .pd__slides { position: absolute; inset: 0; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+    .pd__slides::-webkit-scrollbar { display: none; }
+    .pd__slides img { flex: 0 0 100%; width: 100%; height: 100%; scroll-snap-align: center; scroll-snap-stop: always; }
+    .pd__nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border); cursor: pointer;
+      background: rgba(11,15,20,.75); backdrop-filter: blur(6px); color: var(--text); display: grid; place-items: center; }
+    .pd__nav:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .pd__nav:disabled { opacity: .3; cursor: default; }
+    .pd__nav--prev { left: .6rem; } .pd__nav--next { right: .6rem; }
+    .pd__dots { position: absolute; left: 0; right: 0; bottom: .6rem; z-index: 3; display: flex; justify-content: center; gap: .15rem; }
+    .pd__dots button { width: 24px; height: 24px; border: 0; background: transparent; cursor: pointer; position: relative; }
+    .pd__dots button::after { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: rgba(255,255,255,.4); transition: all .2s; }
+    .pd__dots button[aria-current="true"]::after { background: var(--accent); inset: 6px; }
+    .pd__opt h3 { margin: 0 0 .5rem; font-size: .98rem; display: flex; gap: .4rem; align-items: baseline; }
+    .pd__opt h3 small { color: var(--muted); font-weight: 500; font-size: .8rem; }
+    .pd__colors { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .cbtn { display: inline-flex; align-items: center; gap: .45rem; min-height: 40px; padding: .3rem .75rem .3rem .4rem; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--border); color: var(--muted); font-size: .85rem; font-weight: 600; cursor: pointer; transition: all .15s; }
+    .cbtn:hover { color: var(--text); border-color: #36475d; }
+    .cbtn[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); background: rgba(34,211,238,.1); }
+    .cdot { --c: #888; width: 24px; height: 24px; border-radius: 50%; background: var(--c); box-shadow: inset 0 0 0 2px rgba(255,255,255,.18); flex: none; }
+    .cdot--silk { background-image: linear-gradient(135deg, rgba(255,255,255,.6), rgba(255,255,255,0) 40%, rgba(255,255,255,.25) 65%, rgba(0,0,0,.2)); background-color: var(--c); }
+    .cdot--glass { background: color-mix(in srgb, var(--c) 55%, transparent); outline: 1px dashed rgba(255,255,255,.4); }
+    .pd__note { display: grid; gap: .3rem; margin: .8rem 0 .8rem; }
+    .pd__note > span { font-size: .85rem; font-weight: 600; color: #ddd6fe; }
+    .pd__note textarea, .f input, .f select, .f textarea, .cart__foot textarea { width: 100%; min-height: 44px; padding: .65rem .8rem; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-soft); color: var(--text); font-size: 1rem; outline: none; font-family: inherit; }
+    .pd__note textarea { resize: vertical; min-height: 76px; }
+    .pd__note textarea:focus, .f input:focus, .f select:focus, .f textarea:focus, .cart__foot textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(34,211,238,.15); }
+    .pd__tools { display: flex; gap: .5rem; align-items: center; }
+    .pd__tools .btn-icon { width: 48px; height: 48px; }
+
+    /* --- Panier --- */
+    #cart-dialog { width: min(560px, 100% - 1rem); max-width: none; max-height: calc(100dvh - 1rem); }
+    #cart-dialog[open] { display: flex; flex-direction: column; }
+    .cart__body { flex: 1 1 auto; overflow-y: auto; padding: .6rem 1.1rem; min-height: 120px; overscroll-behavior: contain; }
+    .cart__list { list-style: none; margin: 0; padding: 0; display: grid; gap: .2rem; }
+    .cl { display: grid; grid-template-columns: 64px 1fr auto; gap: .7rem; align-items: center; padding: .7rem 0; border-bottom: 1px solid var(--border); }
+    .cl:last-child { border-bottom: 0; }
+    .cl img { width: 64px; height: 64px; object-fit: cover; border-radius: 10px; background: var(--bg-soft); }
+    .cl__info { min-width: 0; display: grid; gap: .1rem; }
+    .cl__info b { line-height: 1.25; overflow-wrap: anywhere; }
+    .cl__info small { color: var(--muted); font-size: .8rem; overflow-wrap: anywhere; }
+    .cl__note { color: #c4b5fd !important; }
+    .cl__oos { color: #fca5a5 !important; }
+    .cl--oos { opacity: .65; }
+    .cl__side { display: grid; justify-items: end; gap: .35rem; }
+    .cl__price { font-family: var(--mono); font-weight: 700; white-space: nowrap; }
+    .qty { display: inline-flex; align-items: center; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .qty button { width: 38px; height: 38px; border: 0; background: var(--bg-soft); color: var(--text); font-size: 1.1rem; cursor: pointer; }
+    .qty button:hover { color: var(--accent); }
+    .qty span { min-width: 30px; text-align: center; font-family: var(--mono); font-weight: 700; }
+    .cl__rm { border: 0; background: transparent; color: var(--muted); cursor: pointer; min-height: 32px; padding: 0 .4rem; border-radius: 8px; }
+    .cl__rm:hover { color: #f87171; }
+    .cart__empty { text-align: center; padding: 2.5rem 1rem; color: var(--muted); }
+    .cart__empty i { display: block; font-size: 2.2rem; color: var(--accent); margin-bottom: .7rem; }
+    .cart__empty b { display: block; color: var(--text); margin-bottom: .2rem; }
+    .cart__foot { flex: none; padding: .9rem 1.1rem calc(1rem + env(safe-area-inset-bottom)); border-top: 1px solid var(--border); background: var(--card); display: grid; gap: .6rem; }
+    .cart__foot[hidden] { display: none; }
+    .cart__total { display: flex; justify-content: space-between; align-items: baseline; font-weight: 700; }
+    .cart__total b { font-family: var(--mono); font-size: 1.4rem; color: var(--accent); }
+    .cart__note { margin: -.3rem 0 0; font-size: .8rem; color: var(--muted); }
+    .cart__foot textarea { min-height: 56px; resize: vertical; }
+    .cart__foot .f > span, .cart__send-title { font-size: .82rem; color: var(--muted); font-weight: 600; margin: 0; }
+    .cart__send { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+    .cart__send .btn { padding: .65rem .4rem; font-size: .88rem; min-width: 0; }
+    @media (max-width: 420px) { .cart__send .btn { flex-direction: column; gap: .2rem; font-size: .8rem; } }
+    .cart__foot .linkbtn { justify-self: center; font-size: .85rem; min-height: 32px; }
+
+    /* --- Toast --- */
+    .toast { position: fixed; inset: auto auto calc(1.1rem + env(safe-area-inset-bottom)) 50%; margin: 0; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; z-index: 1000; overflow: visible;
+      padding: .7rem 1.1rem; border-radius: 12px; background: #0f2a22; border: 1px solid var(--ok); color: #bbf7d0; font-weight: 600; font-size: .92rem; transition: all .25s; max-width: calc(100% - 2rem); text-align: center; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    /* --- Galerie & avis --- */
+    .gal { padding: 2rem 0 4rem; }
+    .gal__grid { display: grid; gap: .9rem; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 2.5rem; }
+    @media (min-width: 720px)  { .gal__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (min-width: 1100px) { .gal__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+    .gfig { margin: 0; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); overflow: hidden; }
+    .gfig button { all: unset; display: block; cursor: zoom-in; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: var(--bg-soft); }
+    .gfig button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+    .gfig img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+    @media (hover: hover) { .gfig:hover img { transform: scale(1.05); } }
+    .gfig figcaption { display: grid; gap: .1rem; padding: .6rem .8rem .75rem; font-size: .85rem; color: var(--muted); }
+    .gfig figcaption b { color: var(--text); font-size: .92rem; }
+    .gal__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .3rem 1rem; margin-bottom: 1rem; }
+    .gal__head .section-title { margin: 0; }
+    .gal__avg { font-family: var(--mono); font-size: .9rem; color: #fbbf24; font-weight: 700; }
+    .reviews { display: grid; gap: .9rem; grid-template-columns: 1fr; }
+    @media (min-width: 720px)  { .reviews { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1100px) { .reviews { grid-template-columns: repeat(3, 1fr); } }
+    .rcard { display: grid; gap: .5rem; align-content: start; padding: 1.1rem 1.2rem; border-radius: var(--radius); background: var(--card); border: 1px solid var(--border); }
+    .rcard p { margin: 0; color: #c3cfdd; }
+    .rcard b { color: var(--muted); font-size: .86rem; }
+    .stars { color: #fbbf24; letter-spacing: .1em; font-size: 1.05rem; }
+    .stars .off { color: #3b4658; }
+    #lightbox { max-width: min(1000px, 96vw); max-height: 96dvh; background: #05080c; overflow: hidden; border-radius: 16px; }
+    #lightbox[open] { display: grid; }
+    #lightbox::backdrop { background: rgba(0,0,0,.88); }
+    #lightbox img { max-width: 100%; max-height: calc(96dvh - 4rem); margin: 0 auto; object-fit: contain; }
+    #lb-cap { margin: 0; padding: .7rem 1rem; text-align: center; color: var(--muted); font-size: .9rem; }
+    #lb-cap b { color: var(--text); }
+    .lb__close, .lb__nav { position: absolute; z-index: 3; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border); background: rgba(11,15,20,.8); color: var(--text); cursor: pointer; display: grid; place-items: center; }
+    .lb__close { top: .6rem; right: .6rem; } .lb__nav { top: 50%; transform: translateY(-50%); }
+    .lb__nav--prev { left: .6rem; } .lb__nav--next { right: .6rem; }
+    .lb__nav[hidden] { display: none; }
+
+    /* --- Estimateur & formulaire sur-mesure --- */
+    .custom--first { padding-bottom: 1.5rem; }
+    .custom--next { padding-top: 0; padding-bottom: 1.5rem; }
+    .custom--last { padding-bottom: 4rem; }
+    .est__grid { display: grid; gap: 1.5rem; }
+    @media (min-width: 900px) { .est__grid { grid-template-columns: 1fr 1fr; align-items: start; } }
+    .form { display: grid; gap: .9rem; }
+    .form__row2 { display: grid; gap: .9rem; grid-template-columns: 1fr; }
+    .form__row3 { display: grid; gap: .6rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    @media (min-width: 560px) { .form__row2 { grid-template-columns: 1fr 1fr; } }
+    .f { display: grid; gap: .3rem; min-width: 0; }
+    .f > span { font-size: .84rem; font-weight: 600; color: var(--muted); }
+    .f input[type=file] { padding: .55rem .6rem; }
+    .f textarea { resize: vertical; }
+    .check--wrap { align-items: flex-start; font-size: .88rem; }
+    .check--wrap input { margin-top: .25rem; flex: none; }
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .form__msg { margin: 0; min-height: 1.4em; font-size: .92rem; font-weight: 600; }
+    .form__msg--ok { color: var(--ok); } .form__msg--err { color: #fca5a5; } .form__msg--info { color: var(--muted); }
+    .est__result { padding: 1.1rem 1.2rem; border-radius: 16px; background: rgba(11,15,20,.55); border: 1px solid var(--border); display: grid; gap: .7rem; }
+    .est__hint { margin: 0; color: var(--muted); }
+    .est__price { display: grid; }
+    .est__price small { color: var(--muted); font-size: .8rem; }
+    .est__price b { font-family: var(--mono); font-size: clamp(1.7rem, 6vw, 2.3rem); color: var(--accent); line-height: 1.15; }
+    .est__meta { margin: 0; padding-left: 1.1rem; color: var(--text); font-size: .92rem; display: grid; gap: .15rem; }
+    .est__warn { margin: 0; color: #fde68a; font-size: .88rem; }
+    .est__disc { margin: 0; color: var(--muted); font-size: .8rem; }
+    .est__cta { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .custom p.est__hint, .custom p.est__warn, .custom p.est__disc { margin: 0; }
+
+    /* --- Installation de l'application --- */
+    .install { margin-top: .8rem; }
+    .install[hidden] { display: none; }
+
     /* Accessibilité : réduit les animations si demandé par l'utilisateur */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
@@ -453,6 +669,15 @@
 </head>
 
 <body>
+
+  <!-- ============ BANDEAU D'ANNONCE (géré dans l'admin → Réglages) ============ -->
+  <div class="announce announce--info" id="announce" role="status" hidden>
+    <div class="container announce__inner">
+      <i class="fa-solid fa-bullhorn" aria-hidden="true"></i>
+      <span id="announce-text" data-i18n-skip></span>
+      <button type="button" id="announce-close" aria-label="Fermer l'annonce"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
 
   <!-- ============ NAVIGATION + ONGLETS ============ -->
   <header class="nav">
@@ -463,10 +688,15 @@
         <button class="tab" role="tab" id="tab-catalogue"  data-tab="catalogue"  aria-controls="panel-catalogue"  aria-selected="true"><i class="fa-solid fa-boxes-stacked"></i><span>Catalogue</span></button>
         <button class="tab" role="tab" id="tab-sur-mesure" data-tab="sur-mesure" aria-controls="panel-sur-mesure" aria-selected="false" tabindex="-1"><i class="fa-solid fa-pen-ruler"></i><span>Sur-mesure</span></button>
         <button class="tab" role="tab" id="tab-filaments"  data-tab="filaments"  aria-controls="panel-filaments"  aria-selected="false" tabindex="-1"><i class="fa-solid fa-fill-drip"></i><span>Filaments</span></button>
+        <button class="tab" role="tab" id="tab-galerie"    data-tab="galerie"    aria-controls="panel-galerie"    aria-selected="false" tabindex="-1" hidden><i class="fa-solid fa-images"></i><span>Galerie</span></button>
         <button class="tab" role="tab" id="tab-infos"      data-tab="infos"      aria-controls="panel-infos"      aria-selected="false" tabindex="-1"><i class="fa-solid fa-circle-info"></i><span>Infos</span></button>
       </nav>
 
-      <a href="#contact" class="btn btn--ghost btn--sm"><i class="fa-regular fa-paper-plane"></i> Contact</a>
+      <div class="nav__right">
+        <button class="iconbtn" id="lang-btn" type="button" data-i18n-skip aria-label="Switch to English"><i class="fa-solid fa-language" aria-hidden="true"></i><span>EN</span></button>
+        <button class="iconbtn" id="cart-btn" type="button" data-i18n-skip aria-haspopup="dialog" aria-label="Panier"><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i><b class="cart-count" id="cart-count" hidden>0</b></button>
+        <a href="#contact" class="btn btn--ghost btn--sm"><i class="fa-regular fa-paper-plane"></i><span class="hide-xs"> Contact</span></a>
+      </div>
     </div>
   </header>
 
@@ -483,7 +713,7 @@
             <span class="badge badge--pla"><span class="dot"></span>PLA</span>
             <span class="badge badge--petg"><span class="dot"></span>PETG</span>
           </div>
-          <h1>Atelier <span class="gradient-text">Impression 3D</span></h1>
+          <h1 data-i18n-html="hero-title">Atelier <span class="gradient-text">Impression 3D</span></h1>
           <p>Objets déco, accessoires utiles et figurines : tout est imprimé à la commande en FDM, en PLA ou en PETG. Fabrication artisanale, finitions soignées, envoi rapide depuis la France.</p>
           <div class="hero__cta">
             <a href="#produits" class="btn btn--primary"><i class="fa-solid fa-boxes-stacked"></i> Voir le catalogue</a>
@@ -512,7 +742,7 @@
               <button id="clear" type="button" aria-label="Effacer la recherche" hidden><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="toolbar__row">
-              <div class="filters" id="filters" role="group" aria-label="Filtrer par catégorie"></div>
+              <div class="filters" id="filters" data-i18n-skip role="group" aria-label="Filtrer par catégorie"></div>
               <label class="check" id="stock-filter" hidden><input type="checkbox" id="only-stock"><span>En stock</span></label>
               <label for="sort" class="sr-only">Trier</label>
               <select id="sort" class="sort">
@@ -524,8 +754,8 @@
             </div>
           </div>
 
-          <div class="result-count" id="count" aria-live="polite"></div>
-          <div class="grid" id="grid" aria-busy="true"></div>
+          <div class="result-count" id="count" aria-live="polite" data-i18n-skip></div>
+          <div class="grid" id="grid" aria-busy="true" data-i18n-skip></div>
 
           <div class="empty" id="empty" hidden>
             <i class="fa-regular fa-face-frown"></i>
@@ -539,21 +769,21 @@
 
     <!-- ################ ONGLET 2 : SUR-MESURE / STL ################ -->
     <div class="panel" id="panel-sur-mesure" role="tabpanel" aria-labelledby="tab-sur-mesure" data-panel="sur-mesure" hidden>
-      <section class="custom">
+      <section class="custom custom--first">
         <div class="container">
           <div class="custom__box">
             <div class="custom__grid">
               <div>
                 <div class="custom__pill"><i class="fa-solid fa-bolt"></i> DEVIS GRATUIT · RÉPONSE SOUS 24H</div>
                 <h2>Vous avez votre propre fichier 3D ?</h2>
-                <p>Envoyez-moi votre fichier <strong>STL</strong>, 3MF ou OBJ (ou simplement une photo / un croquis) et je vous renvoie un devis personnalisé sous 24h, avec la matière et la finition que je vous conseille.</p>
+                <p data-i18n-html="custom-intro">Envoyez-moi votre fichier <strong>STL</strong>, 3MF ou OBJ (ou simplement une photo / un croquis) et je vous renvoie un devis personnalisé sous 24h, avec la matière et la finition que je vous conseille.</p>
 
                 <!-- ⚠️ Avertissement : pas de garantie sur les modèles fournis -->
                 <div class="notice" role="note">
                   <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
                   <div>
                     <b>À savoir avant d'envoyer votre fichier</b>
-                    <p>Je dois d'abord vérifier que votre modèle est correct et qu'il est imprimable. Même après vérification, <strong>je ne peux pas garantir qu'il fonctionne</strong> une fois imprimé : emboîtements, tolérances, solidité, pièces mobiles…</p>
+                    <p data-i18n-html="custom-notice-1">Je dois d'abord vérifier que votre modèle est correct et qu'il est imprimable. Même après vérification, <strong>je ne peux pas garantir qu'il fonctionne</strong> une fois imprimé : emboîtements, tolérances, solidité, pièces mobiles…</p>
                     <p>Le résultat dépend de la qualité du fichier. Si le modèle pose problème, je vous le signale et je vous propose des ajustements, ou je peux refuser l'impression.</p>
                   </div>
                 </div>
@@ -576,6 +806,65 @@
           </div>
         </div>
       </section>
+
+      <!-- ===== Estimateur de prix (tarifs réglables dans l'admin) ===== -->
+      <section class="custom custom--next" id="estimator" hidden>
+        <div class="container">
+          <div class="custom__box">
+            <div class="custom__pill"><i class="fa-solid fa-calculator"></i> ESTIMATEUR DE PRIX</div>
+            <h2>Combien ça coûterait ?</h2>
+            <p>Indiquez la taille approximative de votre objet : vous obtenez une fourchette de prix en quelques secondes, sans engagement.</p>
+            <div class="est__grid">
+              <form id="est-form" class="form" novalidate autocomplete="off">
+                <div class="form__row3">
+                  <label class="f"><span>Longueur (cm)</span><input type="number" name="x" min="0.5" max="100" step="0.5" inputmode="decimal" placeholder="10"></label>
+                  <label class="f"><span>Largeur (cm)</span><input type="number" name="y" min="0.5" max="100" step="0.5" inputmode="decimal" placeholder="10"></label>
+                  <label class="f"><span>Hauteur (cm)</span><input type="number" name="z" min="0.5" max="100" step="0.5" inputmode="decimal" placeholder="10"></label>
+                </div>
+                <div class="form__row2">
+                  <label class="f"><span>Matière</span><select name="mat"><option value="PLA">PLA</option><option value="PETG">PETG</option></select></label>
+                  <label class="f"><span>Quantité</span><input type="number" name="qty" min="1" max="100" value="1" inputmode="numeric"></label>
+                </div>
+                <label class="f"><span>Type d'objet</span>
+                  <select name="shape">
+                    <option value="light">Léger / creux (vase, boîte, coque)</option>
+                    <option value="std" selected>Standard (figurine, support, pièce utile)</option>
+                    <option value="dense">Massif / plein (pièce épaisse, socle)</option>
+                  </select></label>
+              </form>
+              <div class="est__result" id="est-result" aria-live="polite" data-i18n-skip></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Formulaire d'envoi de fichier (Netlify Forms : 100 envois gratuits / mois) ===== -->
+      <section class="custom custom--next custom--last">
+        <div class="container">
+          <div class="custom__box">
+            <div class="custom__pill"><i class="fa-solid fa-paper-plane"></i> ENVOYER MON FICHIER</div>
+            <h2>Envoyez-moi votre modèle directement</h2>
+            <p>Remplissez ce formulaire et joignez votre fichier (7,5 Mo maximum). Pas de compte à créer. Je vous réponds sous 24 h.</p>
+            <form id="stl-form" class="form" name="stl-request" method="POST" action="/" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field">
+              <input type="hidden" name="form-name" value="stl-request">
+              <p class="hp" aria-hidden="true"><label>Ne pas remplir : <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+              <div class="form__row2">
+                <label class="f"><span>Votre nom *</span><input type="text" name="name" required maxlength="80" autocomplete="name"></label>
+                <label class="f"><span>E-mail ou téléphone *</span><input type="text" name="contact" required maxlength="120" autocomplete="email"></label>
+              </div>
+              <div class="form__row2">
+                <label class="f"><span>Matière souhaitée</span><select name="material"><option value="">Je ne sais pas</option><option value="PLA">PLA</option><option value="PETG">PETG</option></select></label>
+                <label class="f"><span>Couleur et quantité</span><input type="text" name="options" maxlength="120" placeholder="Ex : noir, 2 exemplaires"></label>
+              </div>
+              <label class="f"><span>Votre fichier (STL, 3MF, OBJ, STEP ou ZIP)</span><input type="file" name="file" accept=".stl,.3mf,.obj,.step,.stp,.zip"></label>
+              <label class="f"><span>Message</span><textarea name="message" rows="4" maxlength="1500" placeholder="À quoi sert l'objet ? Dimensions ? Contraintes ?"></textarea></label>
+              <label class="check check--wrap"><input type="checkbox" name="consent" required><span>J'ai compris que mon fichier est vérifié avant impression et que son bon fonctionnement ne peut pas être garanti.</span></label>
+              <button class="btn btn--primary" type="submit" id="stl-send"><i class="fa-solid fa-paper-plane"></i> Envoyer ma demande</button>
+              <p class="form__msg" id="stl-msg" role="status" data-i18n-skip></p>
+            </form>
+          </div>
+        </div>
+      </section>
     </div>
 
     <!-- ################ ONGLET 3 : FILAMENTS ################ -->
@@ -586,11 +875,11 @@
           <p class="section-sub">Les couleurs actuellement en atelier, par matière. Indiquez la couleur souhaitée dans votre message de commande.</p>
 
           <div class="fil__bar">
-            <div class="filters" id="fil-types" role="group" aria-label="Filtrer par matière"></div>
+            <div class="filters" id="fil-types" data-i18n-skip role="group" aria-label="Filtrer par matière"></div>
             <label class="check"><input type="checkbox" id="fil-avail"><span>Disponibles uniquement</span></label>
           </div>
-          <div class="result-count" id="fil-count" aria-live="polite"></div>
-          <div class="fil__grid" id="fil-grid"></div>
+          <div class="result-count" id="fil-count" aria-live="polite" data-i18n-skip></div>
+          <div class="fil__grid" id="fil-grid" data-i18n-skip></div>
 
           <div class="empty" id="fil-empty" hidden>
             <i class="fa-solid fa-fill-drip"></i>
@@ -602,7 +891,24 @@
       </section>
     </div>
 
-    <!-- ################ ONGLET 4 : INFOS ################ -->
+    <!-- ################ ONGLET 4 : GALERIE (réalisations + avis, gérés dans l'admin) ################ -->
+    <div class="panel" id="panel-galerie" role="tabpanel" aria-labelledby="tab-galerie" data-panel="galerie" hidden>
+      <section class="gal">
+        <div class="container">
+          <div id="gal-works" hidden>
+            <h2 class="section-title">Réalisations</h2>
+            <p class="section-sub">Quelques pièces sorties de l'atelier. Touchez une photo pour l'agrandir.</p>
+            <div class="gal__grid" id="gal-grid" data-i18n-skip></div>
+          </div>
+          <div id="gal-reviews" hidden>
+            <div class="gal__head"><h2 class="section-title">Avis clients</h2><span class="gal__avg" id="reviews-avg" data-i18n-skip></span></div>
+            <div class="reviews" id="reviews" data-i18n-skip></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ################ ONGLET 5 : INFOS ################ -->
     <div class="panel" id="panel-infos" role="tabpanel" aria-labelledby="tab-infos" data-panel="infos" hidden>
       <section class="infos">
         <div class="container">
@@ -635,10 +941,14 @@
           <h2 class="section-title">Questions fréquentes</h2>
           <div class="faq">
             <details><summary>Comment passer commande ?</summary><p>Cliquez sur « Commander » sur le produit de votre choix : un message pré-rempli s'ouvre (WhatsApp, Instagram ou e-mail). Je vous confirme la disponibilité, la couleur et le délai.</p></details>
+            <details><summary>Comment fonctionne le panier ?</summary><p>Ajoutez plusieurs produits avec le bouton panier, puis ouvrez le panier (en haut à droite) : un seul message récapitulatif est envoyé par WhatsApp, e-mail ou Instagram. Il n'y a pas de paiement en ligne : je confirme tout avec vous avant de lancer la fabrication. Votre panier et vos favoris sont gardés dans votre appareil.</p></details>
             <details><summary>Quels sont les délais ?</summary><p>Comptez en général 2 à 5 jours de fabrication selon l'objet, auxquels s'ajoute le délai de livraison. Le délai exact est indiqué sur chaque produit.</p></details>
-            <details><summary>Puis-je choisir la couleur ?</summary><p>Oui, précisez-la dans votre message. Retrouvez les couleurs en stock dans l'onglet <a href="#filaments">Filaments</a> ; je vous confirme la disponibilité à la commande.</p></details>
+            <details><summary>Puis-je choisir la couleur ?</summary><p data-i18n-html="faq-color">Oui, précisez-la dans votre message. Retrouvez les couleurs en stock dans l'onglet <a href="#filaments">Filaments</a> ; je vous confirme la disponibilité à la commande.</p></details>
+            <details><summary>Puis-je personnaliser un produit ?</summary><p>Oui, les produits portant le badge violet « Personnalisable » (filtre « Personnalisables » dans le catalogue) peuvent l'être : texte, logo, photo, couleur… Le détail est indiqué sur la fiche du produit. Votre demande est vérifiée avant l'impression : elle n'est pas toujours réalisable, je vous confirme la faisabilité avant de lancer la fabrication.</p></details>
             <details><summary>Un produit est « Hors stock », que faire ?</summary><p>Pas de panique : je peux le réimprimer. Cliquez sur « Me prévenir » et je reviens vers vous dès qu'il est de nouveau disponible.</p></details>
-            <details><summary>Je veux faire imprimer mon propre modèle</summary><p>C'est possible ! Rendez-vous dans l'onglet <a href="#sur-mesure">Sur-mesure</a>. Je vérifie votre fichier avant impression, mais son bon fonctionnement ne peut pas être garanti.</p></details>
+            <details><summary>Puis-je avoir une idée du prix avant de commander ?</summary><p>Oui : dans l'onglet Sur-mesure, l'estimateur donne une fourchette de prix à partir des dimensions, de la matière et de la quantité. C'est une estimation indicative ; le devis ferme vous est envoyé après vérification du modèle.</p></details>
+            <details><summary>Comment installer le site comme une application ?</summary><p>Sur Android (Chrome) : bouton « Installer l'application » en bas de page, ou menu ⋮ puis « Ajouter à l'écran d'accueil ». Sur iPhone / iPad (Safari) : bouton Partager puis « Sur l'écran d'accueil ».</p></details>
+            <details><summary>Je veux faire imprimer mon propre modèle</summary><p data-i18n-html="faq-model">C'est possible ! Rendez-vous dans l'onglet <a href="#sur-mesure">Sur-mesure</a>. Je vérifie votre fichier avant impression, mais son bon fonctionnement ne peut pas être garanti.</p></details>
           </div>
         </div>
       </section>
@@ -653,6 +963,7 @@
         <div>
           <a href="#top" class="logo"><i class="fa-solid fa-cube"></i><span data-bind="brand">Atelier 3D</span></a>
           <p>Impression 3D FDM (PLA & PETG). Objets déco, accessoires utiles et figurines, imprimés à la commande.</p>
+          <button class="btn btn--ghost btn--sm install" id="install-btn" type="button" hidden><i class="fa-solid fa-download"></i> Installer l'application</button>
         </div>
         <div class="socials">
           <a class="social" data-link="instagram" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a>
@@ -670,8 +981,40 @@
   <!-- ============ FENÊTRE DÉTAIL PRODUIT ============ -->
   <dialog id="product-dialog" aria-labelledby="pd-title">
     <button class="pd__close" id="pd-close" type="button" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
-    <div class="pd" id="pd"></div>
+    <div class="pd" id="pd" data-i18n-skip></div>
   </dialog>
+
+  <!-- ============ PANIER ============ -->
+  <dialog id="cart-dialog" aria-labelledby="cart-title">
+    <div class="dialog__head">
+      <h3 id="cart-title">Mon panier</h3>
+      <button class="btn-icon" id="cart-close" type="button" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cart__body" id="cart-body" data-i18n-skip></div>
+    <div class="cart__foot" id="cart-foot" hidden>
+      <div class="cart__total"><span>Total estimé</span><b id="cart-total" data-i18n-skip></b></div>
+      <p class="cart__note" id="cart-note" data-i18n-skip></p>
+      <label class="f"><span>Message ou adresse de livraison (facultatif)</span><textarea id="cart-msg" rows="2" maxlength="400"></textarea></label>
+      <p class="cart__send-title">Envoyer ma commande par :</p>
+      <div class="cart__send">
+        <a id="cart-wa" class="btn btn--ghost" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        <a id="cart-ig" class="btn btn--ghost" target="_blank" rel="noopener" title="Le message est copié : collez-le dans la conversation"><i class="fa-brands fa-instagram"></i> Instagram</a>
+        <a id="cart-mail" class="btn btn--ghost"><i class="fa-solid fa-envelope"></i> E-mail</a>
+      </div>
+      <button type="button" class="linkbtn" id="cart-clear">Vider le panier</button>
+    </div>
+  </dialog>
+
+  <!-- ============ VISIONNEUSE PHOTO (galerie) ============ -->
+  <dialog id="lightbox" aria-label="Photo">
+    <button class="lb__close" id="lb-close" type="button" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
+    <button class="lb__nav lb__nav--prev" type="button" data-lbnav="-1" aria-label="Photo précédente"><i class="fa-solid fa-chevron-left"></i></button>
+    <button class="lb__nav lb__nav--next" type="button" data-lbnav="1" aria-label="Photo suivante"><i class="fa-solid fa-chevron-right"></i></button>
+    <img id="lb-img" alt="">
+    <p id="lb-cap" data-i18n-skip></p>
+  </dialog>
+
+  <div class="toast" id="toast" popover="manual" role="status" aria-live="polite" data-i18n-skip></div>
 
   <!-- ============ MENTIONS LÉGALES (modale) ============ -->
   <dialog id="legal" aria-labelledby="legal-title">
@@ -682,7 +1025,7 @@
     <div class="dialog__body">
       <!-- ⚠️ À COMPLÉTER avec vos vraies informations -->
       <h4>Éditeur du site</h4>
-      <p>[Nom Prénom / Raison sociale] – Entrepreneur individuel (micro-entreprise)<br>
+      <p data-i18n-html="legal-editor">[Nom Prénom / Raison sociale] – Entrepreneur individuel (micro-entreprise)<br>
          SIRET : [XXX XXX XXX XXXXX]<br>
          Adresse : [Adresse postale]<br>
          E-mail : <span data-bind="email"></span></p>
@@ -691,7 +1034,8 @@
       <h4>Propriété intellectuelle</h4>
       <p>Les photos, textes et visuels de ce site sont la propriété de l'éditeur. Les fichiers 3D fournis par les clients restent leur propriété ; le client garantit disposer des droits nécessaires à leur reproduction. Ces fichiers sont vérifiés avant impression, mais leur bon fonctionnement une fois imprimés (dimensions, tolérances, solidité) ne peut pas être garanti.</p>
       <h4>Données personnelles</h4>
-      <p>Ce site ne dépose aucun cookie de suivi et ne collecte aucune donnée. Les messages envoyés par e-mail, WhatsApp ou réseaux sociaux ne sont utilisés que pour répondre à votre demande.</p>
+      <p>Ce site ne dépose aucun cookie de suivi. Il mémorise seulement dans votre appareil (stockage local) vos favoris, votre panier et votre choix de langue : ces informations ne sont jamais envoyées. Si les statistiques sont activées, le site utilise GoatCounter, un comptage de visites anonyme, sans cookie ni donnée personnelle.</p>
+      <p>Le formulaire « Sur-mesure » collecte votre nom, vos coordonnées, votre message et votre fichier, uniquement pour répondre à votre demande (données hébergées via Netlify Forms, supprimées sur simple demande). Les messages envoyés par e-mail, WhatsApp ou réseaux sociaux ne sont utilisés que pour répondre à votre demande.</p>
       <h4>Vente à distance</h4>
       <p>Les objets étant fabriqués à la demande, le droit de rétractation peut ne pas s'appliquer aux commandes personnalisées (art. L221-28 du Code de la consommation). À adapter selon votre situation.</p>
     </div>
@@ -712,7 +1056,12 @@ const CONFIG = {
   // (les 2 autres canaux restent disponibles via les petites icônes)
   orderMethod: "whatsapp",
 
-  currency: "€"
+  currency: "€",
+
+  // --- Réglages suivants : modifiables depuis l'admin (Réglages), valeurs de secours ici ---
+  bannerOn: false, bannerText: "", bannerTextEn: "", bannerTone: "info",   // bandeau d'annonce (tone : info | warn | promo)
+  goatcounter: "",                                                          // code GoatCounter (statistiques sans cookie), ex : "monatelier"
+  estOn: true, estPla: 0.05, estPetg: 0.06, estHour: 0.8, estFee: 2, estMin: 4, estSpeed: 12   // estimateur de prix
 };
 
 /* =============================================================
@@ -731,6 +1080,13 @@ const CONFIG = {
    keywords  : (optionnel) mots-clés supplémentaires pour la recherche
    details   : (optionnel) description détaillée, affichée dans la fenêtre du produit
    issues    : (optionnel) problèmes possibles / conseils d'utilisation — UNE LIGNE = UN POINT (séparez par \n)
+   images    : (optionnel) photos supplémentaires, ex ["./images/vase-2.jpg", "./images/vase-3.jpg"] (max 5)
+   colorPick : (optionnel) true = le client choisit la couleur parmi vos filaments en stock (même matière)
+   isNew     : (optionnel) true = pastille « Nouveau » automatique
+   oldPrice  : (optionnel) ancien prix : il s'affiche barré avec une pastille « -X % » (promo)
+   titleEn, descEn, detailsEn, issuesEn, customInfoEn : (optionnels) version anglaise des textes
+   custom    : (optionnel) true = produit PERSONNALISABLE (badge violet + filtre + avertissement)
+   customInfo: (optionnel) ce qui peut être personnalisé — une ligne = un point
    visible   : (optionnel) false = produit MASQUÉ pour les clients (défaut : true)
    inStock   : (optionnel) false = affiché « Hors stock », non commandable (défaut : true)
 
@@ -738,18 +1094,18 @@ const CONFIG = {
        de secours : le catalogue géré dans l'admin le remplace automatiquement.
    ============================================================= */
 const PRODUCTS = [
-  { id: 1,  title: "Vase spirale « Twist »",        desc: "Vase design en mode vase (paroi unique), parfait pour fleurs séchées. Plusieurs couleurs.", category: "Déco", material: "PLA",    price: 14.90, image: "./images/vase-twist.jpg",      time: "2-3 jours", size: "18 cm", badge: "Best-seller", keywords: "vase fleurs spirale salon", details: "Vase imprimé en « mode vase » : une seule paroi continue, ce qui donne cette texture spiralée et un rendu très léger. Idéal pour des fleurs séchées, des herbes de la pampa ou comme simple objet déco. Plusieurs couleurs disponibles.", issues: "Paroi très fine (≈ 0,6 mm) : évitez les chocs et ne le serrez pas fort.\nNon étanche : pour des fleurs fraîches, placez un verre ou un tube à l'intérieur.\nLe PLA se déforme à la chaleur (dès ~55 °C) : pas de soleil direct derrière une vitre, ni dans une voiture l'été.\nNettoyage : chiffon sec ou légèrement humide, sans produit agressif." },
-  { id: 2,  title: "Lampe lithophane photo",        desc: "Votre photo gravée en relief, révélée par la lumière. Livrée avec socle LED USB.",          category: "Déco", material: "PLA",    price: 29.00, image: "./images/lithophane.jpg",      time: "4-5 jours", size: "15 × 20 cm", badge: "Perso", keywords: "photo cadeau personnalisé veilleuse lumière", details: "Votre photo est transformée en relief : plus l'épaisseur est fine, plus la lumière passe. L'image se révèle une fois la lampe allumée. Livrée avec socle et LED USB. Choisissez une photo nette et bien contrastée.", issues: "Éteinte, la photo est peu lisible : c'est normal, l'image n'apparaît que rétro-éclairée.\nLes photos sombres, floues ou très chargées donnent un rendu moyen.\nManipulez-la par le socle : la partie photo est fine et fragile.\nUtilisez uniquement une LED : une ampoule chauffante déformerait le PLA." },
-  { id: 3,  title: "Lampe géométrique low-poly",    desc: "Abat-jour facetté qui crée de superbes jeux d'ombres. Compatible ampoule E14.",             category: "Déco", material: "PLA",    price: 24.50, image: "./images/lampe-lowpoly.jpg",   time: "3 jours",   size: "22 cm", keywords: "luminaire abat-jour ombre chambre", details: "Abat-jour facetté (low-poly) qui crée de beaux jeux d'ombres et de lumière sur les murs. Compatible ampoule E14.", issues: "Ampoule LED uniquement (pas d'halogène ni d'incandescence : trop chaude pour le PLA).\nLes teintes foncées laissent passer moins de lumière.\nÀ contre-jour, les lignes de couches peuvent être visibles : c'est le rendu typique de l'impression 3D.\nMontez et démontez l'abat-jour sans forcer pour éviter les fissures." },
-  { id: 4,  title: "Support manette double",        desc: "Range deux manettes PS5 / Xbox proprement sur votre bureau. Base lestable.",                category: "Gaming/Utile", material: "PETG", price: 12.00, image: "./images/support-manette.jpg", time: "1-2 jours", size: "20 × 12 cm", keywords: "gaming ps5 xbox rangement bureau controller", details: "Range proprement deux manettes (PS5, Xbox…) sur votre bureau. Base lestable pour plus de stabilité. Imprimé en PETG pour sa résistance.", issues: "Base légère : lestez-la (pièces, sable) si vous posez de grosses manettes.\nÉloignez-la des radiateurs et du plein soleil : le PETG ramollit vers 70 °C.\nManettes avec coque ou étui : vérifiez qu'elles entrent dans les logements (modèle standard).\nFines lignes de couches visibles : c'est normal en impression FDM." },
-  { id: 5,  title: "Support casque gaming",         desc: "Potence stable et élégante, pass-câbles intégré. Résistant, finition mate.",                category: "Gaming/Utile", material: "PETG", price: 16.90, image: "./images/support-casque.jpg",  time: "2 jours",   size: "25 cm", badge: "Nouveau", keywords: "headset audio setup bureau", details: "Potence stable et élégante avec pass-câbles intégré, finition mate. Imprimé en PETG pour sa résistance.", issues: "Casques très lourds (> 500 g) : posez le support sur un bureau stable et évitez de tirer dessus.\nLe PETG peut plier légèrement sous une forte charge prolongée.\nLe pass-câbles est prévu pour des câbles standards, pas pour de gros connecteurs." },
-  { id: 6,  title: "Organiseur de câbles",          desc: "Lot de 6 clips adhésifs pour ranger câbles de chargeur, souris, écouteurs.",                category: "Gaming/Utile", material: "PETG", price: 6.50,  image: "./images/clips-cables.jpg",    time: "1 jour",    size: "Lot de 6", keywords: "cable clip rangement usb", details: "Lot de 6 clips adhésifs pour ranger les câbles de chargeur, souris et écouteurs. Fini les câbles qui tombent derrière le bureau.", issues: "Collez-les sur une surface propre, sèche et lisse (pas sur une surface poreuse ou texturée).\nLaissez l'adhésif prendre 24 h avant utilisation.\nSur une peinture fragile, l'adhésif peut abîmer la surface au retrait.\nPrévus pour des câbles fins : les câbles épais ne rentrent pas." },
-  { id: 7,  title: "Support smartphone réglable",   desc: "Pliable, léger et ultra-solide. Angle réglable pour bureau, cuisine ou table de nuit.",     category: "Gaming/Utile", material: "PETG", price: 8.90,  image: "./images/support-phone.jpg",   time: "1 jour",    size: "Pliable", keywords: "telephone iphone android stand", details: "Support pliable, léger et solide pour poser votre téléphone sur un bureau, en cuisine ou sur une table de nuit. Angle réglable.", issues: "Avec une grosse coque, la fente peut être trop étroite : demandez-moi une version adaptée.\nDépliez et pliez-le sans forcer, surtout les premières fois.\nNon conçu pour les tablettes ni pour des charges lourdes.\nPeut laisser des traces sur les surfaces fragiles : un patin adhésif peut être ajouté." },
-  { id: 8,  title: "Dragon articulé",               desc: "Dragon flexible imprimé en une seule pièce, articulations mobiles. Effet bois / soie.",      category: "Figurines", material: "PLA", price: 18.00, image: "./images/dragon.jpg",          time: "2 jours",   size: "35 cm", badge: "Best-seller", keywords: "jouet articulé flexible fantasy animal", details: "Dragon flexible imprimé en une seule pièce, avec des articulations mobiles. Effet bois ou soie selon la couleur. Un grand classique, amusant à manipuler.", issues: "Articulations un peu raides à la réception : bougez-le doucement plusieurs fois pour les assouplir.\nNe le tordez pas de force : une articulation pourrait céder.\nPetites pièces : ne convient pas aux enfants de moins de 3 ans.\nÉvitez la chaleur (voiture, radiateur) : le PLA peut se déformer." },
-  { id: 9,  title: "Chat articulé",                 desc: "Chat flexible imprimé d'un seul bloc, queue et corps mobiles. Un classique anti-stress.",   category: "Figurines", material: "PLA",  price: 11.90, image: "./images/chat-articule.jpg",   time: "1-2 jours", size: "25 cm", keywords: "animal jouet flexible articulé cadeau enfant", details: "Chat flexible imprimé d'un seul bloc, avec une queue et un corps mobiles. Un classique anti-stress, parfait en cadeau.", issues: "Articulations un peu raides au début : assouplissez-les doucement.\nNe le tordez pas de force : une articulation pourrait céder.\nPetites pièces : ne convient pas aux enfants de moins de 3 ans.\nÉvitez la chaleur (voiture, radiateur) : le PLA peut se déformer." },
-  { id: 10, title: "Mini robot rétro",              desc: "Petit robot de bureau façon années 50, bras et tête amovibles. Se peint facilement.",     category: "Figurines", material: "PLA",  price: 9.90,  image: "./images/robot-retro.jpg",     time: "2 jours",   size: "12 cm", badge: "Nouveau", keywords: "robot vintage collection bureau déco", details: "Petit robot de bureau au style années 50. Les bras et la tête sont amovibles. Se peint facilement si vous voulez le personnaliser.", issues: "Bras et tête amovibles : petites pièces, pas pour les moins de 3 ans.\nAjustement serré à la livraison : poussez sans forcer, un léger ponçage peut aider.\nPour le peindre : poncez légèrement, appliquez un apprêt, puis de la peinture acrylique.\nLe PLA est sensible à la chaleur." },
-  { id: 11, title: "Tour à dés JDR",                desc: "Tour de lancer de dés pliable avec rampes internes. Idéale pour vos parties de jeu de rôle.", category: "Gaming/Utile", material: "PETG", price: 19.90, image: "./images/tour-des.jpg", time: "3 jours", size: "14 cm", keywords: "dés dice donjon dragons jeu de rôle plateau", details: "Tour de lancer de dés pliable avec rampes internes, idéale pour vos parties de jeu de rôle. Garantit des jets équitables et évite que les dés tombent de la table.", issues: "Les dés très gros ou irréguliers peuvent se coincer dans les rampes.\nLe bruit est plus fort dans la tour : posez un tapis ou un feutre dessous.\nOuvrez et fermez la tour lentement, sans forcer sur les charnières.\nLe PETG peut se rayer avec le temps : c'est normal." },
-  { id: 12, title: "Porte-clés personnalisé",       desc: "Votre prénom, logo ou texte en relief. Idéal cadeau ou goodies d'entreprise.",              category: "Déco", material: "PLA", price: 4.50, image: "./images/porte-cles.jpg", time: "1-2 jours", size: "6 cm", badge: "Perso", keywords: "cadeau prénom nom logo personnalisé goodies", details: "Votre prénom, votre logo ou votre texte en relief. Idéal en cadeau ou comme goodie d'entreprise.", issues: "Les textes très fins ou les polices fantaisie peuvent perdre des détails à petite taille.\nNe le tordez pas et ne le laissez pas dans une voiture chaude (PLA).\nLa couleur peut varier légèrement d'un lot de filament à l'autre." }
+  { id: 1, colorPick: true,  title: "Vase spirale « Twist »",        desc: "Vase design en mode vase (paroi unique), parfait pour fleurs séchées. Plusieurs couleurs.", category: "Déco", material: "PLA",    price: 14.90, image: "./images/vase-twist.jpg",      time: "2-3 jours", size: "18 cm", badge: "Best-seller", keywords: "vase fleurs spirale salon", details: "Vase imprimé en « mode vase » : une seule paroi continue, ce qui donne cette texture spiralée et un rendu très léger. Idéal pour des fleurs séchées, des herbes de la pampa ou comme simple objet déco. Plusieurs couleurs disponibles.", issues: "Paroi très fine (≈ 0,6 mm) : évitez les chocs et ne le serrez pas fort.\nNon étanche : pour des fleurs fraîches, placez un verre ou un tube à l'intérieur.\nLe PLA se déforme à la chaleur (dès ~55 °C) : pas de soleil direct derrière une vitre, ni dans une voiture l'été.\nNettoyage : chiffon sec ou légèrement humide, sans produit agressif.", custom: true, customInfo: "Couleur au choix parmi les filaments disponibles (voir l'onglet Filaments).\nAutre taille possible sur demande." },
+  { id: 2,  title: "Lampe lithophane photo",        desc: "Votre photo gravée en relief, révélée par la lumière. Livrée avec socle LED USB.",          category: "Déco", material: "PLA",    price: 29.00, image: "./images/lithophane.jpg",      time: "4-5 jours", size: "15 × 20 cm", badge: "Perso", keywords: "photo cadeau personnalisé veilleuse lumière", details: "Votre photo est transformée en relief : plus l'épaisseur est fine, plus la lumière passe. L'image se révèle une fois la lampe allumée. Livrée avec socle et LED USB. Choisissez une photo nette et bien contrastée.", issues: "Éteinte, la photo est peu lisible : c'est normal, l'image n'apparaît que rétro-éclairée.\nLes photos sombres, floues ou très chargées donnent un rendu moyen.\nManipulez-la par le socle : la partie photo est fine et fragile.\nUtilisez uniquement une LED : une ampoule chauffante déformerait le PLA.", custom: true, customInfo: "Votre photo (portrait, couple, animal, paysage…) gravée dans la lithophane.\nCouleur du socle au choix." },
+  { id: 3, colorPick: true,  title: "Lampe géométrique low-poly",    desc: "Abat-jour facetté qui crée de superbes jeux d'ombres. Compatible ampoule E14.",             category: "Déco", material: "PLA",    price: 24.50, image: "./images/lampe-lowpoly.jpg",   time: "3 jours",   size: "22 cm", keywords: "luminaire abat-jour ombre chambre", details: "Abat-jour facetté (low-poly) qui crée de beaux jeux d'ombres et de lumière sur les murs. Compatible ampoule E14.", issues: "Ampoule LED uniquement (pas d'halogène ni d'incandescence : trop chaude pour le PLA).\nLes teintes foncées laissent passer moins de lumière.\nÀ contre-jour, les lignes de couches peuvent être visibles : c'est le rendu typique de l'impression 3D.\nMontez et démontez l'abat-jour sans forcer pour éviter les fissures." },
+  { id: 4, colorPick: true,  title: "Support manette double",        desc: "Range deux manettes PS5 / Xbox proprement sur votre bureau. Base lestable.",                category: "Gaming/Utile", material: "PETG", price: 12.00, image: "./images/support-manette.jpg", time: "1-2 jours", size: "20 × 12 cm", keywords: "gaming ps5 xbox rangement bureau controller", details: "Range proprement deux manettes (PS5, Xbox…) sur votre bureau. Base lestable pour plus de stabilité. Imprimé en PETG pour sa résistance.", issues: "Base légère : lestez-la (pièces, sable) si vous posez de grosses manettes.\nÉloignez-la des radiateurs et du plein soleil : le PETG ramollit vers 70 °C.\nManettes avec coque ou étui : vérifiez qu'elles entrent dans les logements (modèle standard).\nFines lignes de couches visibles : c'est normal en impression FDM." },
+  { id: 5, colorPick: true, isNew: true,  title: "Support casque gaming",         desc: "Potence stable et élégante, pass-câbles intégré. Résistant, finition mate.",                category: "Gaming/Utile", material: "PETG", price: 16.90, image: "./images/support-casque.jpg",  time: "2 jours",   size: "25 cm", keywords: "headset audio setup bureau", details: "Potence stable et élégante avec pass-câbles intégré, finition mate. Imprimé en PETG pour sa résistance.", issues: "Casques très lourds (> 500 g) : posez le support sur un bureau stable et évitez de tirer dessus.\nLe PETG peut plier légèrement sous une forte charge prolongée.\nLe pass-câbles est prévu pour des câbles standards, pas pour de gros connecteurs." },
+  { id: 6, oldPrice: 8.00,  title: "Organiseur de câbles",          desc: "Lot de 6 clips adhésifs pour ranger câbles de chargeur, souris, écouteurs.",                category: "Gaming/Utile", material: "PETG", price: 6.50,  image: "./images/clips-cables.jpg",    time: "1 jour",    size: "Lot de 6", keywords: "cable clip rangement usb", details: "Lot de 6 clips adhésifs pour ranger les câbles de chargeur, souris et écouteurs. Fini les câbles qui tombent derrière le bureau.", issues: "Collez-les sur une surface propre, sèche et lisse (pas sur une surface poreuse ou texturée).\nLaissez l'adhésif prendre 24 h avant utilisation.\nSur une peinture fragile, l'adhésif peut abîmer la surface au retrait.\nPrévus pour des câbles fins : les câbles épais ne rentrent pas." },
+  { id: 7, colorPick: true,  title: "Support smartphone réglable",   desc: "Pliable, léger et ultra-solide. Angle réglable pour bureau, cuisine ou table de nuit.",     category: "Gaming/Utile", material: "PETG", price: 8.90,  image: "./images/support-phone.jpg",   time: "1 jour",    size: "Pliable", keywords: "telephone iphone android stand", details: "Support pliable, léger et solide pour poser votre téléphone sur un bureau, en cuisine ou sur une table de nuit. Angle réglable.", issues: "Avec une grosse coque, la fente peut être trop étroite : demandez-moi une version adaptée.\nDépliez et pliez-le sans forcer, surtout les premières fois.\nNon conçu pour les tablettes ni pour des charges lourdes.\nPeut laisser des traces sur les surfaces fragiles : un patin adhésif peut être ajouté." },
+  { id: 8, colorPick: true,  title: "Dragon articulé",               desc: "Dragon flexible imprimé en une seule pièce, articulations mobiles. Effet bois / soie.",      category: "Figurines", material: "PLA", price: 18.00, image: "./images/dragon.jpg",          time: "2 jours",   size: "35 cm", badge: "Best-seller", keywords: "jouet articulé flexible fantasy animal", details: "Dragon flexible imprimé en une seule pièce, avec des articulations mobiles. Effet bois ou soie selon la couleur. Un grand classique, amusant à manipuler.", issues: "Articulations un peu raides à la réception : bougez-le doucement plusieurs fois pour les assouplir.\nNe le tordez pas de force : une articulation pourrait céder.\nPetites pièces : ne convient pas aux enfants de moins de 3 ans.\nÉvitez la chaleur (voiture, radiateur) : le PLA peut se déformer." },
+  { id: 9, colorPick: true,  title: "Chat articulé",                 desc: "Chat flexible imprimé d'un seul bloc, queue et corps mobiles. Un classique anti-stress.",   category: "Figurines", material: "PLA",  price: 11.90, image: "./images/chat-articule.jpg",   time: "1-2 jours", size: "25 cm", keywords: "animal jouet flexible articulé cadeau enfant", details: "Chat flexible imprimé d'un seul bloc, avec une queue et un corps mobiles. Un classique anti-stress, parfait en cadeau.", issues: "Articulations un peu raides au début : assouplissez-les doucement.\nNe le tordez pas de force : une articulation pourrait céder.\nPetites pièces : ne convient pas aux enfants de moins de 3 ans.\nÉvitez la chaleur (voiture, radiateur) : le PLA peut se déformer." },
+  { id: 10, colorPick: true, isNew: true, title: "Mini robot rétro",              desc: "Petit robot de bureau façon années 50, bras et tête amovibles. Se peint facilement.",     category: "Figurines", material: "PLA",  price: 9.90,  image: "./images/robot-retro.jpg",     time: "2 jours",   size: "12 cm", keywords: "robot vintage collection bureau déco", details: "Petit robot de bureau au style années 50. Les bras et la tête sont amovibles. Se peint facilement si vous voulez le personnaliser.", issues: "Bras et tête amovibles : petites pièces, pas pour les moins de 3 ans.\nAjustement serré à la livraison : poussez sans forcer, un léger ponçage peut aider.\nPour le peindre : poncez légèrement, appliquez un apprêt, puis de la peinture acrylique.\nLe PLA est sensible à la chaleur." },
+  { id: 11, colorPick: true, title: "Tour à dés JDR",                desc: "Tour de lancer de dés pliable avec rampes internes. Idéale pour vos parties de jeu de rôle.", category: "Gaming/Utile", material: "PETG", price: 19.90, image: "./images/tour-des.jpg", time: "3 jours", size: "14 cm", keywords: "dés dice donjon dragons jeu de rôle plateau", details: "Tour de lancer de dés pliable avec rampes internes, idéale pour vos parties de jeu de rôle. Garantit des jets équitables et évite que les dés tombent de la table.", issues: "Les dés très gros ou irréguliers peuvent se coincer dans les rampes.\nLe bruit est plus fort dans la tour : posez un tapis ou un feutre dessous.\nOuvrez et fermez la tour lentement, sans forcer sur les charnières.\nLe PETG peut se rayer avec le temps : c'est normal." },
+  { id: 12, colorPick: true, title: "Porte-clés personnalisé",       desc: "Votre prénom, logo ou texte en relief. Idéal cadeau ou goodies d'entreprise.",              category: "Déco", material: "PLA", price: 4.50, image: "./images/porte-cles.jpg", time: "1-2 jours", size: "6 cm", badge: "Perso", keywords: "cadeau prénom nom logo personnalisé goodies", details: "Votre prénom, votre logo ou votre texte en relief. Idéal en cadeau ou comme goodie d'entreprise.", issues: "Les textes très fins ou les polices fantaisie peuvent perdre des détails à petite taille.\nNe le tordez pas et ne le laissez pas dans une voiture chaude (PLA).\nLa couleur peut varier légèrement d'un lot de filament à l'autre.", custom: true, customInfo: "Votre prénom, votre logo ou un court texte en relief.\nCouleur au choix parmi les filaments disponibles." }
 ];
 
 /* =============================================================
@@ -799,11 +1155,114 @@ const normalize = (s) => String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, 
 /** Échappe le HTML pour éviter toute injection via les données produits */
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-/** Formate un prix : 14.9 => "14,90" */
-const formatPrice = (n) => Number(n).toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
 /** Classe CSS d'une matière : "PETG" => "petg" */
 const matClass = (m) => normalize(m).replace(/[^a-z]/g, "");
+
+/** Lecture / écriture sécurisées du stockage local (favoris, panier, préférences) */
+const store = {
+  get(key, def) { try { const v = localStorage.getItem(key); return v === null ? def : JSON.parse(v); } catch { return def; } },
+  set(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch { /* stockage indisponible : on ignore */ } }
+};
+
+/* ---------- Langue : français par défaut, anglais à la demande ----------
+   - t("texte français", {variables}) renvoie la traduction anglaise si elle existe dans lang-en.js
+   - le fichier lang-en.js n'est téléchargé que si le visiteur choisit l'anglais (site plus rapide) */
+let LANG = "fr";
+let EN = {};
+const t = (fr, vars) => {
+  let s = (LANG === "en" && EN[fr]) || fr;
+  if (vars) s = s.replace(/\{(\w+)\}/g, (_, k) => (vars[k] ?? ""));
+  return s;
+};
+/** Champ d'un produit dans la langue courante (ex : title / titleEn) */
+const loc = (p, key) => (LANG === "en" && p[key + "En"]) || p[key];
+
+function loadEnglish() {
+  return new Promise((resolve) => {
+    if (window.I18N_EN) { EN = window.I18N_EN; return resolve(true); }
+    const s = document.createElement("script");
+    s.src = "lang-en.js";
+    s.onload = () => { EN = window.I18N_EN || {}; resolve(true); };
+    s.onerror = () => resolve(false);
+    document.head.appendChild(s);
+  });
+}
+
+/** Formate un prix : 14.9 => "14,90" (FR) ou "14.90" (EN) */
+const formatPrice = (n) => Number(n).toLocaleString(LANG === "en" ? "en-GB" : "fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+/** Traduit le HTML statique : textes, attributs (placeholder, aria-label, title) et blocs marqués data-i18n-html.
+ *  Les textes d'origine (français) sont mémorisés pour pouvoir revenir en arrière. */
+const I18N_TEXT = new WeakMap(), I18N_ATTR = new WeakMap(), I18N_HTML = new WeakMap();
+function translateStatic() {
+  const en = LANG === "en";
+  const skip = (el) => el.closest("[data-i18n-skip], [data-i18n-html], [data-bind], script, style, textarea");
+  // 1) nœuds de texte
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  for (const n of nodes) {
+    const el = n.parentElement;
+    if (!el || skip(el)) continue;
+    if (!en) { if (I18N_TEXT.has(n)) { n.nodeValue = I18N_TEXT.get(n); I18N_TEXT.delete(n); } continue; }
+    const raw = I18N_TEXT.get(n) ?? n.nodeValue, key = raw.trim();
+    if (key && EN[key]) { I18N_TEXT.set(n, raw); n.nodeValue = raw.replace(key, EN[key]); }
+  }
+  // 2) attributs
+  for (const el of $$("[placeholder], [aria-label], [title]")) {
+    if (el.closest("[data-i18n-skip]")) continue;
+    for (const attr of ["placeholder", "aria-label", "title"]) {
+      if (!el.hasAttribute(attr)) continue;
+      const mem = I18N_ATTR.get(el) || {};
+      const orig = mem[attr] ?? el.getAttribute(attr);
+      if (!en) { if (attr in mem) el.setAttribute(attr, mem[attr]); continue; }
+      if (EN[orig]) { mem[attr] = orig; I18N_ATTR.set(el, mem); el.setAttribute(attr, EN[orig]); }
+    }
+  }
+  // 3) blocs HTML (paragraphes avec liens ou mises en forme)
+  for (const el of $$("[data-i18n-html]")) {
+    const key = el.dataset.i18nHtml;
+    if (!I18N_HTML.has(el)) I18N_HTML.set(el, el.innerHTML);
+    el.innerHTML = en && EN[key] ? EN[key] : I18N_HTML.get(el);
+  }
+  fillBindings();                                  // (les blocs HTML remplacés ci-dessus contiennent des champs data-bind)
+  // 4) titre et description de la page
+  updateTitle();
+  const md = $("meta[name=description]");
+  if (md) { if (!md.dataset.fr) md.dataset.fr = md.content; md.content = en && EN["__description"] ? EN["__description"] : md.dataset.fr; }
+}
+
+/** Titre de l'onglet du navigateur (nom de l'atelier + langue) */
+function updateTitle() {
+  if (!updateTitle.fr) updateTitle.fr = document.title;
+  document.title = LANG === "en" && EN["__title"] ? EN["__title"].replace("{brand}", CONFIG.brand) : updateTitle.fr.replace(/^.*?( – FDM)/, `${CONFIG.brand} – FDM`);
+}
+
+/* ---------- Petit message de confirmation (toast) ---------- */
+let toastTimer, toastHideTimer;
+function toast(msg) {
+  const el = $("#toast");
+  el.textContent = msg;
+  try { if (!el.matches(":popover-open")) el.showPopover(); } catch { /* vieux navigateur : le toast reste dans la page */ }   // popover = couche supérieure : visible même au-dessus d'une fenêtre ouverte
+  requestAnimationFrame(() => el.classList.add("show"));
+  clearTimeout(toastTimer); clearTimeout(toastHideTimer);
+  toastTimer = setTimeout(() => { el.classList.remove("show"); toastHideTimer = setTimeout(() => { try { el.hidePopover(); } catch {} }, 300); }, 2400);
+}
+
+/* ---------- Statistiques de visites (GoatCounter : gratuit, sans cookie) ---------- */
+let statsReady = false;
+function loadStats() {
+  const code = CONFIG.goatcounter;
+  if (!/^[a-z0-9-]{2,40}$/.test(code || "") || !/^https?:$/.test(location.protocol)) return;
+  window.goatcounter = { no_onload: true };
+  const s = document.createElement("script");
+  s.async = true; s.src = "https://gc.zgo.at/count.js";
+  s.dataset.goatcounter = `https://${code}.goatcounter.com/count`;
+  s.onload = () => { statsReady = true; track(currentTab === "catalogue" ? "/" : "/" + currentTab, "Accueil"); };
+  document.head.appendChild(s);
+}
+/** Compte une « page vue » virtuelle (changement d'onglet, ouverture d'un produit) */
+function track(path, title) { if (statsReady && window.goatcounter?.count) window.goatcounter.count({ path, title: title || path }); }
 
 /* ---------- Liens de contact (recalculés si l'admin change les réglages) ---------- */
 let LINKS = {};
@@ -812,19 +1271,29 @@ function buildLinks() {
     email:     `mailto:${CONFIG.email}`,
     instagram: `https://instagram.com/${CONFIG.instagram}`,
     tiktok:    `https://www.tiktok.com/@${CONFIG.tiktok}`,
-    "custom-mail": `mailto:${CONFIG.email}?subject=${encodeURIComponent("Demande de devis – fichier STL")}&body=${encodeURIComponent("Bonjour,\n\nJe souhaite un devis pour l'impression du fichier 3D ci-joint.\nJ'ai bien compris que le fichier sera vérifié avant impression et que son bon fonctionnement ne peut pas être garanti.\n\nMatière souhaitée (PLA / PETG) :\nCouleur :\nQuantité :\n\nMerci !")}`,
-    "custom-wa":   `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent("Bonjour, je souhaite un devis pour un fichier 3D personnalisé.")}`
+    "custom-mail": `mailto:${CONFIG.email}?subject=${encodeURIComponent(t("Demande de devis – fichier STL"))}&body=${encodeURIComponent(t("Bonjour,\n\nJe souhaite un devis pour l'impression du fichier 3D ci-joint.\nJ'ai bien compris que le fichier sera vérifié avant impression et que son bon fonctionnement ne peut pas être garanti.\n\nMatière souhaitée (PLA / PETG) :\nCouleur :\nQuantité :\n\nMerci !"))}`,
+    "custom-wa":   `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(t("Bonjour, je souhaite un devis pour un fichier 3D personnalisé."))}`
   };
 }
 
 /** Construit les 3 liens (WhatsApp, Instagram DM, E-mail) pour un produit.
- *  mode "order" = commande · mode "notify" = « me prévenir » (produit hors stock) */
-function orderLinks(p, mode = "order") {
-  const msg = mode === "notify"
-    ? `Bonjour, pouvez-vous me prévenir quand « ${p.title} » (${p.material}) sera de nouveau disponible ?`
-    : `Bonjour, je souhaite commander : ${p.title} (${p.material}) – ${formatPrice(p.price)} ${CONFIG.currency}.`;
-  const subject = (mode === "notify" ? "Retour en stock : " : "Commande : ") + p.title;
-  const extra = mode === "notify" ? "" : "\n\nCouleur souhaitée :\nQuantité :\nAdresse de livraison :\n";
+ *  mode "order" = commande · mode "notify" = « me prévenir » (produit hors stock)
+ *  opts = { color, note } : options choisies dans la fenêtre produit.
+ *  (Les titres restent en français dans les messages : c'est la langue du catalogue de l'atelier.) */
+function orderLinks(p, mode = "order", opts = {}) {
+  const v = { title: p.title, mat: p.material, price: formatPrice(p.price), cur: CONFIG.currency };
+  const colorLine = opts.color ? "\n" + t("Couleur : {c}", { c: opts.color }) : "";
+  let msg;
+  if (mode === "notify") msg = t("Bonjour, pouvez-vous me prévenir quand « {title} » ({mat}) sera de nouveau disponible ?", v);
+  else if (p.custom) msg = t("Bonjour, je souhaite commander une version personnalisée de : {title} ({mat}) – à partir de {price} {cur}.", v) + colorLine + "\n\n" + t("Personnalisation souhaitée :") + " " + (opts.note || "");
+  else msg = t("Bonjour, je souhaite commander : {title} ({mat}) – {price} {cur}.", v) + colorLine;
+
+  const subject = (mode === "notify" ? t("Retour en stock : ") : p.custom ? t("Commande personnalisée : ") : t("Commande : ")) + p.title;
+  let extra = "";
+  if (mode !== "notify") {
+    if (p.custom && !opts.note) extra += "\n\n" + t("(Merci de détailler votre personnalisation ci-dessus : texte, logo, photo…)");
+    extra += "\n\n" + (opts.color ? "" : t("Couleur souhaitée :") + "\n") + t("Quantité :") + "\n" + t("Adresse de livraison :") + "\n";
+  }
   return {
     whatsapp:  { url: `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`, icon: "fa-brands fa-whatsapp",  label: "WhatsApp" },
     instagram: { url: `https://ig.me/m/${CONFIG.instagram}`,                              icon: "fa-brands fa-instagram", label: "Instagram" },
@@ -844,11 +1313,16 @@ function placeholder(p) {
 /* ---------- État de l'application ---------- */
 let products = [];                       // catalogue affiché (rempli par loadCatalog)
 let filaments = [];                      // filaments affichés
+let gallery = [];                        // réalisations (photos)
+let reviews = [];                        // avis clients
+let catalogLoaded = false;
 const fstate = { type: "Tous", onlyAvail: false };
 const state = { query: "", category: "Tous", sort: "default", onlyStock: false };
+let favs = new Set((store.get("fav_v1", []) || []).map(String));      // favoris (stockés dans le téléphone du visiteur)
 
-/** Normalise un produit : valeurs par défaut pour visible / inStock */
-const prepare = (p) => ({ ...p, visible: p.visible !== false, inStock: p.inStock !== false });
+/** Normalise un produit : valeurs par défaut */
+const prepare = (p) => ({ ...p, id: String(p.id), visible: p.visible !== false, inStock: p.inStock !== false,
+  images: Array.isArray(p.images) ? p.images.filter(Boolean) : [], oldPrice: Number(p.oldPrice) > Number(p.price) ? Number(p.oldPrice) : 0 });
 const prepareFil = (f, i) => ({ ...f, id: f.id || "f" + i, visible: f.visible !== false, inStock: f.inStock !== false,
   hex: /^#[0-9a-f]{6}$/i.test(f.hex || "") ? f.hex : "#888888", finish: f.finish || "" });
 
@@ -864,67 +1338,108 @@ async function loadCatalog() {
     if (res.ok && (res.headers.get("content-type") || "").includes("json")) {
       const data = await res.json();
       if (Array.isArray(data.products)) {
-        if (data.settings) {
+        const s = data.settings;
+        if (s) {
           // On n'écrase la config que par des valeurs renseignées
-          for (const k of ["brand", "email", "whatsapp", "instagram", "tiktok", "orderMethod"]) if (data.settings[k]) CONFIG[k] = data.settings[k];
+          for (const k of ["brand", "email", "whatsapp", "instagram", "tiktok", "orderMethod", "bannerText", "bannerTextEn", "bannerTone", "goatcounter"]) if (s[k]) CONFIG[k] = s[k];
+          for (const k of ["bannerOn", "estOn"]) if (typeof s[k] === "boolean") CONFIG[k] = s[k];
+          for (const k of ["estPla", "estPetg", "estHour", "estFee", "estMin", "estSpeed"]) if (Number.isFinite(Number(s[k])) && s[k] !== "" && s[k] !== null) CONFIG[k] = Number(s[k]);
         }
-        return { products: data.products, filaments: Array.isArray(data.filaments) ? data.filaments : FILAMENTS };
+        return { products: data.products, filaments: Array.isArray(data.filaments) ? data.filaments : FILAMENTS,
+                 gallery: Array.isArray(data.gallery) ? data.gallery : [], reviews: Array.isArray(data.reviews) ? data.reviews : [] };
       }
     }
   } catch { /* pas d'API : on utilise le catalogue de secours */ }
-  return { products: PRODUCTS, filaments: FILAMENTS };
+  return { products: PRODUCTS, filaments: FILAMENTS, gallery: [], reviews: [] };
+}
+
+/* ---------- Bandeau d'annonce ---------- */
+function renderAnnounce() {
+  const el = $("#announce");
+  const txt = (LANG === "en" && CONFIG.bannerTextEn) || CONFIG.bannerText;
+  const closed = store.get("ann_closed", "") === CONFIG.bannerText;      // fermé par le visiteur (réapparaît si le texte change)
+  if (!CONFIG.bannerOn || !txt || closed) { el.hidden = true; return; }
+  el.className = "announce announce--" + (["info", "warn", "promo"].includes(CONFIG.bannerTone) ? CONFIG.bannerTone : "info");
+  $("#announce-text").textContent = txt;
+  el.hidden = false;
 }
 
 /* ---------- Rendu des filtres (catégories auto-détectées) ---------- */
 function renderFilters() {
-  const cats = ["Tous", ...new Set(products.map((p) => p.category))];
-  if (!cats.includes(state.category)) state.category = "Tous";
-  const countOf = (c) => (c === "Tous" ? products.length : products.filter((p) => p.category === c).length);
-  $("#filters").innerHTML = cats.map((c) =>
-    `<button class="chip" type="button" data-cat="${esc(c)}" aria-pressed="${c === state.category}">${esc(c)} <small>${countOf(c)}</small></button>`
-  ).join("");
+  const cats = [...new Set(products.map((p) => p.category))];
+  const nCustom = products.filter((p) => p.custom).length;
+  const nFav = products.filter((p) => favs.has(p.id)).length;
+  if (state.category === "__custom" && !nCustom) state.category = "Tous";
+  if (state.category === "__fav" && !nFav) state.category = "Tous";
+  if (!["Tous", "__custom", "__fav"].includes(state.category) && !cats.includes(state.category)) state.category = "Tous";
+  const countOf = (c) => products.filter((p) => p.category === c).length;
+  const chip = (key, label, n, extra = "") => `<button class="chip ${extra}" type="button" data-cat="${esc(key)}" aria-pressed="${key === state.category}">${label} <small>${n}</small></button>`;
+  $("#filters").innerHTML =
+    chip("Tous", t("Tous"), products.length) +
+    (nFav ? chip("__fav", `<span class="heart" aria-hidden="true">♥</span> ${t("Favoris")}`, nFav, "chip--fav") : "") +
+    (nCustom ? chip("__custom", `<i class="fa-solid fa-wand-magic-sparkles"></i> ${t("Personnalisables")}`, nCustom, "chip--custom") : "") +
+    cats.map((c) => chip(c, esc(t(c)), countOf(c))).join("");
   // La case « En stock » n'apparaît que s'il existe au moins un produit hors stock
   $("#stock-filter").hidden = !products.some((p) => !p.inStock);
 }
+
+/* ---------- Pastilles (promo / nouveau / badge libre / hors stock) ---------- */
+function ribbonsHTML(p) {
+  if (!p.inStock) return `<div class="ribbons"><span class="ribbon ribbon--oos">${t("Hors stock")}</span></div>`;
+  const out = [];
+  if (p.oldPrice > p.price) out.push(`<span class="ribbon ribbon--promo">-${Math.round((1 - p.price / p.oldPrice) * 100)} %</span>`);
+  if (p.isNew) out.push(`<span class="ribbon ribbon--new">${t("Nouveau")}</span>`);
+  if (p.badge && !(p.isNew && normalize(p.badge) === "nouveau")) out.push(`<span class="ribbon">${esc(t(p.badge))}</span>`);
+  return out.length ? `<div class="ribbons">${out.join("")}</div>` : "";
+}
+/** Prix avec ancien prix barré en cas de promotion */
+const priceHTML = (p) => `${p.oldPrice > p.price ? `<s class="old" aria-label="${esc(t("Ancien prix"))}">${formatPrice(p.oldPrice)}</s> ` : ""}${formatPrice(p.price)}<small> ${CONFIG.currency}</small>`;
+/** Cœur « favori » */
+const favBtn = (p, cls = "fav") => `<button class="${cls}" type="button" data-fav="${esc(p.id)}" aria-pressed="${favs.has(p.id)}" aria-label="${esc(t("Ajouter aux favoris"))}" title="${esc(t("Ajouter aux favoris"))}"><span aria-hidden="true">♥</span></button>`;
 
 /* ---------- Rendu d'une carte produit ---------- */
 function cardHTML(p, i) {
   const mat = matClass(p.material);
   const delay = `animation-delay:${Math.min(i, 8) * 40}ms`;
+  const title = loc(p, "title");
   let action;
   if (p.inStock) {
     const links = orderLinks(p);
     const main = links[CONFIG.orderMethod] || links.whatsapp;
     const others = Object.values(links).filter((l) => l !== main);
+    const cartLabel = p.custom ? t("Personnaliser et ajouter au panier") : t("Ajouter au panier");
     action = `
-      <div class="price">${formatPrice(p.price)}<small> ${CONFIG.currency}</small></div>
+      <div class="price">${priceHTML(p)}</div>
+      <button class="btn-icon btn-cart" type="button" data-cart="${esc(p.id)}" aria-label="${esc(cartLabel)}" title="${esc(cartLabel)}"><i class="fa-solid fa-cart-plus"></i></button>
       <div class="order">
-        <a class="btn btn--primary" href="${main.url}" target="_blank" rel="noopener" aria-label="Commander ${esc(p.title)} via ${main.label}"><i class="${main.icon}"></i> Commander</a>
-        ${others.map((l) => `<a class="btn-icon" href="${l.url}" target="_blank" rel="noopener" title="Commander via ${l.label}" aria-label="Commander via ${l.label}"><i class="${l.icon}"></i></a>`).join("")}
+        <a class="btn btn--primary" href="${main.url}" target="_blank" rel="noopener" aria-label="${esc((p.custom ? t("Personnaliser et commander") : t("Commander")) + " " + title + " " + t("via {canal}", { canal: main.label }))}"><i class="${main.icon}"></i> ${p.custom ? t("Personnaliser") : t("Commander")}</a>
+        ${others.map((l) => `<a class="btn-icon" href="${l.url}" target="_blank" rel="noopener" title="${esc(t("Commander via {canal}", { canal: l.label }))}" aria-label="${esc(t("Commander via {canal}", { canal: l.label }))}"><i class="${l.icon}"></i></a>`).join("")}
       </div>`;
   } else {
     const links = orderLinks(p, "notify");
     const main = links[CONFIG.orderMethod] || links.whatsapp;
     action = `
-      <div><div class="price">${formatPrice(p.price)}<small> ${CONFIG.currency}</small></div><div class="oos-note">Temporairement indisponible</div></div>
-      <div class="order"><a class="btn btn--ghost" href="${main.url}" target="_blank" rel="noopener" aria-label="Me prévenir du retour en stock de ${esc(p.title)}"><i class="fa-regular fa-bell"></i> Me prévenir</a></div>`;
+      <div><div class="price">${priceHTML(p)}</div><div class="oos-note">${t("Temporairement indisponible")}</div></div>
+      <div class="order"><a class="btn btn--ghost" href="${main.url}" target="_blank" rel="noopener" aria-label="${esc(t("Me prévenir du retour en stock de {title}", { title }))}"><i class="fa-regular fa-bell"></i> ${t("Me prévenir")}</a></div>`;
   }
   return `
   <article class="card ${p.inStock ? "" : "card--oos"}" style="${delay}">
     <div class="card__media">
-      <img src="${esc(p.image || placeholder(p))}" alt="${esc(p.title)}" loading="lazy" decoding="async" width="400" height="300" data-fallback="${esc(p.id)}">
+      <img src="${esc(p.image || placeholder(p))}" alt="${esc(title)}" loading="lazy" decoding="async" width="400" height="300" data-fallback="${esc(p.id)}">
       <span class="tag tag--${mat}">${esc(p.material)}</span>
-      ${!p.inStock ? `<span class="ribbon ribbon--oos">Hors stock</span>` : p.badge ? `<span class="ribbon">${esc(p.badge)}</span>` : ""}
+      ${ribbonsHTML(p)}
+      ${p.custom ? `<span class="cust-tag"><i class="fa-solid fa-wand-magic-sparkles"></i>${t("Personnalisable")}</span>` : ""}
+      ${favBtn(p)}
     </div>
     <div class="card__body">
-      <span class="card__cat">${esc(p.category)}</span>
-      <h3 class="card__title"><button class="card__open" type="button" data-open="${esc(p.id)}" aria-haspopup="dialog">${esc(p.title)}</button></h3>
-      <p class="card__desc">${esc(p.desc)}</p>
+      <span class="card__cat">${esc(t(p.category))}</span>
+      <h3 class="card__title"><button class="card__open" type="button" data-open="${esc(p.id)}" aria-haspopup="dialog">${esc(title)}</button></h3>
+      <p class="card__desc">${esc(loc(p, "desc"))}</p>
       ${(p.time || p.size) ? `<div class="card__meta">
         ${p.size ? `<span><i class="fa-solid fa-ruler-combined"></i>${esc(p.size)}</span>` : ""}
         ${p.time ? `<span><i class="fa-regular fa-clock"></i>${esc(p.time)}</span>` : ""}
       </div>` : ""}
-      <span class="card__hint ${p.issues ? "warn" : ""}"><i class="fa-solid ${p.issues ? "fa-triangle-exclamation" : "fa-magnifying-glass-plus"}"></i>${p.issues ? "Détails & points d'attention" : "Voir les détails"}</span>
+      <span class="card__hint ${p.issues ? "warn" : ""}"><i class="fa-solid ${p.issues ? "fa-triangle-exclamation" : "fa-magnifying-glass-plus"}"></i>${p.issues ? t("Détails & points d'attention") : t("Voir les détails")}</span>
       <div class="card__foot">${action}</div>
     </div>
   </article>`;
@@ -940,16 +1455,20 @@ function render() {
   const words = normalize(state.query).split(/\s+/).filter(Boolean);
 
   let list = products.filter((p) => {
-    if (state.category !== "Tous" && p.category !== state.category) return false;
+    if (state.category === "__custom") { if (!p.custom) return false; }
+    else if (state.category === "__fav") { if (!favs.has(p.id)) return false; }
+    else if (state.category !== "Tous" && p.category !== state.category) return false;
     if (state.onlyStock && !p.inStock) return false;
     if (!words.length) return true;
-    const haystack = normalize([p.title, p.desc, p.category, p.material, p.keywords || ""].join(" "));
+    const haystack = normalize([p.title, p.titleEn || "", p.desc, p.category, p.material, p.keywords || "", p.isNew ? "nouveau new" : "", p.oldPrice ? "promo promotion" : "",
+      p.custom ? "personnalisable personnalise personnalisation sur mesure custom customizable" : ""].join(" "));
     return words.every((w) => haystack.includes(w));
   });
 
+  const lc = LANG === "en" ? "en" : "fr";
   if (state.sort === "asc")  list.sort((a, b) => a.price - b.price);
   if (state.sort === "desc") list.sort((a, b) => b.price - a.price);
-  if (state.sort === "az")   list.sort((a, b) => a.title.localeCompare(b.title, "fr"));
+  if (state.sort === "az")   list.sort((a, b) => loc(a, "title").localeCompare(loc(b, "title"), lc));
   // Les produits hors stock passent toujours en dernier (tri stable)
   list = [...list.filter((p) => p.inStock), ...list.filter((p) => !p.inStock)];
 
@@ -957,25 +1476,36 @@ function render() {
   grid.innerHTML = list.map(cardHTML).join("");
   grid.setAttribute("aria-busy", "false");
   $("#empty").hidden = list.length > 0;
-  $("#count").textContent = `${list.length} produit${list.length > 1 ? "s" : ""}`;
+  $("#count").textContent = t(list.length > 1 ? "{n} produits" : "{n} produit", { n: list.length });
   $("#clear").hidden = !state.query;
+}
+
+/* ---------- Favoris ---------- */
+function toggleFav(id) {
+  id = String(id);
+  favs.has(id) ? favs.delete(id) : favs.add(id);
+  store.set("fav_v1", [...favs]);
+  $$(`[data-fav="${CSS.escape(id)}"]`).forEach((b) => b.setAttribute("aria-pressed", favs.has(id)));
+  renderFilters();
+  if (state.category === "__fav" && !pdDialog().open) render();
+  toast(favs.has(id) ? t("Ajouté aux favoris") : t("Retiré des favoris"));
 }
 
 /* ---------- Filaments : liste par matière et couleur ---------- */
 function filLink(f) {
-  const msg = `Bonjour, je souhaite commander en ${f.type} ${f.color}${f.finish ? ` (${f.finish})` : ""}.`;
+  const msg = t("Bonjour, je souhaite commander en {type} {color}.", { type: f.type, color: f.color + (f.finish ? ` (${f.finish})` : "") });
   const m = CONFIG.orderMethod;
   if (m === "instagram") return `https://ig.me/m/${CONFIG.instagram}`;
-  if (m === "email") return `mailto:${CONFIG.email}?subject=${encodeURIComponent("Couleur : " + f.type + " " + f.color)}&body=${encodeURIComponent(msg)}`;
+  if (m === "email") return `mailto:${CONFIG.email}?subject=${encodeURIComponent(t("Couleur : {c}", { c: f.type + " " + f.color }))}&body=${encodeURIComponent(msg)}`;
   return `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
 }
 function renderFilaments() {
   const types = ["Tous", ...new Set(filaments.map((f) => f.type))];
   if (!types.includes(fstate.type)) fstate.type = "Tous";
-  const nOf = (t) => (t === "Tous" ? filaments.length : filaments.filter((f) => f.type === t).length);
-  $("#fil-types").innerHTML = types.map((t) => `<button class="chip" type="button" data-type="${esc(t)}" aria-pressed="${t === fstate.type}">${esc(t)} <small>${nOf(t)}</small></button>`).join("");
+  const nOf = (ty) => (ty === "Tous" ? filaments.length : filaments.filter((f) => f.type === ty).length);
+  $("#fil-types").innerHTML = types.map((ty) => `<button class="chip" type="button" data-type="${esc(ty)}" aria-pressed="${ty === fstate.type}">${esc(t(ty))} <small>${nOf(ty)}</small></button>`).join("");
 
-  const order = (t) => { const i = ["PLA", "PETG"].indexOf(t); return i < 0 ? 99 : i; };
+  const order = (ty) => { const i = ["PLA", "PETG"].indexOf(ty); return i < 0 ? 99 : i; };
   const list = filaments
     .filter((f) => (fstate.type === "Tous" || f.type === fstate.type) && (!fstate.onlyAvail || f.inStock))
     .sort((a, b) => order(a.type) - order(b.type) || a.type.localeCompare(b.type) || b.inStock - a.inStock || a.color.localeCompare(b.color, "fr"));
@@ -985,67 +1515,145 @@ function renderFilaments() {
     const cls = /silk|soie|metal/.test(fin) ? "swatch--silk" : /transparent|translucide/.test(fin) ? "swatch--glass" : "";
     return `
     <article class="fcard ${f.inStock ? "" : "fcard--out"}" style="animation-delay:${Math.min(i, 12) * 25}ms">
-      <div class="swatch ${cls}" style="--c:${f.hex}" role="img" aria-label="Couleur ${esc(f.color)}"></div>
-      <b>${esc(f.color)}</b>
-      <div class="fcard__meta"><span class="m-${matClass(f.type)}">${esc(f.type)}</span>${f.finish ? `<span class="m-fin">${esc(f.finish)}</span>` : ""}</div>
-      <span class="avail ${f.inStock ? "avail--ok" : "avail--no"}">${f.inStock ? "Disponible" : "Épuisé"}</span>
-      ${f.inStock ? `<a class="fcard__cta" href="${filLink(f)}" target="_blank" rel="noopener" aria-label="Demander ${esc(f.type)} ${esc(f.color)}">Demander</a>` : ""}
+      <div class="swatch ${cls}" style="--c:${f.hex}" role="img" aria-label="${esc(t("Couleur {c}", { c: t(f.color) }))}"></div>
+      <b>${esc(t(f.color))}</b>
+      <div class="fcard__meta"><span class="m-${matClass(f.type)}">${esc(f.type)}</span>${f.finish ? `<span class="m-fin">${esc(t(f.finish))}</span>` : ""}</div>
+      <span class="avail ${f.inStock ? "avail--ok" : "avail--no"}">${f.inStock ? t("Disponible") : t("Épuisé")}</span>
+      ${f.inStock ? `<a class="fcard__cta" href="${filLink(f)}" target="_blank" rel="noopener" aria-label="${esc(t("Demander {c}", { c: f.type + " " + t(f.color) }))}">${t("Demander")}</a>` : ""}
     </article>`;
   }).join("");
   $("#fil-empty").hidden = list.length > 0;
   const avail = list.filter((f) => f.inStock).length;
-  $("#fil-count").textContent = `${list.length} couleur${list.length > 1 ? "s" : ""} · ${avail} disponible${avail > 1 ? "s" : ""}`;
+  $("#fil-count").textContent = t(list.length > 1 ? "{n} couleurs" : "{n} couleur", { n: list.length }) + " · " + t(avail > 1 ? "{n} disponibles" : "{n} disponible", { n: avail });
 }
 
 /* ---------- Fenêtre détail produit ---------- */
 const pdDialog = () => $("#product-dialog");
 let openedViaApp = false;                         // ouvert par un clic (donc « retour » ferme la fenêtre)
 let pendingProductId = null;                      // lien direct #produit/ID en attente du chargement
+let mstate = { id: "", color: "", note: "" };     // options choisies dans la fenêtre (couleur, personnalisation)
 
-const paragraphs = (t) => String(t || "").split(/\n{2,}|\n/).map((x) => x.trim()).filter(Boolean);
-const bullets = (t) => String(t || "").split("\n").map((x) => x.replace(/^[-•*]\s*/, "").trim()).filter(Boolean);
+const paragraphs = (x) => String(x || "").split(/\n{2,}|\n/).map((s) => s.trim()).filter(Boolean);
+const bullets = (x) => String(x || "").split("\n").map((s) => s.replace(/^[-•*]\s*/, "").trim()).filter(Boolean);
+const findProduct = (id) => products.find((x) => x.id === String(id));
 
-function openProduct(id) {
-  const p = products.find((x) => String(x.id) === String(id));
-  if (!p) return false;
-  const mat = matClass(p.material);
-  const links = orderLinks(p, p.inStock ? "order" : "notify");
+/** Bloc « Produit personnalisable » + avertissement de vérification */
+function customHTML(p) {
+  const lines = bullets(loc(p, "customInfo"));
+  return `<section class="pd__custom" aria-labelledby="pd-custom">
+    <h3 id="pd-custom"><i class="fa-solid fa-wand-magic-sparkles"></i>${t("Produit personnalisable")}</h3>
+    ${lines.length ? `<ul>${lines.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : `<p>${t("Ce produit peut être personnalisé : contactez-moi pour en discuter.")}</p>`}
+    <p class="pd__custom-warn"><i class="fa-solid fa-triangle-exclamation"></i><span><b>${t("Attention :")}</b> ${t("toute personnalisation doit être vérifiée avant l'impression. Selon votre demande (texte, logo, taille, détails…), elle n'est pas toujours réalisable. Je vous confirme la faisabilité avant de lancer la fabrication.")}</span></p>
+    <label class="pd__note"><span>${t("Votre personnalisation")}</span>
+      <textarea id="pd-note" maxlength="300" rows="3" placeholder="${esc(t("Ex : prénom « Léa », couleur bleue, logo envoyé par message…"))}">${esc(mstate.note)}</textarea></label>
+  </section>`;
+}
+
+/** Couleurs proposées : filaments en stock, de la même matière que le produit */
+const colorOptions = (p) => (p.colorPick ? filaments.filter((f) => f.inStock && f.visible && String(f.type).toUpperCase() === String(p.material).toUpperCase()) : []);
+const colorValue = (f) => f.color + (f.finish ? ` (${f.finish})` : "");        // valeur envoyée dans le message (français, langue de l'atelier)
+const swatchClass = (f) => { const fin = normalize(f.finish); return /silk|soie|metal/.test(fin) ? "cdot--silk" : /transparent|translucide/.test(fin) ? "cdot--glass" : ""; };
+function colorsHTML(p) {
+  const opts = colorOptions(p);
+  if (!opts.length) return "";
+  return `<section class="pd__opt" aria-labelledby="pd-colors">
+    <h3 id="pd-colors">${t("Choisir la couleur")} <small id="pd-color-sel">${t("(facultatif)")}</small></h3>
+    <div class="pd__colors" role="group" aria-labelledby="pd-colors">
+      ${opts.map((f) => `<button type="button" class="cbtn" data-color="${esc(colorValue(f))}" aria-pressed="${mstate.color === colorValue(f)}"><span class="cdot ${swatchClass(f)}" style="--c:${esc(f.hex)}"></span>${esc(t(f.color))}</button>`).join("")}
+    </div>
+  </section>`;
+}
+
+/** Boutons d'action de la fenêtre (recalculés quand la couleur / la personnalisation changent) */
+function actionsHTML(p) {
+  const links = orderLinks(p, p.inStock ? "order" : "notify", { color: mstate.color, note: mstate.note.trim() });
   const main = links[CONFIG.orderMethod] || links.whatsapp;
   const others = Object.values(links).filter((l) => l !== main);
-  const desc = paragraphs(p.details || p.desc);
-  const issues = bullets(p.issues);
-  const img = esc(p.image || placeholder(p));
+  return `
+    <div class="pd__actions">
+      ${p.inStock
+        ? `<a class="btn btn--primary" href="${main.url}" target="_blank" rel="noopener"><i class="${main.icon}"></i> ${p.custom ? t("Personnaliser & commander") : t("Commander")}</a>
+           <button class="btn btn--ghost" type="button" data-pd-cart><i class="fa-solid fa-cart-plus"></i> ${t("Ajouter au panier")}</button>`
+        : `<a class="btn btn--ghost" href="${main.url}" target="_blank" rel="noopener"><i class="fa-regular fa-bell"></i> ${t("Me prévenir du retour en stock")}</a>`}
+    </div>
+    <div class="pd__tools">
+      ${others.map((l) => `<a class="btn-icon" href="${l.url}" target="_blank" rel="noopener" title="${esc(t("Via {canal}", { canal: l.label }))}" aria-label="${esc(t("Via {canal}", { canal: l.label }))}"><i class="${l.icon}"></i></a>`).join("")}
+      ${favBtn(p, "btn-icon fav fav--inline")}
+      <button class="btn-icon" type="button" data-share aria-label="${esc(t("Partager ce produit"))}" title="${esc(t("Partager ce produit"))}"><i class="fa-solid fa-share-nodes"></i></button>
+    </div>`;
+}
+const refreshActions = () => { const p = findProduct(mstate.id); if (p && $("#pd-actions")) $("#pd-actions").innerHTML = actionsHTML(p); };
+
+function openProduct(id, keep) {
+  const p = findProduct(id);
+  if (!p) return false;
+  mstate = keep || { id: p.id, color: "", note: "" };
+  const mat = matClass(p.material);
+  const desc = paragraphs(loc(p, "details") || loc(p, "desc"));
+  const issues = bullets(loc(p, "issues"));
+  const title = loc(p, "title");
+  const imgs = [p.image || placeholder(p), ...p.images].slice(0, 6);
+  const multi = imgs.length > 1;
 
   $("#pd").className = "pd" + (p.inStock ? "" : " is-oos");
   $("#pd").innerHTML = `
     <div class="pd__media">
-      <img src="${img}" alt="${esc(p.title)}" decoding="async" data-fallback="${esc(p.id)}">
+      <div class="pd__slides" id="pd-slides" ${multi ? `tabindex="0" role="group" aria-roledescription="carousel" aria-label="${esc(t("Photos du produit"))}"` : ""}>
+        ${imgs.map((src, i) => `<img src="${esc(src)}" alt="${esc(title)}${multi ? ` (${i + 1}/${imgs.length})` : ""}" decoding="async" ${i ? 'loading="lazy"' : ""} data-fallback="${esc(p.id)}">`).join("")}
+      </div>
+      ${multi ? `
+        <button class="pd__nav pd__nav--prev" type="button" data-nav="-1" aria-label="${esc(t("Photo précédente"))}"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="pd__nav pd__nav--next" type="button" data-nav="1" aria-label="${esc(t("Photo suivante"))}"><i class="fa-solid fa-chevron-right"></i></button>
+        <div class="pd__dots">${imgs.map((_, i) => `<button type="button" data-slide="${i}" aria-label="${esc(t("Photo {n}", { n: i + 1 }))}" ${i ? "" : 'aria-current="true"'}></button>`).join("")}</div>` : ""}
       <span class="tag tag--${mat}">${esc(p.material)}</span>
-      ${!p.inStock ? `<span class="ribbon ribbon--oos">Hors stock</span>` : p.badge ? `<span class="ribbon">${esc(p.badge)}</span>` : ""}
+      ${ribbonsHTML(p)}
     </div>
     <div class="pd__body">
-      <span class="pd__cat">${esc(p.category)}</span>
-      <h2 class="pd__title" id="pd-title">${esc(p.title)}</h2>
-      <div class="pd__price">${formatPrice(p.price)}<small> ${CONFIG.currency}</small></div>
+      <span class="pd__cat">${esc(t(p.category))}</span>
+      <h2 class="pd__title" id="pd-title">${esc(title)}</h2>
+      <div class="pd__price">${priceHTML(p)}</div>
       <div class="pd__chips">
         <span><i class="fa-solid fa-cube"></i>${esc(p.material)}</span>
         ${p.size ? `<span><i class="fa-solid fa-ruler-combined"></i>${esc(p.size)}</span>` : ""}
-        ${p.time ? `<span><i class="fa-regular fa-clock"></i>Fabrication : ${esc(p.time)}</span>` : ""}
+        ${p.time ? `<span><i class="fa-regular fa-clock"></i>${t("Fabrication : {d}", { d: esc(p.time) })}</span>` : ""}
       </div>
-      <div class="pd__desc">${desc.map((t) => `<p>${esc(t)}</p>`).join("")}</div>
-      ${issues.length ? `<section class="pd__warn" aria-labelledby="pd-warn"><h3 id="pd-warn"><i class="fa-solid fa-triangle-exclamation"></i>Points d'attention &amp; problèmes possibles</h3><ul>${issues.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></section>` : ""}
-      <div class="pd__actions">
-        ${p.inStock
-          ? `<a class="btn btn--primary" href="${main.url}" target="_blank" rel="noopener"><i class="${main.icon}"></i> Commander</a>`
-          : `<a class="btn btn--ghost" href="${main.url}" target="_blank" rel="noopener"><i class="fa-regular fa-bell"></i> Me prévenir du retour en stock</a>`}
-        ${others.map((l) => `<a class="btn-icon" href="${l.url}" target="_blank" rel="noopener" title="Via ${l.label}" aria-label="Via ${l.label}"><i class="${l.icon}"></i></a>`).join("")}
-      </div>
+      <div class="pd__desc">${desc.map((x) => `<p>${esc(x)}</p>`).join("")}</div>
+      ${p.custom ? customHTML(p) : ""}
+      ${p.inStock ? colorsHTML(p) : ""}
+      ${issues.length ? `<section class="pd__warn" aria-labelledby="pd-warn"><h3 id="pd-warn"><i class="fa-solid fa-triangle-exclamation"></i>${t("Points d'attention & problèmes possibles")}</h3><ul>${issues.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></section>` : ""}
+      <div id="pd-actions">${actionsHTML(p)}</div>
     </div>`;
   const dlg = pdDialog();
   if (!dlg.open) dlg.showModal();
   $("#pd").scrollTop = 0;
   document.body.classList.add("modal-open");
+  track("/produit/" + p.id, p.title);
   return true;
+}
+
+/** Diaporama de la fenêtre produit : position courante, flèches, points */
+function slideGo(i) {
+  const s = $("#pd-slides"); if (!s) return;
+  const n = s.children.length, k = Math.max(0, Math.min(n - 1, i));
+  s.scrollTo({ left: k * s.clientWidth, behavior: "smooth" });
+}
+function slideSync() {
+  const s = $("#pd-slides"); if (!s) return;
+  const i = Math.round(s.scrollLeft / Math.max(1, s.clientWidth));
+  $$(".pd__dots button").forEach((b, k) => (k === i ? b.setAttribute("aria-current", "true") : b.removeAttribute("aria-current")));
+  const prev = $(".pd__nav--prev"), next = $(".pd__nav--next");
+  if (prev) prev.disabled = i <= 0;
+  if (next) next.disabled = i >= s.children.length - 1;
+}
+
+/** Partage : feuille de partage du téléphone, sinon copie du lien */
+async function shareProduct(p) {
+  const url = `${location.origin}/api/share/${encodeURIComponent(p.id)}`;
+  try {
+    if (navigator.share) { await navigator.share({ title: p.title, text: `${p.title} – ${formatPrice(p.price)} ${CONFIG.currency}`, url }); return; }
+    await navigator.clipboard.writeText(url);
+    toast(t("Lien copié"));
+  } catch (e) { if (e?.name !== "AbortError") { prompt(t("Copiez ce lien :"), url); } }
 }
 
 /** Clic sur une carte (hors boutons/liens de commande) => ouvre la fenêtre via l'URL #produit/ID */
@@ -1058,20 +1666,186 @@ function closeProduct() {
   if (dlg.open) dlg.close();
 }
 
-/* ---------- Onglets (Catalogue / Sur-mesure / Filaments / Infos) ----------
+/* ---------- Panier (enregistré dans le téléphone du visiteur) ---------- */
+let cart = (store.get("cart_v1", []) || []).filter((c) => c && typeof c.pid === "string")
+  .map((c) => ({ pid: c.pid, qty: Math.max(1, Math.min(99, parseInt(c.qty, 10) || 1)), color: String(c.color || "").slice(0, 80), note: String(c.note || "").slice(0, 300) })).slice(0, 40);
+const cartCount = () => cart.reduce((n, c) => n + c.qty, 0);
+const cartLines = () => cart.map((c, i) => ({ c, i, p: findProduct(c.pid) })).filter((l) => l.p);
+function saveCart() { store.set("cart_v1", cart); renderCartBadge(); if ($("#cart-dialog").open) renderCart(); }
+
+function cartAdd(pid, { color = "", note = "" } = {}) {
+  pid = String(pid);
+  const hit = cart.find((c) => c.pid === pid && c.color === color && c.note === note);
+  if (hit) hit.qty = Math.min(99, hit.qty + 1); else cart.push({ pid, qty: 1, color, note });
+  saveCart();
+  toast(t("Ajouté au panier"));
+}
+function renderCartBadge() {
+  const n = cartCount(), b = $("#cart-count");
+  b.textContent = n; b.hidden = !n;
+  $("#cart-btn").setAttribute("aria-label", t("Panier ({n})", { n }));
+}
+
+/** Message de commande groupée (même texte pour WhatsApp et e-mail) */
+function cartMessage() {
+  const lines = cartLines().filter((l) => l.p.inStock);
+  const cur = CONFIG.currency;
+  const rows = lines.map(({ c, p }) => {
+    const opt = [p.material, c.color && t("couleur : {c}", { c: c.color })].filter(Boolean).join(", ");
+    const price = (p.custom ? t("à partir de") + " " : "") + formatPrice(p.price * c.qty) + " " + cur;
+    return `- ${c.qty} × ${p.title} (${opt}) – ${price}` + (p.custom ? `\n   ${t("Personnalisation :")} ${c.note || t("à préciser")}` : "");
+  });
+  const total = lines.reduce((s, { c, p }) => s + p.price * c.qty, 0);
+  const comment = $("#cart-msg").value.trim();
+  return [t("Bonjour, je souhaite commander :"), "", ...rows, "", `${t("Total estimé")} : ${formatPrice(total)} ${cur} (${t("hors livraison")})`, "",
+    comment ? comment : t("Adresse de livraison :") + "\n"].join("\n");
+}
+function renderCart() {
+  const lines = cartLines();
+  const body = $("#cart-body"), foot = $("#cart-foot");
+  foot.hidden = !lines.length;
+  if (!lines.length) {
+    body.innerHTML = `<div class="cart__empty"><i class="fa-solid fa-bag-shopping"></i><b>${t("Votre panier est vide")}</b><p>${t("Ajoutez des produits depuis le catalogue, puis envoyez une seule commande groupée.")}</p></div>`;
+    return;
+  }
+  body.innerHTML = `<ul class="cart__list">${lines.map(({ c, i, p }) => `
+    <li class="cl ${p.inStock ? "" : "cl--oos"}" data-i="${i}">
+      <img src="${esc(p.image || placeholder(p))}" alt="" width="64" height="64" loading="lazy" data-fallback="${esc(p.id)}">
+      <div class="cl__info">
+        <b>${esc(loc(p, "title"))}</b>
+        <small>${esc(p.material)}${c.color ? " · " + esc(c.color) : ""}</small>
+        ${p.custom ? `<small class="cl__note">${c.note ? esc(c.note) : t("Personnalisation à préciser")}</small>` : ""}
+        ${p.inStock ? "" : `<small class="cl__oos">${t("Indisponible : non inclus dans la commande")}</small>`}
+      </div>
+      <div class="cl__side">
+        <span class="cl__price">${p.custom ? t("dès") + " " : ""}${formatPrice(p.price * c.qty)} ${CONFIG.currency}</span>
+        <div class="qty"><button type="button" data-q="-1" aria-label="${esc(t("Diminuer la quantité"))}">−</button><span aria-live="polite">${c.qty}</span><button type="button" data-q="1" aria-label="${esc(t("Augmenter la quantité"))}">+</button></div>
+        <button class="cl__rm" type="button" data-rm aria-label="${esc(t("Retirer du panier"))}" title="${esc(t("Retirer du panier"))}"><i class="fa-regular fa-trash-can"></i></button>
+      </div>
+    </li>`).join("")}</ul>`;
+  const total = lines.filter((l) => l.p.inStock).reduce((s, { c, p }) => s + p.price * c.qty, 0);
+  const anyCustom = lines.some((l) => l.p.inStock && l.p.custom);
+  $("#cart-total").textContent = `${formatPrice(total)} ${CONFIG.currency}`;
+  $("#cart-note").textContent = anyCustom ? t("Hors livraison. Le prix des personnalisations est confirmé avec vous avant l'impression.") : t("Hors livraison. Je vous confirme disponibilité, délai et frais d'envoi.");
+  updateCartLinks();
+}
+function updateCartLinks() {
+  const msg = cartMessage();
+  const main = CONFIG.orderMethod;
+  $("#cart-wa").href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+  $("#cart-mail").href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(t("Commande (panier)"))}&body=${encodeURIComponent(msg)}`;
+  $("#cart-ig").href = `https://ig.me/m/${CONFIG.instagram}`;
+  for (const [id, key] of [["#cart-wa", "whatsapp"], ["#cart-ig", "instagram"], ["#cart-mail", "email"]]) $(id).classList.toggle("btn--primary", key === main), $(id).classList.toggle("btn--ghost", key !== main);
+}
+/** Retire du panier les produits qui n'existent plus dans le catalogue */
+function pruneCart() {
+  const before = cart.length;
+  cart = cart.filter((c) => findProduct(c.pid));
+  if (cart.length !== before) store.set("cart_v1", cart);
+  renderCartBadge();
+}
+
+/* ---------- Galerie de réalisations + avis clients ---------- */
+function renderGallery() {
+  const has = gallery.length || reviews.length;
+  $("#tab-galerie").hidden = !has;
+  $("#gal-works").hidden = !gallery.length;
+  $("#gal-reviews").hidden = !reviews.length;
+  $("#gal-grid").innerHTML = gallery.map((g, i) => `
+    <figure class="gfig">
+      <button type="button" data-lb="${i}" aria-label="${esc(t("Agrandir la photo") + (g.title ? " : " + g.title : ""))}"><img src="${esc(g.image)}" alt="${esc(g.title || t("Réalisation"))}" loading="lazy" decoding="async" width="400" height="300"></button>
+      ${(g.title || g.caption) ? `<figcaption>${g.title ? `<b>${esc(g.title)}</b>` : ""}${g.caption ? `<span>${esc(g.caption)}</span>` : ""}</figcaption>` : ""}
+    </figure>`).join("");
+  const stars = (n) => `<span class="stars" role="img" aria-label="${esc(t("{n} sur 5", { n }))}">${"★".repeat(n)}<span class="off">${"★".repeat(5 - n)}</span></span>`;
+  $("#reviews").innerHTML = reviews.map((r) => `<article class="rcard">${stars(r.stars)}<p>« ${esc(r.text)} »</p><b>${esc(r.name)}</b></article>`).join("");
+  if (reviews.length) {
+    const avg = reviews.reduce((s, r) => s + r.stars, 0) / reviews.length;
+    $("#reviews-avg").textContent = `★ ${avg.toFixed(1).replace(".", LANG === "en" ? "." : ",")} / 5 · ` + t(reviews.length > 1 ? "{n} avis" : "{n} avis client", { n: reviews.length });
+  }
+}
+let lbIndex = 0;
+function openLightbox(i) {
+  const g = gallery[i]; if (!g) return;
+  lbIndex = i;
+  $("#lb-img").src = g.image; $("#lb-img").alt = g.title || "";
+  $("#lb-cap").innerHTML = (g.title ? `<b>${esc(g.title)}</b>` : "") + (g.caption ? ` <span>${esc(g.caption)}</span>` : "");
+  $(".lb__nav--prev").hidden = $(".lb__nav--next").hidden = gallery.length < 2;
+  if (!$("#lightbox").open) $("#lightbox").showModal();
+}
+
+/* ---------- Estimateur de prix (page Sur-mesure) ----------
+   Estimation grossière : volume de la « boîte » englobante × taux de remplissage × densité → poids → temps → prix.
+   Les tarifs viennent des réglages de l'admin ; le devis final est toujours confirmé par vos soins. */
+const SHAPES = { light: 0.05, std: 0.10, dense: 0.22 };      // part de la boîte englobante réellement remplie de plastique
+const DENSITY = { PLA: 1.24, PETG: 1.27 };                    // g/cm³
+function computeEstimate() {
+  const f = $("#est-form").elements;
+  const x = parseFloat(f.x.value), y = parseFloat(f.y.value), z = parseFloat(f.z.value);
+  const qty = Math.max(1, Math.min(100, parseInt(f.qty.value, 10) || 1));
+  if (!(x > 0 && y > 0 && z > 0)) return null;
+  const mat = f.mat.value;
+  const grams = Math.max(3, x * y * z * SHAPES[f.shape.value] * (DENSITY[mat] || 1.24));
+  const hours = grams / Math.max(1, CONFIG.estSpeed);
+  const unit = Math.max(CONFIG.estMin, grams * (mat === "PETG" ? CONFIG.estPetg : CONFIG.estPla) + hours * CONFIG.estHour);
+  const total = unit * qty + CONFIG.estFee;
+  return { x, y, z, qty, mat, grams, hours, low: Math.floor(total * 0.8), high: Math.ceil(total * 1.3), big: Math.max(x, y, z) > 35,
+           shape: f.shape.options[f.shape.selectedIndex].text };
+}
+const fmtHours = (h) => (h < 1 ? t("{n} min", { n: Math.max(5, Math.round(h * 60 / 5) * 5) }) : t("{n} h", { n: (Math.round(h * 2) / 2).toString().replace(".", LANG === "en" ? "." : ",") }));
+function renderEstimate() {
+  const out = $("#est-result"), e = computeEstimate();
+  if (!e) { out.innerHTML = `<p class="est__hint">${t("Renseignez les 3 dimensions pour obtenir une estimation.")}</p>`; return; }
+  const range = e.low === e.high ? `${e.low} ${CONFIG.currency}` : `${e.low} – ${e.high} ${CONFIG.currency}`;
+  const msg = t("Bonjour, je souhaite un devis pour un objet d'environ {x} × {y} × {z} cm en {mat} ({shape}), quantité : {q}.\nVotre estimateur indique {range}.", { x: e.x, y: e.y, z: e.z, mat: e.mat, shape: e.shape, q: e.qty, range });
+  out.innerHTML = `
+    <div class="est__price"><small>${t("Estimation indicative")}</small><b>${range}</b></div>
+    <ul class="est__meta"><li>${t("Poids estimé : ~{g} g par pièce", { g: Math.round(e.grams) })}</li><li>${t("Temps d'impression : ~{t} par pièce", { t: fmtHours(e.hours) })}</li></ul>
+    ${e.big ? `<p class="est__warn"><i class="fa-solid fa-circle-exclamation"></i> ${t("Au-delà de ~35 cm, la pièce devra peut-être être découpée en plusieurs morceaux.")}</p>` : ""}
+    <p class="est__disc">${t("Simple ordre de grandeur : le prix réel dépend de la forme exacte, des supports et de la finition. Je vous envoie un devis ferme après vérification de votre modèle.")}</p>
+    <div class="est__cta">
+      <a class="btn btn--primary btn--sm" target="_blank" rel="noopener" href="https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}"><i class="fa-brands fa-whatsapp"></i> ${t("Demander ce devis")}</a>
+      <a class="btn btn--ghost btn--sm" href="mailto:${CONFIG.email}?subject=${encodeURIComponent(t("Demande de devis"))}&body=${encodeURIComponent(msg)}"><i class="fa-solid fa-envelope"></i> E-mail</a>
+    </div>`;
+}
+
+/* ---------- Formulaire « envoyer mon fichier » (Netlify Forms) ---------- */
+const MAX_UPLOAD = 7.5 * 1024 * 1024;          // Netlify Forms accepte 8 Mo par envoi
+async function submitStlForm(e) {
+  e.preventDefault();
+  const form = e.target, msg = $("#stl-msg"), btn = $("#stl-send");
+  const file = form.elements.file.files[0];
+  const setMsg = (kind, text) => { msg.className = "form__msg form__msg--" + kind; msg.textContent = text; };
+  if (file && file.size > MAX_UPLOAD) return setMsg("err", t("Fichier trop lourd (7,5 Mo maximum). Envoyez-le plutôt par e-mail ou WhatsApp."));
+  if (file && !/\.(stl|3mf|obj|step|stp|zip)$/i.test(file.name)) return setMsg("err", t("Format non accepté (STL, 3MF, OBJ, STEP ou ZIP)."));
+  btn.disabled = true; setMsg("info", t("Envoi en cours…"));
+  try {
+    const res = await fetch("/", { method: "POST", body: new FormData(form) });        // ne pas fixer Content-Type : le navigateur gère le multipart
+    if (!res.ok) throw new Error(res.status);
+    form.reset();
+    setMsg("ok", t("Merci ! Votre demande est bien envoyée. Je vérifie votre modèle et je vous réponds sous 24 h."));
+  } catch {
+    setMsg("err", t("L'envoi a échoué. Réessayez, ou écrivez-moi directement par e-mail / WhatsApp."));
+  }
+  btn.disabled = false;
+}
+
+/* ---------- Onglets (Catalogue / Sur-mesure / Filaments / Galerie / Infos) ----------
    Navigation par hash : #catalogue, #sur-mesure, #infos (liens partageables, bouton « retour » OK) */
-const TABS = ["catalogue", "sur-mesure", "filaments", "infos"];
+const TABS = ["catalogue", "sur-mesure", "filaments", "galerie", "infos"];
 let currentTab = null;
 function showTab(name, { scroll = true } = {}) {
   if (name === currentTab) scroll = false;           // pas de saut en haut si on reste sur le même onglet
+  const changed = name !== currentTab;
   currentTab = name;
-  $$(".tab").forEach((t) => {
-    const on = t.dataset.tab === name;
-    t.setAttribute("aria-selected", on);
-    t.tabIndex = on ? 0 : -1;
+  $$(".tab").forEach((tb) => {
+    const on = tb.dataset.tab === name;
+    tb.setAttribute("aria-selected", on);
+    tb.tabIndex = on ? 0 : -1;
+    if (on && changed) tb.scrollIntoView?.({ inline: "center", block: "nearest" });
   });
   $$(".panel").forEach((pn) => (pn.hidden = pn.dataset.panel !== name));
   if (scroll) window.scrollTo({ top: 0 });
+  if (changed) track("/" + name, name);
 }
 function routeFromHash() {
   const h = decodeURIComponent(location.hash.slice(1));
@@ -1082,23 +1856,45 @@ function routeFromHash() {
     return;
   }
   if (pdDialog().open) closeProduct();               // « retour » du navigateur => ferme la fenêtre
+  if (h === "galerie" && catalogLoaded && !gallery.length && !reviews.length) return showTab("catalogue");   // galerie vide = onglet masqué
   if (TABS.includes(h)) return showTab(h);
   if (h === "produits") { showTab("catalogue", { scroll: false }); $("#produits").scrollIntoView(); return; }
   if (h === "contact") return;                       // simple ancre vers le footer
   showTab("catalogue", { scroll: false });
 }
 
+/* ---------- Données structurées (Google : prix, disponibilité…) ---------- */
+function updateJsonLd() {
+  if (!/^https?:$/.test(location.protocol)) return;
+  const abs = (u) => { try { return new URL(u, location.href).href; } catch { return undefined; } };
+  const ld = {
+    "@context": "https://schema.org", "@type": "ItemList", name: CONFIG.brand,
+    itemListElement: products.slice(0, 60).map((p, i) => ({
+      "@type": "ListItem", position: i + 1,
+      item: {
+        "@type": "Product", name: p.title, description: p.desc, category: p.category, material: p.material,
+        image: p.image ? abs(p.image) : undefined, url: `${location.origin}/api/share/${encodeURIComponent(p.id)}`,
+        offers: { "@type": "Offer", price: Number(p.price).toFixed(2), priceCurrency: "EUR", availability: p.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock" }
+      }
+    }))
+  };
+  let el = $("#ld-json");
+  if (!el) { el = document.createElement("script"); el.type = "application/ld+json"; el.id = "ld-json"; document.head.appendChild(el); }
+  el.textContent = JSON.stringify(ld).replace(/</g, "\\u003c");
+}
+
 /* ---------- Événements ---------- */
 function bindEvents() {
   // Onglets : clic + navigation clavier (← → Début Fin)
-  const tabs = $$(".tab");
-  tabs.forEach((t, i) => {
-    t.addEventListener("click", () => { location.hash = t.dataset.tab; });
-    t.addEventListener("keydown", (e) => {
-      const keys = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 };
+  const visibleTabs = () => $$(".tab").filter((x) => !x.hidden);
+  $$(".tab").forEach((tb) => {
+    tb.addEventListener("click", () => { location.hash = tb.dataset.tab; });
+    tb.addEventListener("keydown", (e) => {
+      const list = visibleTabs(), i = list.indexOf(tb);
+      const keys = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: list.length - 1 };
       if (!(e.key in keys)) return;
       e.preventDefault();
-      const next = tabs[(keys[e.key] + tabs.length) % tabs.length];
+      const next = list[(keys[e.key] + list.length) % list.length];
       next.focus(); location.hash = next.dataset.tab;
     });
   });
@@ -1113,17 +1909,29 @@ function bindEvents() {
     const chip = e.target.closest(".chip");
     if (!chip) return;
     state.category = chip.dataset.cat;
-    $$(".chip").forEach((c) => c.setAttribute("aria-pressed", c === chip));
+    $$("#filters .chip").forEach((c) => c.setAttribute("aria-pressed", c === chip));
     render();
   });
 
-  // Fenêtre produit : clic sur une carte, fermeture (croix, fond, Échap, retour navigateur)
+  // Grille : panier, ouverture de la fenêtre produit
   $("#grid").addEventListener("click", (e) => {
-    if (e.target.closest("a, .btn-icon")) return;      // liens de commande : comportement normal
+    const cartBtn = e.target.closest("[data-cart]");
+    if (cartBtn) {
+      const p = findProduct(cartBtn.dataset.cart);
+      if (!p) return;
+      if (p.custom) { requestOpen(p.id); toast(t("Précisez votre personnalisation, puis ajoutez au panier")); }   // il faut d'abord décrire la personnalisation
+      else cartAdd(p.id);
+      return;
+    }
+    if (e.target.closest("a, .btn-icon, .fav")) return;      // liens de commande / favoris : comportement normal
     const card = e.target.closest(".card");
     const id = card?.querySelector("[data-open]")?.dataset.open;
     if (id) requestOpen(id);
   });
+  // Favoris : partout (cartes + fenêtre produit)
+  document.addEventListener("click", (e) => { const f = e.target.closest("[data-fav]"); if (f) toggleFav(f.dataset.fav); });
+
+  // Fenêtre produit : fermeture (croix, fond, Échap, retour navigateur) + interactions internes
   const pd = pdDialog();
   $("#pd-close").addEventListener("click", closeProduct);
   pd.addEventListener("click", (e) => { if (e.target === pd) closeProduct(); });    // clic sur le fond sombre
@@ -1135,12 +1943,71 @@ function bindEvents() {
     }
     openedViaApp = false;
   });
-  pd.addEventListener("error", (e) => {                 // image cassée dans la fenêtre
-    if (e.target.tagName !== "IMG" || e.target.dataset.failed) return;
-    e.target.dataset.failed = "1";
-    const p = products.find((x) => String(x.id) === e.target.dataset.fallback);
-    if (p) e.target.src = placeholder(p);
-  }, true);
+  const pdBox = $("#pd");
+  pdBox.addEventListener("click", (e) => {
+    const color = e.target.closest(".cbtn");
+    if (color) {
+      mstate.color = mstate.color === color.dataset.color ? "" : color.dataset.color;      // second clic = désélection
+      $$(".cbtn", pdBox).forEach((b) => b.setAttribute("aria-pressed", b.dataset.color === mstate.color));
+      const f = filaments.find((x) => colorValue(x) === mstate.color);
+      $("#pd-color-sel").textContent = f ? "· " + t(f.color) : t("(facultatif)");
+      return refreshActions();
+    }
+    const nav = e.target.closest("[data-nav]");
+    if (nav) { const s = $("#pd-slides"); return slideGo(Math.round(s.scrollLeft / s.clientWidth) + Number(nav.dataset.nav)); }
+    const dot = e.target.closest("[data-slide]");
+    if (dot) return slideGo(Number(dot.dataset.slide));
+    if (e.target.closest("[data-pd-cart]")) return cartAdd(mstate.id, { color: mstate.color, note: mstate.note.trim() });
+    if (e.target.closest("[data-share]")) { const p = findProduct(mstate.id); if (p) shareProduct(p); }
+  });
+  pdBox.addEventListener("input", (e) => { if (e.target.id === "pd-note") { mstate.note = e.target.value; refreshActions(); } });
+  pdBox.addEventListener("scroll", (e) => { if (e.target.id === "pd-slides") slideSync(); }, true);   // « scroll » ne remonte pas : on le capture
+  pdBox.addEventListener("keydown", (e) => {
+    if (e.target.id !== "pd-slides" || !["ArrowLeft", "ArrowRight"].includes(e.key)) return;
+    e.preventDefault(); const s = e.target; slideGo(Math.round(s.scrollLeft / s.clientWidth) + (e.key === "ArrowRight" ? 1 : -1));
+  });
+  // Image cassée => visuel de remplacement (capture car "error" ne "bubble" pas)
+  const brokenImg = (e) => {
+    const img = e.target;
+    if (img.tagName !== "IMG" || img.dataset.failed || !img.dataset.fallback) return;
+    img.dataset.failed = "1";
+    const p = findProduct(img.dataset.fallback);
+    if (p) img.src = placeholder(p);
+  };
+  pd.addEventListener("error", brokenImg, true);
+  $("#grid").addEventListener("error", brokenImg, true);
+  $("#cart-body").addEventListener("error", brokenImg, true);
+
+  // Panier
+  const cartDlg = $("#cart-dialog");
+  $("#cart-btn").addEventListener("click", () => { renderCart(); cartDlg.showModal(); });
+  $("#cart-close").addEventListener("click", () => cartDlg.close());
+  cartDlg.addEventListener("click", (e) => { if (e.target === cartDlg) cartDlg.close(); });
+  $("#cart-body").addEventListener("click", (e) => {
+    const li = e.target.closest(".cl"); if (!li) return;
+    const i = Number(li.dataset.i), item = cart[i]; if (!item) return;
+    const q = e.target.closest("[data-q]");
+    if (q) { item.qty = Math.max(1, Math.min(99, item.qty + Number(q.dataset.q))); return saveCart(); }
+    if (e.target.closest("[data-rm]")) { cart.splice(i, 1); saveCart(); }
+  });
+  $("#cart-msg").addEventListener("input", updateCartLinks);
+  $("#cart-clear").addEventListener("click", () => { if (confirm(t("Vider le panier ?"))) { cart = []; saveCart(); } });
+  $("#cart-ig").addEventListener("click", async () => {       // Instagram ne permet pas de pré-remplir : on copie le message
+    try { await navigator.clipboard.writeText(cartMessage()); toast(t("Message copié : collez-le dans la conversation Instagram")); } catch { /* copie impossible : on ouvre quand même */ }
+  });
+
+  // Galerie + visionneuse
+  $("#gal-grid").addEventListener("click", (e) => { const b = e.target.closest("[data-lb]"); if (b) openLightbox(Number(b.dataset.lb)); });
+  const lb = $("#lightbox");
+  $("#lb-close").addEventListener("click", () => lb.close());
+  lb.addEventListener("click", (e) => { if (e.target === lb) lb.close(); });
+  $$("[data-lbnav]").forEach((b) => b.addEventListener("click", () => openLightbox((lbIndex + Number(b.dataset.lbnav) + gallery.length) % gallery.length)));
+  lb.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") openLightbox((lbIndex + 1) % gallery.length); if (e.key === "ArrowLeft") openLightbox((lbIndex - 1 + gallery.length) % gallery.length); });
+
+  // Estimateur + formulaire sur-mesure
+  $("#est-form").addEventListener("input", renderEstimate);
+  $("#est-form").addEventListener("submit", (e) => e.preventDefault());
+  $("#stl-form").addEventListener("submit", submitStlForm);
 
   // Filaments
   $("#fil-types").addEventListener("click", (e) => { const c = e.target.closest(".chip"); if (c) { fstate.type = c.dataset.type; renderFilaments(); } });
@@ -1149,49 +2016,96 @@ function bindEvents() {
   $("#sort").addEventListener("change", (e) => { state.sort = e.target.value; render(); });
   $("#only-stock").addEventListener("change", (e) => { state.onlyStock = e.target.checked; render(); });
 
-  // Image cassée => visuel de remplacement (capture car "error" ne "bubble" pas)
-  $("#grid").addEventListener("error", (e) => {
-    const img = e.target;
-    if (img.tagName !== "IMG" || img.dataset.failed) return;
-    img.dataset.failed = "1";
-    const p = products.find((x) => String(x.id) === img.dataset.fallback);
-    if (p) img.src = placeholder(p);
-  }, true);
+  // Bandeau d'annonce : fermeture mémorisée
+  $("#announce-close").addEventListener("click", () => { store.set("ann_closed", CONFIG.bannerText); $("#announce").hidden = true; });
+
+  // Langue
+  $("#lang-btn").addEventListener("click", () => setLang(LANG === "fr" ? "en" : "fr"));
 
   // Modale mentions légales
   const legal = $("#legal");
   $("#open-legal").addEventListener("click", () => legal.showModal());
   $("#close-legal").addEventListener("click", () => legal.close());
   legal.addEventListener("click", (e) => { if (e.target === legal) legal.close(); });
+
+  // Installation de l'application (Android / Chrome / Edge ; sur iPhone : Partager → Sur l'écran d'accueil)
+  let installEvt = null;
+  window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); installEvt = e; $("#install-btn").hidden = false; });
+  window.addEventListener("appinstalled", () => { $("#install-btn").hidden = true; });
+  $("#install-btn").addEventListener("click", async () => { if (!installEvt) return; installEvt.prompt(); await installEvt.userChoice.catch(() => {}); installEvt = null; $("#install-btn").hidden = true; });
 }
 
 /** Injecte la config dans les éléments marqués data-bind / data-link */
-function applyConfig() {
-  buildLinks();
+function fillBindings() {
   $$("[data-bind='brand']").forEach((el) => (el.textContent = CONFIG.brand));
   $$("[data-bind='email']").forEach((el) => (el.textContent = CONFIG.email));
+}
+function applyConfig() {
+  buildLinks();
+  fillBindings();
   $$("[data-link]").forEach((el) => (el.href = LINKS[el.dataset.link] || "#"));
-  document.title = document.title.replace(/^.*?( – FDM)/, `${CONFIG.brand} – FDM`);
+  $("#estimator").hidden = CONFIG.estOn === false;
+  updateTitle();
+}
+
+/** Redessine tout ce qui est généré par JavaScript (après un changement de langue ou de données) */
+function renderDynamic() {
+  renderAnnounce(); renderFilters(); render(); renderFilaments(); renderGallery(); renderCartBadge(); renderEstimate();
+  if ($("#cart-dialog").open) renderCart();
+  if (pdDialog().open && mstate.id) openProduct(mstate.id, { ...mstate });         // fenêtre produit ouverte : on la retraduit sans perdre les choix
+}
+
+/* ---------- Choix de la langue ---------- */
+async function setLang(lang) {
+  if (lang === "en" && !(await loadEnglish())) return toast("English version unavailable (offline?)");
+  LANG = lang;
+  store.set("lang", lang);
+  document.documentElement.lang = lang;
+  const b = $("#lang-btn");
+  b.querySelector("span").textContent = lang === "fr" ? "EN" : "FR";
+  b.setAttribute("aria-label", lang === "fr" ? "Switch to English" : "Passer en français");
+  b.title = b.getAttribute("aria-label");
+  applyConfig();
+  translateStatic();
+  renderDynamic();
 }
 
 /* ---------- Initialisation ---------- */
 async function init() {
   $("#year").textContent = new Date().getFullYear();
+  if (store.get("lang", "fr") === "en" && (await loadEnglish())) LANG = "en";
+  document.documentElement.lang = LANG;
+  { const b = $("#lang-btn"); b.querySelector("span").textContent = LANG === "fr" ? "EN" : "FR"; b.setAttribute("aria-label", LANG === "fr" ? "Switch to English" : "Passer en français"); b.title = b.getAttribute("aria-label"); }
   applyConfig();
   bindEvents();
+  translateStatic();
   routeFromHash();
+  renderCartBadge();
+  renderEstimate();
 
   $("#grid").innerHTML = skeletonHTML();                 // squelettes pendant le chargement
   const cat = await loadCatalog();
   products = cat.products.map(prepare).filter((p) => p.visible);            // masqués = jamais affichés
   filaments = cat.filaments.map(prepareFil).filter((f) => f.visible);
+  gallery = cat.gallery.filter((g) => g && g.image);
+  reviews = cat.reviews.filter((r) => r && r.text).map((r) => ({ ...r, stars: Math.max(1, Math.min(5, Math.round(Number(r.stars)) || 5)) }));
+  catalogLoaded = true;
   applyConfig();                                         // réglages éventuels venus de l'admin
-  renderFilters();
-  render();
-  renderFilaments();
+  translateStatic();
+  pruneCart();
+  renderDynamic();
+  updateJsonLd();
+  loadStats();
   if (pendingProductId) { openProduct(pendingProductId); pendingProductId = null; }   // lien direct #produit/ID
+  if (currentTab === "galerie" && !gallery.length && !reviews.length) showTab("catalogue");
 }
 init();
+
+/* ---------- Application installable / hors-ligne (service worker) ---------- */
+if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => { /* non bloquant */ }));
+}
+
 </script>
 </body>
 </html>

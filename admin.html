@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0b0f14">
+  <title>Admin – Atelier 3D</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b0f14'/%3E%3Cpath d='M50 18 80 35v30L50 82 20 65V35z' fill='none' stroke='%2322d3ee' stroke-width='7' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <style>
+    :root {
+      --bg: #0b0f14; --bg-soft: #111821; --card: #141c26; --card-hi: #1a2431; --border: #243040;
+      --text: #e7edf4; --muted: #8b9bb0; --accent: #22d3ee; --accent-2: #a78bfa;
+      --ok: #34d399; --warn: #fbbf24; --danger: #f87171;
+      --radius: 14px;
+      --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.55; -webkit-font-smoothing: antialiased;
+      padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    a { color: var(--accent); }
+    [hidden] { display: none !important; }
+    .wrap { width: min(1100px, 100% - 1.5rem); margin-inline: auto; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+    /* ---------- Boutons ---------- */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 44px; padding: .6rem 1.1rem; border-radius: 11px; border: 1px solid var(--border);
+      background: var(--card); font-weight: 600; cursor: pointer; transition: all .15s; white-space: nowrap; text-decoration: none; color: var(--text); }
+    .btn:hover { border-color: var(--accent); color: var(--accent); }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .btn--primary { background: linear-gradient(135deg, var(--accent), #0ea5e9); color: #04202a; border-color: transparent; }
+    .btn--primary:hover { color: #04202a; filter: brightness(1.1); }
+    .btn--danger:hover { border-color: var(--danger); color: var(--danger); }
+    .btn--sm { min-height: 40px; padding: .4rem .8rem; font-size: .9rem; }
+    .icon-btn { width: 40px; height: 40px; min-height: 40px; padding: 0; border-radius: 10px; }
+
+    /* ---------- Connexion ---------- */
+    .login { min-height: 100dvh; display: grid; place-items: center; padding: 1rem;
+      background: radial-gradient(700px 400px at 80% 0%, rgba(34,211,238,.12), transparent 60%), radial-gradient(600px 400px at 0% 100%, rgba(167,139,250,.12), transparent 60%); }
+    .login__box { width: min(400px, 100%); padding: 2rem 1.5rem; border: 1px solid var(--border); border-radius: 20px; background: var(--card); text-align: center; }
+    .login__box i.big { font-size: 2.2rem; color: var(--accent); margin-bottom: .6rem; }
+    .login__box h1 { margin: 0 0 .3rem; font-size: 1.5rem; }
+    .login__box p { color: var(--muted); margin: 0 0 1.3rem; font-size: .92rem; }
+    .field { display: grid; gap: .35rem; text-align: left; margin-bottom: .9rem; }
+    .field > span { font-size: .82rem; color: var(--muted); font-weight: 600; }
+    .field small { color: var(--muted); font-size: .76rem; }
+    input[type=text], input[type=password], input[type=number], input[type=email], input[type=search], select, textarea {
+      width: 100%; min-height: 46px; padding: .65rem .85rem; font-size: 1rem; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-soft); outline: none; }
+    textarea { min-height: 90px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(34,211,238,.15); }
+    .error { color: var(--danger); font-size: .9rem; min-height: 1.3em; margin: .2rem 0 .6rem; }
+
+    /* ---------- Barre du haut + onglets ---------- */
+    .top { position: sticky; top: 0; z-index: 30; background: rgba(11,15,20,.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .top__row { display: flex; align-items: center; justify-content: space-between; gap: .6rem; padding: .6rem 0; flex-wrap: wrap; }
+    .brand { display: flex; align-items: center; gap: .6rem; font-weight: 800; }
+    .brand i { color: var(--accent); }
+    .brand small { font-family: var(--mono); font-size: .68rem; padding: .1rem .45rem; border-radius: 6px; background: rgba(167,139,250,.15); color: var(--accent-2); }
+    .top__actions { display: flex; gap: .5rem; align-items: center; }
+    .status { font-size: .8rem; font-family: var(--mono); color: var(--muted); display: inline-flex; gap: .4rem; align-items: center; }
+    .status.ok { color: var(--ok); } .status.busy { color: var(--warn); } .status.err { color: var(--danger); }
+    .tabs { display: flex; gap: .3rem; overflow-x: auto; padding-bottom: .5rem; scrollbar-width: none; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab { flex: 1 1 0; min-width: max-content; min-height: 42px; display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: .4rem 1rem;
+      background: transparent; border: 1px solid transparent; border-radius: 10px; color: var(--muted); font-weight: 600; cursor: pointer; }
+    .tab:hover { color: var(--text); background: rgba(255,255,255,.04); }
+    .tab[aria-selected="true"] { color: var(--accent); background: rgba(34,211,238,.1); border-color: rgba(34,211,238,.45); }
+    @media (min-width: 720px) { .tab { flex: none; } }
+    main { padding: 1.2rem 0 4rem; }
+
+    /* ---------- Statistiques ---------- */
+    .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: .7rem; margin-bottom: 1.1rem; }
+    @media (min-width: 720px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+    .stat { padding: .85rem 1rem; border-radius: var(--radius); background: var(--card); border: 1px solid var(--border); }
+    .stat b { display: block; font-family: var(--mono); font-size: 1.6rem; line-height: 1.1; }
+    .stat span { color: var(--muted); font-size: .8rem; }
+    .stat--ok b { color: var(--ok); } .stat--warn b { color: var(--warn); } .stat--danger b { color: var(--danger); }
+
+    /* ---------- Barre d'outils liste ---------- */
+    .bar { display: grid; gap: .7rem; margin-bottom: 1rem; }
+    @media (min-width: 720px) { .bar { grid-template-columns: 1fr auto; align-items: center; } }
+    .chips { display: flex; gap: .4rem; overflow-x: auto; scrollbar-width: none; grid-column: 1 / -1; }
+    .chips::-webkit-scrollbar { display: none; }
+    .chip { flex: none; min-height: 38px; padding: .3rem .9rem; border-radius: 999px; border: 1px solid var(--border); background: var(--card); color: var(--muted); font-weight: 600; font-size: .88rem; cursor: pointer; }
+    .chip[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); background: rgba(34,211,238,.1); }
+    .chip small { font-family: var(--mono); opacity: .7; margin-left: .25rem; }
+
+    /* ---------- Liste produits ---------- */
+    .list { display: grid; gap: .7rem; }
+    .row { display: grid; grid-template-columns: 72px 1fr; gap: .8rem .9rem; padding: .8rem; border-radius: var(--radius); background: var(--card); border: 1px solid var(--border); align-items: center; }
+    .row.is-hidden { opacity: .6; border-style: dashed; }
+    .row__img { width: 72px; height: 72px; border-radius: 10px; object-fit: cover; background: var(--bg-soft); }
+    .row__title { font-weight: 700; line-height: 1.3; overflow-wrap: anywhere; }
+    .row__meta { color: var(--muted); font-size: .84rem; margin-top: .1rem; }
+    .row__meta b { font-family: var(--mono); color: var(--text); }
+    .pills { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: .4rem; }
+    .pill { font-size: .7rem; font-weight: 700; font-family: var(--mono); padding: .12rem .5rem; border-radius: 6px; border: 1px solid currentColor; }
+    .pill--custom { color: #c4b5fd; }
+    .custombox { margin-top: .9rem; padding: .9rem 1rem; border-radius: 12px; background: rgba(167,139,250,.07); border: 1px solid rgba(167,139,250,.45); }
+    .custombox .field { margin-bottom: .6rem; }
+    .custombox .hint { display: flex; gap: .6rem; align-items: flex-start; font-size: .84rem; color: #fde68a; background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.4); border-radius: 10px; padding: .6rem .75rem; }
+    .pill--hidden { color: var(--warn); } .pill--oos { color: var(--danger); } .pill--live { color: var(--ok); }
+    .row__controls { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .5rem .9rem; align-items: center; justify-content: space-between; padding-top: .7rem; border-top: 1px solid var(--border); }
+    .switches { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .switch { display: inline-flex; align-items: center; gap: .5rem; cursor: pointer; font-size: .88rem; font-weight: 600; min-height: 40px; user-select: none; }
+    .switch input { position: absolute; opacity: 0; pointer-events: none; }
+    .switch .track { width: 42px; height: 24px; border-radius: 99px; background: #2b3a4d; position: relative; transition: background .2s; flex: none; }
+    .switch .track::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: transform .2s; }
+    .switch input:checked + .track { background: var(--ok); }
+    .switch input:checked + .track::after { transform: translateX(18px); }
+    .switch input:focus-visible + .track { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btns { display: flex; gap: .4rem; }
+    @media (min-width: 720px) {
+      .row { grid-template-columns: 72px 1fr auto; }
+      .row__controls { grid-column: auto; border: 0; padding: 0; justify-content: flex-end; gap: 1.2rem; }
+    }
+    .empty { text-align: center; padding: 2.5rem 1rem; border: 1px dashed var(--border); border-radius: var(--radius); color: var(--muted); }
+    .empty i { font-size: 2rem; color: var(--accent); display: block; margin-bottom: .6rem; }
+    .empty .btn { margin: .3rem; }
+
+    /* ---------- Bandeaux ---------- */
+    .banner { padding: .9rem 1rem; border-radius: var(--radius); margin-bottom: 1rem; border: 1px solid; display: flex; gap: .8rem; align-items: flex-start; flex-wrap: wrap; }
+    .banner > i { margin-top: .2rem; }
+    .banner > div { flex: 1 1 240px; }
+    .banner--info { background: rgba(34,211,238,.07); border-color: rgba(34,211,238,.4); }
+    .banner--warn { background: rgba(251,191,36,.07); border-color: rgba(251,191,36,.45); }
+    .banner--err  { background: rgba(248,113,113,.08); border-color: rgba(248,113,113,.5); }
+    .banner p { margin: .15rem 0 0; color: var(--muted); font-size: .9rem; }
+
+    /* ---------- Formulaires ---------- */
+    .card { padding: 1.2rem; border-radius: var(--radius); background: var(--card); border: 1px solid var(--border); }
+    .grid2 { display: grid; gap: 0 1rem; }
+    @media (min-width: 640px) { .grid2 { grid-template-columns: 1fr 1fr; } }
+    h2 { margin: 0 0 1rem; font-size: 1.25rem; }
+    .help h3 { margin: 1.4rem 0 .4rem; font-size: 1.02rem; color: var(--accent); }
+    .help h3:first-child { margin-top: 0; }
+    .help p, .help li { color: var(--muted); font-size: .94rem; }
+    .help ul, .help ol { padding-left: 1.2rem; margin: .3rem 0; }
+    .help code { font-family: var(--mono); font-size: .85em; padding: .1rem .4rem; border-radius: 6px; background: rgba(255,255,255,.07); color: var(--text); }
+
+    /* ---------- Modale d'édition ---------- */
+    dialog { width: min(680px, 100% - 1rem); max-height: calc(100dvh - 1rem); padding: 0; border-radius: 18px; border: 1px solid var(--border); background: var(--card); color: var(--text); }
+    dialog::backdrop { background: rgba(0,0,0,.72); backdrop-filter: blur(3px); }
+    .dlg__head { display: flex; justify-content: space-between; align-items: center; padding: .9rem 1.2rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--card); z-index: 2; }
+    .dlg__head h3 { margin: 0; font-size: 1.1rem; }
+    .dlg__body { padding: 1.1rem 1.2rem; }
+    .dlg__foot { display: flex; gap: .6rem; justify-content: flex-end; padding: .9rem 1.2rem; border-top: 1px solid var(--border); position: sticky; bottom: 0; background: var(--card); }
+    .upload { display: flex; gap: .9rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; }
+    .upload img { width: 112px; height: 84px; object-fit: cover; border-radius: 10px; background: var(--bg-soft); border: 1px solid var(--border); }
+    .upload__btns { display: grid; gap: .4rem; }
+    .upload small { color: var(--muted); }
+    .toggles { display: flex; gap: 1.5rem; flex-wrap: wrap; padding: .8rem 1rem; border-radius: 12px; background: var(--bg-soft); border: 1px solid var(--border); margin-top: .3rem; }
+
+    /* ---------- Filaments ---------- */
+    .sw { --c: #888; width: 56px; height: 56px; border-radius: 50%; background: var(--c); position: relative; justify-self: center; flex: none;
+      box-shadow: inset 0 0 0 4px rgba(0,0,0,.2), inset 0 -6px 10px rgba(0,0,0,.25); border: 1px solid rgba(255,255,255,.12); }
+    .sw::after { content: ""; position: absolute; inset: 31%; border-radius: 50%; background: var(--card); box-shadow: inset 0 2px 4px rgba(0,0,0,.6); }
+    .sw--lg { width: 84px; height: 84px; }
+    .colorrow { display: grid; grid-template-columns: 56px 1fr; gap: .6rem; align-items: center; }
+    input[type=color] { width: 56px; height: 46px; padding: 3px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-soft); cursor: pointer; }
+    .fpreview { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .fpreview b { display: block; font-size: 1.1rem; }
+    .fpreview small { color: var(--muted); }
+
+    /* ---------- Galerie, avis, extras, sauvegarde ---------- */
+    .sect__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem; margin-bottom: .3rem; }
+    .sect__head h2 { margin: 0; }
+    .muted { color: var(--muted); font-size: .9rem; margin: .2rem 0 1rem; }
+    .stack { display: grid; gap: 1rem; }
+    .row--rev { grid-template-columns: 1fr; }
+    @media (min-width: 720px) { .row--rev { grid-template-columns: 1fr auto; } }
+    .row__quote { color: var(--muted); font-size: .88rem; margin-top: .2rem; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .stars-a { color: #fbbf24; letter-spacing: .08em; }
+    .extras { display: flex; flex-wrap: wrap; gap: .5rem; margin: .1rem 0 .5rem; }
+    .extra { position: relative; width: 72px; height: 72px; }
+    .extra img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-soft); }
+    .extra button { position: absolute; top: -8px; right: -8px; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border); background: #2d1416; color: #fecaca; cursor: pointer; font-size: .8rem; }
+    .fieldset { margin: 1.3rem 0 .4rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .fieldset h3 { margin: 0 0 .2rem; font-size: 1.02rem; color: var(--accent); }
+    details.en { margin-top: .6rem; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }
+    details.en summary { cursor: pointer; padding: .7rem 1rem; font-weight: 600; min-height: 44px; display: flex; align-items: center; }
+    details.en .en__body { padding: 0 1rem .6rem; }
+    .btnrow { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .inline-check { display: flex; gap: .6rem; align-items: center; margin-bottom: .9rem; }
+
+    /* ---------- Toast ---------- */
+    .toast { position: fixed; inset: auto auto calc(1rem + env(safe-area-inset-bottom)) 50%; margin: 0; overflow: visible; transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+      padding: .7rem 1.1rem; border-radius: 12px; background: #0f2a22; border: 1px solid var(--ok); color: #bbf7d0; font-weight: 600; font-size: .92rem; transition: all .25s; z-index: 100; max-width: calc(100% - 2rem); }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    .toast.err { background: #2d1416; border-color: var(--danger); color: #fecaca; }
+  </style>
+</head>
+<body>
+
+<!-- =============== ÉCRAN DE CONNEXION =============== -->
+<section class="login" id="login" hidden>
+  <form class="login__box" id="login-form" autocomplete="on">
+    <i class="fa-solid fa-lock big"></i>
+    <h1>Espace admin</h1>
+    <p>Connectez-vous pour gérer votre catalogue.</p>
+    <label class="field">
+      <span>Mot de passe</span>
+      <input type="password" id="password" autocomplete="current-password" required autofocus>
+    </label>
+    <div class="error" id="login-error" role="alert"></div>
+    <button class="btn btn--primary" style="width:100%" id="login-btn" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Se connecter</button>
+    <p style="margin-top:1rem"><a href="/">← Retour au site</a></p>
+  </form>
+</section>
+
+<!-- =============== APPLICATION =============== -->
+<div id="app" hidden>
+  <header class="top">
+    <div class="wrap">
+      <div class="top__row">
+        <div class="brand"><i class="fa-solid fa-cube"></i> Admin <small>BACK-OFFICE</small></div>
+        <div class="top__actions">
+          <span class="status" id="status"><i class="fa-solid fa-circle-check"></i> <span>À jour</span></span>
+          <a class="btn btn--sm" href="/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> <span class="hide-sm">Voir le site</span></a>
+          <button class="btn btn--sm" id="logout" type="button" title="Se déconnecter"><i class="fa-solid fa-right-from-bracket"></i></button>
+        </div>
+      </div>
+      <nav class="tabs" role="tablist" aria-label="Sections de l'admin">
+        <button class="tab" role="tab" data-tab="products" aria-selected="true"><i class="fa-solid fa-boxes-stacked"></i> Produits</button>
+        <button class="tab" role="tab" data-tab="filaments" aria-selected="false"><i class="fa-solid fa-fill-drip"></i> Filaments</button>
+        <button class="tab" role="tab" data-tab="gallery" aria-selected="false"><i class="fa-solid fa-images"></i> Galerie &amp; avis</button>
+        <button class="tab" role="tab" data-tab="settings" aria-selected="false"><i class="fa-solid fa-sliders"></i> Réglages</button>
+        <button class="tab" role="tab" data-tab="help" aria-selected="false"><i class="fa-solid fa-circle-question"></i> Aide</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ========== ONGLET PRODUITS ========== -->
+    <section data-panel="products" role="tabpanel">
+      <div class="banner banner--err" id="api-error" hidden>
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <div><b>Impossible de contacter l'API</b><p id="api-error-msg"></p></div>
+      </div>
+
+      <div class="banner banner--info" id="first-run" hidden>
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <div><b>Premier lancement</b><p>Votre catalogue est vide. Importez les produits d'exemple pour les modifier, ou partez de zéro.</p></div>
+        <div class="btns">
+          <button class="btn btn--primary btn--sm" id="import-seed" type="button"><i class="fa-solid fa-download"></i> Importer les exemples</button>
+          <button class="btn btn--sm" id="start-empty" type="button">Partir de zéro</button>
+        </div>
+      </div>
+
+      <div class="banner banner--warn" id="backup-nag" hidden>
+        <i class="fa-solid fa-shield-halved"></i>
+        <div><b>Pensez à sauvegarder</b><p>Aucune sauvegarde récente de votre catalogue. Un fichier de secours (photos comprises) se télécharge en un clic.</p></div>
+        <div class="btns"><button class="btn btn--primary btn--sm" id="nag-backup" type="button"><i class="fa-solid fa-download"></i> Sauvegarder maintenant</button></div>
+      </div>
+
+      <div class="stats" id="stats"></div>
+
+      <div class="bar">
+        <input type="search" id="q" placeholder="Rechercher un produit…" autocomplete="off" aria-label="Rechercher">
+        <button class="btn btn--primary" id="add" type="button"><i class="fa-solid fa-plus"></i> Ajouter un produit</button>
+        <div class="chips" id="chips" role="group" aria-label="Filtrer la liste"></div>
+      </div>
+
+      <div class="list" id="list"></div>
+    </section>
+
+    <!-- ========== ONGLET FILAMENTS ========== -->
+    <section data-panel="filaments" role="tabpanel" hidden>
+      <div class="banner banner--info" id="fil-first" hidden>
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <div><b>Aucun filament enregistré</b><p>Le site affiche pour l'instant une liste d'exemple. Importez-la pour la modifier, ou partez de zéro.</p></div>
+        <div class="btns">
+          <button class="btn btn--primary btn--sm" id="fil-import" type="button"><i class="fa-solid fa-download"></i> Importer les exemples</button>
+          <button class="btn btn--sm" id="fil-empty-start" type="button">Partir de zéro</button>
+        </div>
+      </div>
+
+      <div class="stats" id="fstats"></div>
+      <div class="bar">
+        <input type="search" id="fq" placeholder="Rechercher une couleur…" autocomplete="off" aria-label="Rechercher un filament">
+        <button class="btn btn--primary" id="add-fil" type="button"><i class="fa-solid fa-plus"></i> Ajouter un filament</button>
+        <div class="chips" id="fchips" role="group" aria-label="Filtrer les filaments"></div>
+      </div>
+      <div class="list" id="flist"></div>
+    </section>
+
+    <!-- ========== ONGLET GALERIE & AVIS ========== -->
+    <section data-panel="gallery" role="tabpanel" hidden>
+      <div class="stack">
+        <div class="card">
+          <div class="sect__head"><h2>📸 Réalisations</h2><button class="btn btn--primary btn--sm" id="add-gal" type="button"><i class="fa-solid fa-plus"></i> Ajouter une photo</button></div>
+          <p class="muted">Photos de vos pièces terminées, affichées dans l'onglet « Galerie » du site (touchées = agrandies). L'onglet n'apparaît que s'il y a au moins une photo ou un avis visible.</p>
+          <div class="list" id="glist"></div>
+        </div>
+        <div class="card">
+          <div class="sect__head"><h2>⭐ Avis clients</h2><button class="btn btn--primary btn--sm" id="add-rev" type="button"><i class="fa-solid fa-plus"></i> Ajouter un avis</button></div>
+          <p class="muted">Recopiez de vrais avis reçus (message, WhatsApp, Instagram…). Ne publiez que des avis authentiques, avec l'accord du client pour son prénom.</p>
+          <div class="list" id="rlist"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ONGLET RÉGLAGES ========== -->
+    <section data-panel="settings" role="tabpanel" hidden>
+      <form class="card" id="settings-form">
+        <h2>Réglages du site</h2>
+        <div class="grid2">
+          <label class="field"><span>Nom de l'atelier</span><input type="text" name="brand" maxlength="60" placeholder="Atelier 3D"></label>
+          <label class="field"><span>E-mail de contact</span><input type="email" name="email" maxlength="100" placeholder="contact@exemple.fr"></label>
+          <label class="field"><span>N° WhatsApp</span><input type="text" name="whatsapp" inputmode="numeric" maxlength="20" placeholder="33612345678"><small>Format international, sans « + » ni espaces (ex : 33612345678).</small></label>
+          <label class="field"><span>Compte Instagram</span><input type="text" name="instagram" maxlength="40" placeholder="votre_compte"><small>Sans le @.</small></label>
+          <label class="field"><span>Compte TikTok</span><input type="text" name="tiktok" maxlength="40" placeholder="votre_compte"><small>Sans le @.</small></label>
+          <label class="field"><span>Bouton « Commander » principal</span>
+            <select name="orderMethod"><option value="whatsapp">WhatsApp</option><option value="instagram">Instagram (message privé)</option><option value="email">E-mail</option></select>
+            <small>Les deux autres canaux restent disponibles via de petites icônes.</small></label>
+        </div>
+
+        <div class="fieldset">
+          <h3>📣 Bandeau d'annonce</h3>
+          <p class="muted">Une bande en haut du site : congés, délais allongés, promotion… Le visiteur peut la fermer ; elle réapparaît si vous changez le texte.</p>
+          <label class="switch inline-check"><input type="checkbox" name="bannerOn"><span class="track"></span> Afficher le bandeau</label>
+          <div class="grid2">
+            <label class="field"><span>Texte (français)</span><input type="text" name="bannerText" maxlength="200" placeholder="Fermé du 20 au 30 octobre – commandes reprises le 31"></label>
+            <label class="field"><span>Texte (anglais, facultatif)</span><input type="text" name="bannerTextEn" maxlength="200" placeholder="Closed from 20 to 30 October"></label>
+            <label class="field"><span>Style</span><select name="bannerTone"><option value="info">Information (bleu)</option><option value="warn">Attention (orange)</option><option value="promo">Promotion (violet)</option></select></label>
+          </div>
+        </div>
+
+        <div class="fieldset">
+          <h3>📊 Statistiques de visites</h3>
+          <p class="muted">Gratuit et sans cookie avec <a href="https://www.goatcounter.com" target="_blank" rel="noopener">GoatCounter</a> : créez un compte, choisissez un code (ex : <code>monatelier</code>) et recopiez-le ici. Laissez vide pour désactiver.</p>
+          <label class="field"><span>Code GoatCounter</span><input type="text" name="goatcounter" maxlength="60" placeholder="monatelier"><small>Vos statistiques s'afficheront sur https://<b>monatelier</b>.goatcounter.com</small></label>
+        </div>
+
+        <div class="fieldset">
+          <h3>🧮 Estimateur de prix (page Sur-mesure)</h3>
+          <p class="muted">Le client saisit les dimensions de son objet et voit une fourchette de prix (−20 % / +30 %). Réglez ici vos tarifs ; le devis final reste toujours à votre main.</p>
+          <label class="switch inline-check"><input type="checkbox" name="estOn"><span class="track"></span> Afficher l'estimateur</label>
+          <div class="grid2">
+            <label class="field"><span>Prix du PLA (€ par gramme)</span><input type="number" name="estPla" min="0" step="0.01" inputmode="decimal"></label>
+            <label class="field"><span>Prix du PETG (€ par gramme)</span><input type="number" name="estPetg" min="0" step="0.01" inputmode="decimal"></label>
+            <label class="field"><span>Temps machine (€ par heure)</span><input type="number" name="estHour" min="0" step="0.05" inputmode="decimal"></label>
+            <label class="field"><span>Vitesse d'impression (grammes par heure)</span><input type="number" name="estSpeed" min="1" step="1" inputmode="decimal"><small>Environ 10 à 15 g/h en réglage standard.</small></label>
+            <label class="field"><span>Prix minimum par pièce (€)</span><input type="number" name="estMin" min="0" step="0.5" inputmode="decimal"></label>
+            <label class="field"><span>Frais fixes par commande (€)</span><input type="number" name="estFee" min="0" step="0.5" inputmode="decimal"></label>
+          </div>
+          <small class="muted">Formule : poids estimé (volume × remplissage × densité) × prix/g + temps × tarif horaire, avec un minimum par pièce, plus les frais fixes.</small>
+        </div>
+
+        <button class="btn btn--primary" style="margin-top:1rem" type="submit"><i class="fa-solid fa-floppy-disk"></i> Enregistrer les réglages</button>
+      </form>
+
+      <div class="card" style="margin-top:1rem">
+        <h2>💾 Sauvegarde</h2>
+        <p class="muted">Le fichier contient tout : produits, photos, filaments, galerie, avis et réglages. Conservez-le dans un endroit sûr (cloud, e-mail à vous-même…). <b id="last-backup"></b></p>
+        <div class="btnrow">
+          <button class="btn btn--primary" id="backup-export" type="button"><i class="fa-solid fa-download"></i> Télécharger une sauvegarde</button>
+          <button class="btn" id="backup-import" type="button"><i class="fa-solid fa-upload"></i> Restaurer une sauvegarde</button>
+          <input type="file" id="backup-file" accept="application/json,.json" hidden>
+        </div>
+        <p class="muted" id="backup-msg" style="margin-top:.8rem;min-height:1.3em"></p>
+      </div>
+    </section>
+
+    <!-- ========== ONGLET AIDE ========== -->
+    <section data-panel="help" role="tabpanel" hidden>
+      <div class="card help">
+        <h2>Aide rapide</h2>
+        <h3>Fenêtre du produit</h3>
+        <p>Un clic sur un produit ouvre sa fiche : grande image, nom, description détaillée et, si vous les avez renseignés, les <b>problèmes possibles / conseils d'utilisation</b> (champ « ⚠️ » de la fiche : une ligne = un point de la liste). Si la description détaillée est vide, la description courte est reprise.</p>
+        <h3>Produit personnalisable</h3>
+        <p>Dans la fiche d'un produit, activez <b>✨ Personnalisable</b> puis décrivez ce que le client peut changer (une ligne = un point : texte, logo, photo, couleur…). Le produit reçoit un badge violet, un filtre « Personnalisables » apparaît dans le catalogue et la fiche affiche votre texte avec un <b>avertissement automatique</b> : la personnalisation doit être vérifiée avant l'impression et n'est pas toujours réalisable. Le bouton devient « Personnaliser » et le message envoyé invite le client à détailler sa demande.</p>
+        <h3>Photos multiples, couleur, promo, nouveauté</h3>
+        <ul>
+          <li><b>Photos supplémentaires</b> : jusqu'à 5 autres angles dans la fiche produit (diaporama qu'on fait glisser).</li>
+          <li><b>🎨 Couleur au choix</b> : le client choisit parmi vos filaments <i>en stock</i> de la même matière ; sa couleur est ajoutée au message de commande.</li>
+          <li><b>Ancien prix</b> : renseignez-le pour afficher un prix barré et une pastille « −X % ». Videz-le pour terminer la promo.</li>
+          <li><b>🆕 Nouveau</b> : pastille automatique (à désactiver quand le produit n'est plus une nouveauté).</li>
+          <li><b>Dupliquer</b> (icône copie) : crée une copie masquée à modifier avant publication.</li>
+          <li><b>🇬🇧 Version anglaise</b> : champs facultatifs en bas de la fiche, utilisés si le visiteur passe le site en anglais.</li>
+        </ul>
+        <h3>Galerie &amp; avis</h3>
+        <p>L'onglet « Galerie &amp; avis » alimente un onglet public du même nom (il n'apparaît que s'il y a du contenu). Ajoutez vos belles réalisations en photo et de <b>vrais</b> avis clients.</p>
+        <h3>Panier, favoris, estimateur, formulaire</h3>
+        <ul>
+          <li><b>Panier et favoris</b> : automatiques, enregistrés dans le téléphone du visiteur. Le panier envoie un message récapitulatif (aucun paiement en ligne).</li>
+          <li><b>Estimateur</b> : réglez vos tarifs dans Réglages. Le client voit une fourchette indicative, jamais un prix ferme.</li>
+          <li><b>Formulaire d'envoi de fichier</b> : les demandes arrivent dans Netlify → <i>Forms</i> (fichier joint téléchargeable, 100 envois gratuits par mois). Pour être prévenu par e-mail : <i>Forms → Form notifications → Add notification → Email</i>.</li>
+          <li><b>Bandeau d'annonce</b> et <b>statistiques GoatCounter</b> : dans Réglages.</li>
+        </ul>
+        <h3>Sauvegarde</h3>
+        <p>Réglages → « Télécharger une sauvegarde » : un fichier unique avec tout (photos comprises). « Restaurer » le remet en place sur ce site ou sur un nouveau site. Faites-en une de temps en temps.</p>
+        <h3>Masqué ou hors stock ?</h3>
+        <ul>
+          <li><b>Visible = désactivé</b> → le produit est <b>totalement invisible</b> pour les clients (brouillon, produit retiré…). Il reste dans votre liste.</li>
+          <li><b>En stock = désactivé</b> → le produit reste affiché, grisé avec « Hors stock ». Le client peut cliquer sur « Me prévenir ».</li>
+        </ul>
+        <h3>Enregistrement</h3>
+        <p>Chaque action (interrupteur, ajout, suppression, déplacement…) est <b>enregistrée automatiquement</b>. Le statut en haut à droite indique « À jour » une fois sauvegardé. Les clients voient les changements dès qu'ils rechargent la page.</p>
+        <h3>Filaments</h3>
+        <p>L'onglet « Filaments » alimente la page publique du même nom : une pastille par couleur, classée par matière. <b>Disponible</b> désactivé = « Épuisé » (grisé). <b>Visible</b> désactivé = caché aux clients. Le tri est automatique (matière, disponibles d'abord, puis ordre alphabétique).</p>
+        <h3>Photos</h3>
+        <ul>
+          <li>Dans la fiche produit, cliquez sur « Choisir une photo » : elle est redimensionnée et compressée automatiquement (format WebP, ~900 px).</li>
+          <li>Vous pouvez aussi coller une adresse d'image (https://…) ou un chemin local comme <code>./images/mon-objet.jpg</code>.</li>
+        </ul>
+        <h3>Ordre d'affichage</h3>
+        <p>Utilisez les flèches ↑ ↓ (filtre « Tous » et sans recherche). L'ordre est celui du site, avec les produits hors stock toujours placés en dernier.</p>
+        <h3>Sécurité</h3>
+        <ul>
+          <li>Le mot de passe est défini dans Netlify : <i>Site configuration → Environment variables → <code>ADMIN_PASSWORD</code></i>. Après modification, relancez un déploiement.</li>
+          <li>La session se ferme automatiquement après 12 h.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- =============== MODALE ÉDITION PRODUIT =============== -->
+<dialog id="editor" aria-labelledby="editor-title">
+  <form id="editor-form" method="dialog">
+    <div class="dlg__head">
+      <h3 id="editor-title">Produit</h3>
+      <button class="btn icon-btn" type="button" id="editor-close" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="dlg__body">
+      <div class="upload">
+        <img id="img-preview" alt="Aperçu" src="">
+        <div class="upload__btns">
+          <button class="btn btn--sm" type="button" id="pick-img"><i class="fa-solid fa-camera"></i> Choisir une photo</button>
+          <button class="btn btn--sm btn--danger" type="button" id="clear-img"><i class="fa-regular fa-trash-can"></i> Retirer la photo</button>
+          <small id="upload-msg">JPG, PNG ou WebP</small>
+        </div>
+        <input type="file" id="file" accept="image/jpeg,image/png,image/webp" hidden>
+      </div>
+
+      <label class="field"><span>Titre *</span><input type="text" name="title" required maxlength="120"></label>
+      <label class="field"><span>Description courte (carte du catalogue)</span><textarea name="desc" maxlength="600" style="min-height:70px"></textarea></label>
+      <label class="field"><span>Description détaillée (fenêtre du produit)</span><textarea name="details" maxlength="1500" style="min-height:110px" placeholder="À quoi sert l'objet, comment il est fabriqué, pour qui…  (optionnel : sinon la description courte est reprise)"></textarea></label>
+      <label class="field"><span>⚠️ Problèmes possibles / conseils d'utilisation</span><textarea name="issues" maxlength="1500" style="min-height:130px" placeholder="Une ligne = un point. Exemple :&#10;Ne pas laisser au soleil : le PLA se déforme dès 55 °C.&#10;Non étanche : ne convient pas aux liquides."></textarea><small>Une ligne par point : ils s'affichent en liste dans la fenêtre du produit.</small></label>
+
+      <div class="grid2">
+        <label class="field"><span>Catégorie *</span><input type="text" name="category" list="cats" required maxlength="40" placeholder="Déco, Gaming/Utile, Figurines…"><datalist id="cats"></datalist></label>
+        <label class="field"><span>Matière *</span><select name="material"><option>PLA</option><option>PETG</option></select></label>
+        <label class="field"><span>Prix (€) *</span><input type="number" name="price" required min="0" step="0.01" inputmode="decimal"></label>
+        <label class="field"><span>Ancien prix (€) – promotion</span><input type="number" name="oldPrice" min="0" step="0.01" inputmode="decimal" placeholder="Laisser vide hors promo"><small>Doit être supérieur au prix : il s'affiche barré avec « -X % ».</small></label>
+        <label class="field"><span>Badge</span><input type="text" name="badge" maxlength="30" placeholder="Nouveau, Best-seller…"></label>
+        <label class="field"><span>Dimensions</span><input type="text" name="size" maxlength="40" placeholder="18 cm"></label>
+        <label class="field"><span>Délai de fabrication</span><input type="text" name="time" maxlength="40" placeholder="2-3 jours"></label>
+      </div>
+      <div class="field"><span>Photos supplémentaires (5 maximum : diaporama dans la fiche produit)</span>
+        <div class="extras" id="extras"></div>
+        <div class="btnrow"><button class="btn btn--sm" type="button" id="add-extra"><i class="fa-solid fa-images"></i> Ajouter une photo</button></div>
+        <small id="extra-msg">Astuce : la photo principale est celle du haut ; ajoutez ici d'autres angles.</small>
+        <input type="file" id="file-extra" accept="image/jpeg,image/png,image/webp" hidden>
+      </div>
+      <label class="field"><span>Mots-clés de recherche</span><input type="text" name="keywords" maxlength="250" placeholder="vase fleurs salon…"></label>
+      <label class="field"><span>Adresse de l'image (optionnel)</span><input type="text" name="image" maxlength="400" placeholder="https://… ou ./images/mon-objet.jpg"></label>
+
+      <div class="toggles">
+        <label class="switch"><input type="checkbox" name="visible"><span class="track"></span> Visible par les clients</label>
+        <label class="switch"><input type="checkbox" name="inStock"><span class="track"></span> En stock</label>
+        <label class="switch"><input type="checkbox" name="custom"><span class="track"></span> ✨ Personnalisable</label>
+        <label class="switch"><input type="checkbox" name="colorPick"><span class="track"></span> 🎨 Couleur au choix</label>
+        <label class="switch"><input type="checkbox" name="isNew"><span class="track"></span> 🆕 Nouveau</label>
+      </div>
+      <small class="muted" style="display:block;margin-top:.4rem">« Couleur au choix » : le client choisit parmi vos filaments en stock de la même matière. « Nouveau » : pastille automatique.</small>
+
+      <div class="custombox" id="custom-wrap" hidden>
+        <label class="field"><span>Ce qui est personnalisable</span>
+          <textarea name="customInfo" maxlength="800" style="min-height:100px" placeholder="Une ligne = un point. Exemple :&#10;Prénom ou texte court en relief (12 caractères max).&#10;Couleur au choix parmi les filaments disponibles.&#10;Logo : fichier image envoyé par message."></textarea>
+          <small>Affiché aux clients dans la fiche du produit. Laissez vide pour un message générique.</small>
+        </label>
+        <div class="hint"><i class="fa-solid fa-triangle-exclamation"></i><span>Les clients voient automatiquement cet avertissement : « Toute personnalisation doit être vérifiée avant l'impression et n'est pas toujours réalisable. »</span></div>
+      </div>
+
+      <details class="en">
+        <summary>🇬🇧 Version anglaise (facultatif)</summary>
+        <div class="en__body">
+          <p class="muted">Si le visiteur choisit l'anglais, ces textes remplacent les textes français. Vide = texte français.</p>
+          <label class="field"><span>Title</span><input type="text" name="titleEn" maxlength="120"></label>
+          <label class="field"><span>Short description</span><textarea name="descEn" maxlength="600" style="min-height:70px"></textarea></label>
+          <label class="field"><span>Detailed description</span><textarea name="detailsEn" maxlength="1500" style="min-height:100px"></textarea></label>
+          <label class="field"><span>Warnings / possible issues (one per line)</span><textarea name="issuesEn" maxlength="1500" style="min-height:100px"></textarea></label>
+          <label class="field"><span>What can be customised (one per line)</span><textarea name="customInfoEn" maxlength="800" style="min-height:80px"></textarea></label>
+        </div>
+      </details>
+    </div>
+    <div class="dlg__foot">
+      <button class="btn" type="button" id="editor-cancel">Annuler</button>
+      <button class="btn btn--primary" type="submit" id="editor-save"><i class="fa-solid fa-floppy-disk"></i> Enregistrer</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="fil-editor" aria-labelledby="fil-editor-title">
+  <form id="fil-form" method="dialog">
+    <div class="dlg__head">
+      <h3 id="fil-editor-title">Filament</h3>
+      <button class="btn icon-btn" type="button" id="fil-close" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="dlg__body">
+      <div class="fpreview"><div class="sw sw--lg" id="fil-preview"></div><div><b id="fil-prev-name">—</b><small id="fil-prev-meta"></small></div></div>
+      <div class="grid2">
+        <label class="field"><span>Matière *</span><input type="text" name="type" list="ftypes" required maxlength="20" placeholder="PLA, PETG…"><datalist id="ftypes"><option value="PLA"><option value="PETG"></datalist></label>
+        <label class="field"><span>Nom de la couleur *</span><input type="text" name="color" required maxlength="40" placeholder="Rouge vif"></label>
+      </div>
+      <div class="field"><span>Couleur *</span>
+        <div class="colorrow"><input type="color" name="pick" value="#888888" aria-label="Choisir la couleur"><input type="text" name="hex" maxlength="7" pattern="#[0-9a-fA-F]{6}" value="#888888" placeholder="#d62828" aria-label="Code couleur"></div>
+      </div>
+      <label class="field"><span>Finition</span><input type="text" name="finish" list="ffinish" maxlength="30" placeholder="Mat, Silk, Translucide…"><datalist id="ffinish"><option value="Mat"><option value="Silk"><option value="Translucide"><option value="Marbre"><option value="Bicolore"></datalist></label>
+      <div class="toggles">
+        <label class="switch"><input type="checkbox" name="inStock"><span class="track"></span> Disponible</label>
+        <label class="switch"><input type="checkbox" name="visible"><span class="track"></span> Visible par les clients</label>
+      </div>
+    </div>
+    <div class="dlg__foot">
+      <button class="btn" type="button" id="fil-cancel">Annuler</button>
+      <button class="btn btn--primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> Enregistrer</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- =============== MODALE PHOTO DE GALERIE =============== -->
+<dialog id="gal-editor" aria-labelledby="gal-editor-title">
+  <form id="gal-form" method="dialog">
+    <div class="dlg__head"><h3 id="gal-editor-title">Photo</h3><button class="btn icon-btn" type="button" id="gal-close" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="dlg__body">
+      <div class="upload">
+        <img id="gal-preview" alt="Aperçu" src="">
+        <div class="upload__btns">
+          <button class="btn btn--sm" type="button" id="gal-pick"><i class="fa-solid fa-camera"></i> Choisir une photo *</button>
+          <small id="gal-upmsg">JPG, PNG ou WebP</small>
+        </div>
+        <input type="file" id="gal-file" accept="image/jpeg,image/png,image/webp" hidden>
+      </div>
+      <label class="field"><span>Titre</span><input type="text" name="title" maxlength="80" placeholder="Vase Twist en PLA bleu"></label>
+      <label class="field"><span>Légende</span><input type="text" name="caption" maxlength="200" placeholder="Commande de Léa – livré en 3 jours"></label>
+      <div class="toggles"><label class="switch"><input type="checkbox" name="visible"><span class="track"></span> Visible par les clients</label></div>
+    </div>
+    <div class="dlg__foot"><button class="btn" type="button" id="gal-cancel">Annuler</button><button class="btn btn--primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> Enregistrer</button></div>
+  </form>
+</dialog>
+
+<!-- =============== MODALE AVIS CLIENT =============== -->
+<dialog id="rev-editor" aria-labelledby="rev-editor-title">
+  <form id="rev-form" method="dialog">
+    <div class="dlg__head"><h3 id="rev-editor-title">Avis client</h3><button class="btn icon-btn" type="button" id="rev-close" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="dlg__body">
+      <div class="grid2">
+        <label class="field"><span>Prénom (ou initiales) *</span><input type="text" name="name" required maxlength="60" placeholder="Léa M."></label>
+        <label class="field"><span>Note</span><select name="stars"><option value="5">★★★★★ (5)</option><option value="4">★★★★☆ (4)</option><option value="3">★★★☆☆ (3)</option><option value="2">★★☆☆☆ (2)</option><option value="1">★☆☆☆☆ (1)</option></select></label>
+      </div>
+      <label class="field"><span>Avis *</span><textarea name="text" required maxlength="500" style="min-height:110px" placeholder="Le message du client, tel qu'il vous l'a écrit."></textarea></label>
+      <div class="toggles"><label class="switch"><input type="checkbox" name="visible"><span class="track"></span> Visible par les clients</label></div>
+    </div>
+    <div class="dlg__foot"><button class="btn" type="button" id="rev-cancel">Annuler</button><button class="btn btn--primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> Enregistrer</button></div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" popover="manual" role="status" aria-live="polite"></div>
+
+<style>@media (max-width: 480px) { .hide-sm { display: none; } }</style>
+
+<script>
+/* =============================================================
+   ADMIN – JavaScript vanilla
+   Parle à l'API Netlify Function (/api/...) – le mot de passe n'est jamais stocké dans le navigateur,
+   seulement un jeton de session signé (12 h) en sessionStorage.
+   ============================================================= */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const money = (n) => Number(n).toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+const norm = (s) => String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+const DEFAULT_SETTINGS = {
+  brand: "Atelier 3D", email: "", whatsapp: "", instagram: "", tiktok: "", orderMethod: "whatsapp",
+  bannerOn: false, bannerText: "", bannerTextEn: "", bannerTone: "info",                       // bandeau d'annonce
+  goatcounter: "",                                                                             // statistiques
+  estOn: true, estPla: 0.05, estPetg: 0.06, estHour: 0.8, estFee: 2, estMin: 4, estSpeed: 12   // estimateur de prix
+};
+let data = { products: [], filaments: null, gallery: [], reviews: [], settings: { ...DEFAULT_SETTINGS } };
+let fui = { filter: "all", q: "", editingId: null };
+let ui = { filter: "all", q: "", editingId: null };
+const PLACEHOLDER = "data:image/svg+xml;charset=utf-8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72"><rect width="72" height="72" fill="#111821"/><path d="M36 14 56 25v22L36 58 16 47V25z" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linejoin="round"/><path d="M16 25l20 11 20-11M36 36v22" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linejoin="round"/></svg>');
+
+/* ---------- Session & appels API ---------- */
+const getToken = () => sessionStorage.getItem("admin_token");
+const setToken = (t) => (t ? sessionStorage.setItem("admin_token", t) : sessionStorage.removeItem("admin_token"));
+
+async function api(path, { method = "GET", body, raw, auth = true } = {}) {
+  const headers = {};
+  if (auth && getToken()) headers.Authorization = "Bearer " + getToken();
+  let payload;
+  if (raw) { payload = raw; headers["Content-Type"] = raw.type || "application/octet-stream"; }
+  else if (body !== undefined) { payload = JSON.stringify(body); headers["Content-Type"] = "application/json"; }
+  let res;
+  try { res = await fetch(path, { method, headers, body: payload }); }
+  catch { throw Object.assign(new Error("Connexion impossible. Vérifiez votre réseau."), { network: true }); }
+  const isJson = (res.headers.get("content-type") || "").includes("json");
+  const out = isJson ? await res.json().catch(() => ({})) : {};
+  if (!res.ok) {
+    if (res.status === 401 && auth && getToken()) { setToken(null); showLogin("Session expirée, reconnectez-vous."); }
+    const msg = out.error || (res.status === 404 ? "API introuvable : l'admin fonctionne uniquement une fois le site déployé sur Netlify avec les Functions (ou avec « netlify dev »)." : `Erreur ${res.status}`);
+    throw Object.assign(new Error(msg), { status: res.status });
+  }
+  return out;
+}
+
+/* ---------- Toast & statut ---------- */
+let toastTimer, toastHide;
+function toast(msg, isErr = false) {
+  const t = $("#toast"); t.textContent = msg; t.classList.toggle("err", isErr);
+  try { if (!t.matches(":popover-open")) t.showPopover(); } catch { /* vieux navigateur */ }   // couche supérieure : visible au-dessus des fenêtres ouvertes
+  requestAnimationFrame(() => t.classList.add("show"));
+  clearTimeout(toastTimer); clearTimeout(toastHide);
+  toastTimer = setTimeout(() => { t.classList.remove("show"); toastHide = setTimeout(() => { try { t.hidePopover(); } catch {} }, 300); }, isErr ? 5000 : 2200);
+}
+function setStatus(kind, text) {
+  const s = $("#status"); s.className = "status " + kind;
+  s.innerHTML = `<i class="fa-solid ${kind === "busy" ? "fa-rotate fa-spin" : kind === "err" ? "fa-circle-exclamation" : "fa-circle-check"}"></i> <span>${esc(text)}</span>`;
+}
+
+/* ---------- Sauvegarde (file d'attente : une écriture à la fois) ---------- */
+let saveChain = Promise.resolve();
+function save(okMsg = "Enregistré") {
+  setStatus("busy", "Enregistrement…");
+  let mine;
+  saveChain = mine = saveChain.then(async () => {
+    try {
+      await api("/api/admin/data", { method: "PUT", body: { products: data.products, filaments: data.filaments, gallery: data.gallery, reviews: data.reviews, settings: data.settings } });
+      // (on garde l'état local : il est toujours le plus récent si plusieurs actions s'enchaînent)
+      if (saveChain === mine) setStatus("ok", "À jour");
+      if (okMsg) toast(okMsg);
+      return true;
+    } catch (e) {
+      setStatus("err", "Non enregistré");
+      toast(e.message || "Échec de l'enregistrement", true);
+      return false;
+    }
+  });
+  return saveChain;
+}
+
+/* ---------- Connexion / déconnexion ---------- */
+function showLogin(msg = "") {
+  $("#app").hidden = true; $("#login").hidden = false;
+  $("#login-error").textContent = msg; $("#password").value = ""; $("#password").focus();
+}
+$("#login-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const btn = $("#login-btn"); btn.disabled = true; $("#login-error").textContent = "";
+  try {
+    const { token } = await api("/api/login", { method: "POST", body: { password: $("#password").value }, auth: false });
+    setToken(token); await start();
+  } catch (err) { $("#login-error").textContent = err.message; }
+  btn.disabled = false;
+});
+$("#logout").addEventListener("click", () => { setToken(null); showLogin(); });
+
+/* ---------- Démarrage ---------- */
+async function start() {
+  try {
+    const out = await api("/api/admin/data");
+    data = { products: out.products || [], filaments: Array.isArray(out.filaments) ? out.filaments : null, gallery: out.gallery || [], reviews: out.reviews || [], settings: { ...DEFAULT_SETTINGS, ...(out.settings || {}) } };
+    $("#login").hidden = true; $("#app").hidden = false;
+    $("#api-error").hidden = true;
+    $("#first-run").hidden = !out.empty;
+    $("#fil-first").hidden = Array.isArray(out.filaments);
+    renderAll(); fillSettings(); setStatus("ok", "À jour");
+  } catch (e) {
+    if (e.status === 401) return;                   // showLogin déjà appelé
+    if (e.status === 503 || e.status === 404 || e.network) {
+      $("#login").hidden = true; $("#app").hidden = false;
+      $("#api-error").hidden = false; $("#api-error-msg").textContent = e.message;
+      renderAll();
+    } else showLogin(e.message);
+  }
+}
+
+/* ---------- Onglets ---------- */
+$$(".tab").forEach((t) => t.addEventListener("click", () => {
+  $$(".tab").forEach((x) => x.setAttribute("aria-selected", x === t));
+  $$("[data-panel]").forEach((p) => (p.hidden = p.dataset.panel !== t.dataset.tab));
+}));
+
+/* ---------- Rendu : stats, filtres, liste ---------- */
+const counts = () => ({
+  all: data.products.length,
+  live: data.products.filter((p) => p.visible && p.inStock).length,
+  hidden: data.products.filter((p) => !p.visible).length,
+  oos: data.products.filter((p) => p.visible && !p.inStock).length,
+  custom: data.products.filter((p) => p.custom).length
+});
+
+function renderAll() {
+  const c = counts();
+  $("#stats").innerHTML = `
+    <div class="stat"><b>${c.all}</b><span>Produits au total</span></div>
+    <div class="stat stat--ok"><b>${c.live}</b><span>En vente</span></div>
+    <div class="stat stat--danger"><b>${c.oos}</b><span>Hors stock (visibles)</span></div>
+    <div class="stat stat--warn"><b>${c.hidden}</b><span>Masqués</span></div>`;
+
+  const filters = [["all", "Tous", c.all], ["live", "En vente", c.live], ["oos", "Hors stock", c.oos], ["hidden", "Masqués", c.hidden], ["custom", "✨ Personnalisables", c.custom]];
+  $("#chips").innerHTML = filters.map(([k, label, n]) => `<button class="chip" type="button" data-f="${k}" aria-pressed="${ui.filter === k}">${label}<small>${n}</small></button>`).join("");
+
+  const q = norm(ui.q.trim());
+  const list = data.products.filter((p) => {
+    if (ui.filter === "live" && !(p.visible && p.inStock)) return false;
+    if (ui.filter === "oos" && !(p.visible && !p.inStock)) return false;
+    if (ui.filter === "hidden" && p.visible) return false;
+    if (ui.filter === "custom" && !p.custom) return false;
+    return !q || norm([p.title, p.category, p.material, p.desc, p.keywords].join(" ")).includes(q);
+  });
+  const canMove = ui.filter === "all" && !q;
+
+  $("#list").innerHTML = list.length ? list.map((p) => {
+    const idx = data.products.indexOf(p);
+    return `
+    <article class="row ${p.visible ? "" : "is-hidden"}" data-id="${esc(p.id)}">
+      <img class="row__img" src="${esc(p.image || PLACEHOLDER)}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${PLACEHOLDER}'">
+      <div>
+        <div class="row__title">${esc(p.title)}</div>
+        <div class="row__meta">${esc(p.category)} · ${esc(p.material)} · <b>${money(p.price)}</b></div>
+        <div class="pills">
+          ${!p.visible ? '<span class="pill pill--hidden">MASQUÉ</span>' : p.inStock ? '<span class="pill pill--live">EN VENTE</span>' : '<span class="pill pill--oos">HORS STOCK</span>'}
+          ${p.custom ? '<span class="pill pill--custom">✨ PERSONNALISABLE</span>' : ""}
+          ${p.isNew ? '<span class="pill" style="color:#67e8f9">NOUVEAU</span>' : ""}
+          ${p.oldPrice > p.price ? `<span class="pill" style="color:#fb7185">PROMO −${Math.round((1 - p.price / p.oldPrice) * 100)} %</span>` : ""}
+          ${p.colorPick ? '<span class="pill" style="color:#f9a8d4">🎨 COULEUR</span>' : ""}
+          ${(p.images || []).length ? `<span class="pill" style="color:var(--muted)">📷 ${1 + p.images.length}</span>` : ""}
+          ${p.badge ? `<span class="pill" style="color:var(--accent-2)">${esc(p.badge)}</span>` : ""}
+        </div>
+      </div>
+      <div class="row__controls">
+        <div class="switches">
+          <label class="switch"><input type="checkbox" data-act="visible" ${p.visible ? "checked" : ""}><span class="track"></span> Visible</label>
+          <label class="switch"><input type="checkbox" data-act="inStock" ${p.inStock ? "checked" : ""}><span class="track"></span> En stock</label>
+        </div>
+        <div class="btns">
+          <button class="btn icon-btn" data-act="up" title="Monter" aria-label="Monter" ${canMove && idx > 0 ? "" : "disabled"}><i class="fa-solid fa-arrow-up"></i></button>
+          <button class="btn icon-btn" data-act="down" title="Descendre" aria-label="Descendre" ${canMove && idx < data.products.length - 1 ? "" : "disabled"}><i class="fa-solid fa-arrow-down"></i></button>
+          <button class="btn icon-btn" data-act="edit" title="Modifier" aria-label="Modifier"><i class="fa-solid fa-pen"></i></button>
+          <button class="btn icon-btn" data-act="dup" title="Dupliquer" aria-label="Dupliquer"><i class="fa-regular fa-copy"></i></button>
+          <button class="btn icon-btn btn--danger" data-act="delete" title="Supprimer" aria-label="Supprimer"><i class="fa-regular fa-trash-can"></i></button>
+        </div>
+      </div>
+    </article>`;
+  }).join("") : `<div class="empty"><i class="fa-regular fa-folder-open"></i><b>${data.products.length ? "Aucun produit dans ce filtre" : "Aucun produit"}</b><p>${data.products.length ? "Essayez un autre filtre ou une autre recherche." : "Ajoutez votre premier produit."}</p>${data.products.length ? "" : '<button class="btn btn--primary" data-empty-add><i class="fa-solid fa-plus"></i> Ajouter un produit</button>'}</div>`;
+
+  $("#cats").innerHTML = [...new Set(data.products.map((p) => p.category))].map((c) => `<option value="${esc(c)}">`).join("");
+  renderFils();
+  renderGallery();
+  renderNag();
+}
+
+$("#chips").addEventListener("click", (e) => { const b = e.target.closest(".chip"); if (b) { ui.filter = b.dataset.f; renderAll(); } });
+$("#q").addEventListener("input", (e) => { ui.q = e.target.value; renderAll(); });
+
+/* ---------- Actions sur la liste (délégation) ---------- */
+$("#list").addEventListener("click", async (e) => {
+  if (e.target.closest("[data-empty-add]")) return openEditor(null);
+  const btn = e.target.closest("button[data-act]"); if (!btn) return;
+  const id = btn.closest(".row").dataset.id;
+  const i = data.products.findIndex((p) => p.id === id); if (i < 0) return;
+  const p = data.products[i];
+
+  if (btn.dataset.act === "edit") return openEditor(id);
+  if (btn.dataset.act === "dup") {
+    // Copie placée juste après l'original, MASQUÉE (brouillon) : on l'ouvre pour la modifier avant de la publier
+    const copy = { ...JSON.parse(JSON.stringify(p)), id: "p" + Date.now().toString(36), title: p.title + " (copie)", visible: false };
+    data.products.splice(i + 1, 0, copy); renderAll();
+    save("Produit dupliqué (masqué)"); return openEditor(copy.id);
+  }
+  if (btn.dataset.act === "delete") {
+    if (!confirm(`Supprimer définitivement « ${p.title} » ?\n\nAstuce : pour seulement le cacher aux clients, désactivez « Visible ».`)) return;
+    data.products.splice(i, 1); renderAll(); return save("Produit supprimé");
+  }
+  if (btn.dataset.act === "up" || btn.dataset.act === "down") {
+    const j = i + (btn.dataset.act === "up" ? -1 : 1);
+    if (j < 0 || j >= data.products.length) return;
+    [data.products[i], data.products[j]] = [data.products[j], data.products[i]];
+    renderAll(); return save("Ordre mis à jour");
+  }
+});
+$("#list").addEventListener("change", (e) => {
+  const input = e.target.closest("input[data-act]"); if (!input) return;
+  const p = data.products.find((x) => x.id === input.closest(".row").dataset.id); if (!p) return;
+  p[input.dataset.act] = input.checked;
+  renderAll();
+  save(input.dataset.act === "visible" ? (p.visible ? "Produit visible" : "Produit masqué") : (p.inStock ? "Remis en stock" : "Marqué hors stock"));
+});
+
+/* ---------- Premier lancement ---------- */
+$("#import-seed").addEventListener("click", async () => {
+  try {
+    const seed = await (await fetch("/seed-products.json")).json();
+    data.products = seed; $("#first-run").hidden = true; renderAll(); await save("Catalogue d'exemple importé");
+  } catch { toast("Impossible de charger les exemples", true); }
+});
+$("#start-empty").addEventListener("click", async () => { $("#first-run").hidden = true; await save("Catalogue créé"); });
+
+/* ---------- Éditeur de produit ---------- */
+const dlg = $("#editor"), form = $("#editor-form");
+const blank = () => ({ id: "", title: "", desc: "", details: "", issues: "", custom: false, customInfo: "", colorPick: false, isNew: false, oldPrice: "", images: [], category: "", material: "PLA", price: "", image: "", size: "", time: "", badge: "", keywords: "", titleEn: "", descEn: "", detailsEn: "", issuesEn: "", customInfoEn: "", visible: true, inStock: true });
+let extras = [];            // photos supplémentaires du produit en cours d'édition
+
+function setPreview(url) { $("#img-preview").src = url || PLACEHOLDER; }
+function openEditor(id) {
+  ui.editingId = id;
+  const p = id ? data.products.find((x) => x.id === id) : blank();
+  $("#editor-title").textContent = id ? "Modifier le produit" : "Nouveau produit";
+  for (const k of ["title", "desc", "details", "issues", "customInfo", "category", "material", "price", "oldPrice", "image", "size", "time", "badge", "keywords", "titleEn", "descEn", "detailsEn", "issuesEn", "customInfoEn"]) form.elements[k].value = p[k] || (p[k] === 0 && k === "price" ? 0 : "");
+  form.elements.colorPick.checked = !!p.colorPick; form.elements.isNew.checked = !!p.isNew;
+  extras = [...(p.images || [])]; renderExtras(); $("#extra-msg").textContent = "Astuce : la photo principale est celle du haut ; ajoutez ici d'autres angles.";
+  form.elements.visible.checked = p.visible !== false;
+  form.elements.inStock.checked = p.inStock !== false;
+  form.elements.custom.checked = !!p.custom; $("#custom-wrap").hidden = !p.custom;
+  setPreview(p.image); $("#upload-msg").textContent = "JPG, PNG ou WebP";
+  dlg.showModal();
+}
+$("#add").addEventListener("click", () => openEditor(null));
+form.elements.custom.addEventListener("change", (e) => { $("#custom-wrap").hidden = !e.target.checked; if (e.target.checked) form.elements.customInfo.focus(); });
+$("#editor-close").addEventListener("click", () => dlg.close());
+$("#editor-cancel").addEventListener("click", () => dlg.close());
+form.elements.image.addEventListener("input", (e) => setPreview(e.target.value.trim()));
+$("#clear-img").addEventListener("click", () => { form.elements.image.value = ""; setPreview(""); });
+$("#pick-img").addEventListener("click", () => $("#file").click());
+
+/* Photos supplémentaires */
+function renderExtras() {
+  $("#extras").innerHTML = extras.map((u, i) => `<div class="extra"><img src="${esc(u)}" alt="Photo ${i + 2}" onerror="this.onerror=null;this.src='${PLACEHOLDER}'"><button type="button" data-rm-extra="${i}" aria-label="Retirer cette photo">✕</button></div>`).join("");
+  $("#add-extra").disabled = extras.length >= 5;
+}
+$("#extras").addEventListener("click", (e) => { const b = e.target.closest("[data-rm-extra]"); if (b) { extras.splice(Number(b.dataset.rmExtra), 1); renderExtras(); } });
+$("#add-extra").addEventListener("click", () => $("#file-extra").click());
+$("#file-extra").addEventListener("change", async (e) => {
+  const file = e.target.files[0]; e.target.value = ""; if (!file || extras.length >= 5) return;
+  const msg = $("#extra-msg"); msg.textContent = "Envoi en cours…";
+  try {
+    const { url } = await api("/api/admin/image", { method: "POST", raw: await compress(file) });
+    extras.push(url); renderExtras(); msg.textContent = "Photo ajoutée ✓";
+  } catch (err) { msg.textContent = "Échec : " + err.message; toast(err.message, true); }
+});
+
+/** Redimensionne (max 900 px) et convertit en WebP côté navigateur : photos légères = site rapide */
+async function compress(file) {
+  const bmp = await createImageBitmap(file);
+  const scale = Math.min(1, 900 / Math.max(bmp.width, bmp.height));
+  const c = document.createElement("canvas");
+  c.width = Math.round(bmp.width * scale); c.height = Math.round(bmp.height * scale);
+  c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+  for (const q of [0.85, 0.75, 0.6, 0.45]) {
+    const blob = await new Promise((r) => c.toBlob(r, "image/webp", q));
+    if (blob && blob.size < 1_400_000) return blob;
+  }
+  throw new Error("Image trop lourde même après compression.");
+}
+$("#file").addEventListener("change", async (e) => {
+  const file = e.target.files[0]; e.target.value = ""; if (!file) return;
+  const msg = $("#upload-msg"); msg.textContent = "Envoi en cours…";
+  try {
+    const blob = await compress(file);
+    const { url } = await api("/api/admin/image", { method: "POST", raw: blob });
+    form.elements.image.value = url; setPreview(url);
+    msg.textContent = `Photo envoyée (${Math.round(blob.size / 1024)} Ko) ✓`;
+  } catch (err) { msg.textContent = "Échec : " + err.message; toast(err.message, true); }
+});
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const f = form.elements;
+  const item = {
+    id: ui.editingId || "p" + Date.now().toString(36),
+    title: f.title.value.trim(), desc: f.desc.value.trim(), details: f.details.value.trim(), issues: f.issues.value.trim(), category: f.category.value.trim(), material: f.material.value,
+    price: parseFloat(f.price.value) || 0, image: f.image.value.trim(), size: f.size.value.trim(), time: f.time.value.trim(),
+    badge: f.badge.value.trim(), keywords: f.keywords.value.trim(), visible: f.visible.checked, inStock: f.inStock.checked,
+    custom: f.custom.checked, customInfo: f.custom.checked ? f.customInfo.value.trim() : "",
+    colorPick: f.colorPick.checked, isNew: f.isNew.checked, oldPrice: parseFloat(f.oldPrice.value) || 0, images: extras.slice(0, 5),
+    titleEn: f.titleEn.value.trim(), descEn: f.descEn.value.trim(), detailsEn: f.detailsEn.value.trim(), issuesEn: f.issuesEn.value.trim(), customInfoEn: f.customInfoEn.value.trim()
+  };
+  if (ui.editingId) data.products[data.products.findIndex((p) => p.id === ui.editingId)] = item;
+  else data.products.unshift(item);                 // un nouveau produit apparaît en tête
+  dlg.close(); renderAll();
+  await save(ui.editingId ? "Produit modifié" : "Produit ajouté");
+});
+
+/* =============================================================
+   FILAMENTS
+   ============================================================= */
+const HEX = /^#[0-9a-f]{6}$/i;
+const fl = () => data.filaments || [];
+
+function renderFils() {
+  const all = fl();
+  const c = { all: all.length, live: all.filter((f) => f.visible && f.inStock).length, oos: all.filter((f) => f.visible && !f.inStock).length, hidden: all.filter((f) => !f.visible).length };
+  $("#fstats").innerHTML = `
+    <div class="stat"><b>${c.all}</b><span>Couleurs au total</span></div>
+    <div class="stat stat--ok"><b>${c.live}</b><span>Disponibles</span></div>
+    <div class="stat stat--danger"><b>${c.oos}</b><span>Épuisées (visibles)</span></div>
+    <div class="stat stat--warn"><b>${c.hidden}</b><span>Masquées</span></div>`;
+
+  const types = [...new Set(all.map((f) => f.type))];
+  const chips = [["all", "Toutes", c.all], ["live", "Disponibles", c.live], ["oos", "Épuisées", c.oos], ["hidden", "Masquées", c.hidden],
+    ...types.map((t) => ["t:" + t, t, all.filter((f) => f.type === t).length])];
+  if (!chips.some(([k]) => k === fui.filter)) fui.filter = "all";
+  $("#fchips").innerHTML = chips.map(([k, l, n]) => `<button class="chip" type="button" data-f="${esc(k)}" aria-pressed="${fui.filter === k}">${esc(l)}<small>${n}</small></button>`).join("");
+
+  const q = norm(fui.q.trim());
+  const list = all.filter((f) => {
+    const k = fui.filter;
+    if (k === "live" && !(f.visible && f.inStock)) return false;
+    if (k === "oos" && !(f.visible && !f.inStock)) return false;
+    if (k === "hidden" && f.visible) return false;
+    if (k.startsWith("t:") && f.type !== k.slice(2)) return false;
+    return !q || norm([f.type, f.color, f.finish].join(" ")).includes(q);
+  });
+
+  $("#flist").innerHTML = list.length ? list.map((f) => `
+    <article class="row ${f.visible ? "" : "is-hidden"}" data-id="${esc(f.id)}">
+      <div class="sw" style="--c:${esc(f.hex)}" aria-hidden="true"></div>
+      <div>
+        <div class="row__title">${esc(f.color)}</div>
+        <div class="row__meta">${esc(f.type)}${f.finish ? " · " + esc(f.finish) : ""} · <b>${esc(f.hex)}</b></div>
+        <div class="pills">${!f.visible ? '<span class="pill pill--hidden">MASQUÉ</span>' : f.inStock ? '<span class="pill pill--live">DISPONIBLE</span>' : '<span class="pill pill--oos">ÉPUISÉ</span>'}</div>
+      </div>
+      <div class="row__controls">
+        <div class="switches">
+          <label class="switch"><input type="checkbox" data-act="inStock" ${f.inStock ? "checked" : ""}><span class="track"></span> Disponible</label>
+          <label class="switch"><input type="checkbox" data-act="visible" ${f.visible ? "checked" : ""}><span class="track"></span> Visible</label>
+        </div>
+        <div class="btns">
+          <button class="btn icon-btn" data-act="edit" title="Modifier" aria-label="Modifier"><i class="fa-solid fa-pen"></i></button>
+          <button class="btn icon-btn btn--danger" data-act="delete" title="Supprimer" aria-label="Supprimer"><i class="fa-regular fa-trash-can"></i></button>
+        </div>
+      </div>
+    </article>`).join("")
+    : `<div class="empty"><i class="fa-solid fa-fill-drip"></i><b>${all.length ? "Aucun filament dans ce filtre" : "Aucun filament"}</b><p>${all.length ? "Essayez un autre filtre." : "Ajoutez votre première couleur."}</p>${all.length ? "" : '<button class="btn btn--primary" data-fil-empty-add><i class="fa-solid fa-plus"></i> Ajouter un filament</button>'}</div>`;
+}
+
+$("#fchips").addEventListener("click", (e) => { const b = e.target.closest(".chip"); if (b) { fui.filter = b.dataset.f; renderFils(); } });
+$("#fq").addEventListener("input", (e) => { fui.q = e.target.value; renderFils(); });
+
+$("#flist").addEventListener("click", (e) => {
+  if (e.target.closest("[data-fil-empty-add]")) return openFilEditor(null);
+  const btn = e.target.closest("button[data-act]"); if (!btn) return;
+  const id = btn.closest(".row").dataset.id;
+  const i = fl().findIndex((f) => f.id === id); if (i < 0) return;
+  if (btn.dataset.act === "edit") return openFilEditor(id);
+  if (btn.dataset.act === "delete") {
+    const f = fl()[i];
+    if (!confirm(`Supprimer « ${f.type} ${f.color} » ?\n\nAstuce : pour seulement le retirer de la liste, désactivez « Visible » ou « Disponible ».`)) return;
+    data.filaments.splice(i, 1); renderFils(); save("Filament supprimé");
+  }
+});
+$("#flist").addEventListener("change", (e) => {
+  const input = e.target.closest("input[data-act]"); if (!input) return;
+  const f = fl().find((x) => x.id === input.closest(".row").dataset.id); if (!f) return;
+  f[input.dataset.act] = input.checked; renderFils();
+  save(input.dataset.act === "visible" ? (f.visible ? "Filament visible" : "Filament masqué") : (f.inStock ? "Marqué disponible" : "Marqué épuisé"));
+});
+
+$("#fil-import").addEventListener("click", async () => {
+  try {
+    data.filaments = await (await fetch("/seed-filaments.json")).json();
+    $("#fil-first").hidden = true; renderFils(); await save("Filaments d'exemple importés");
+  } catch { toast("Impossible de charger les exemples", true); }
+});
+$("#fil-empty-start").addEventListener("click", async () => { data.filaments = []; $("#fil-first").hidden = true; renderFils(); await save("Liste de filaments créée"); });
+
+/* ----- Éditeur de filament ----- */
+const fdlg = $("#fil-editor"), ff = $("#fil-form");
+function updateFilPreview() {
+  const hex = HEX.test(ff.elements.hex.value) ? ff.elements.hex.value : "#888888";
+  $("#fil-preview").style.setProperty("--c", hex);
+  $("#fil-prev-name").textContent = ff.elements.color.value || "Nouvelle couleur";
+  $("#fil-prev-meta").textContent = [ff.elements.type.value, ff.elements.finish.value].filter(Boolean).join(" · ");
+}
+function openFilEditor(id) {
+  fui.editingId = id;
+  const f = id ? fl().find((x) => x.id === id) : { type: fui.filter.startsWith("t:") ? fui.filter.slice(2) : "PLA", color: "", hex: "#d62828", finish: "", inStock: true, visible: true };
+  $("#fil-editor-title").textContent = id ? "Modifier le filament" : "Nouveau filament";
+  ff.elements.type.value = f.type; ff.elements.color.value = f.color; ff.elements.finish.value = f.finish || "";
+  ff.elements.hex.value = f.hex; ff.elements.pick.value = f.hex;
+  ff.elements.inStock.checked = f.inStock !== false; ff.elements.visible.checked = f.visible !== false;
+  updateFilPreview(); fdlg.showModal();
+}
+$("#add-fil").addEventListener("click", () => openFilEditor(null));
+$("#fil-close").addEventListener("click", () => fdlg.close());
+$("#fil-cancel").addEventListener("click", () => fdlg.close());
+ff.elements.pick.addEventListener("input", () => { ff.elements.hex.value = ff.elements.pick.value; updateFilPreview(); });
+ff.elements.hex.addEventListener("input", () => { if (HEX.test(ff.elements.hex.value)) ff.elements.pick.value = ff.elements.hex.value; updateFilPreview(); });
+["type", "color", "finish"].forEach((n) => ff.elements[n].addEventListener("input", updateFilPreview));
+ff.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const x = ff.elements;
+  if (!HEX.test(x.hex.value)) return toast("Code couleur invalide (ex : #d62828)", true);
+  const item = { id: fui.editingId || "f" + Date.now().toString(36), type: x.type.value.trim(), color: x.color.value.trim(), hex: x.hex.value.toLowerCase(),
+    finish: x.finish.value.trim(), inStock: x.inStock.checked, visible: x.visible.checked };
+  if (!data.filaments) data.filaments = [];
+  if (fui.editingId) data.filaments[data.filaments.findIndex((f) => f.id === fui.editingId)] = item; else data.filaments.unshift(item);
+  fdlg.close(); renderFils();
+  await save(fui.editingId ? "Filament modifié" : "Filament ajouté");
+});
+
+/* ---------- Réglages ---------- */
+const sf = $("#settings-form");
+function fillSettings() {
+  for (const k of Object.keys(DEFAULT_SETTINGS)) {
+    const el = sf.elements[k]; if (!el) continue;
+    if (el.type === "checkbox") el.checked = !!data.settings[k]; else el.value = data.settings[k] ?? "";
+  }
+  renderBackupInfo();
+}
+sf.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  for (const k of Object.keys(DEFAULT_SETTINGS)) {
+    const el = sf.elements[k]; if (!el) continue;
+    data.settings[k] = el.type === "checkbox" ? el.checked : el.value.trim();
+  }
+  await save("Réglages enregistrés"); fillSettings();
+});
+
+/* =============================================================
+   GALERIE (réalisations) & AVIS CLIENTS
+   ============================================================= */
+const galList = () => (data.gallery = data.gallery || []);
+const revList = () => (data.reviews = data.reviews || []);
+
+function renderGallery() {
+  $("#glist").innerHTML = galList().length ? galList().map((g, i) => `
+    <article class="row ${g.visible ? "" : "is-hidden"}" data-id="${esc(g.id)}">
+      <img class="row__img" src="${esc(g.image || PLACEHOLDER)}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${PLACEHOLDER}'">
+      <div><div class="row__title">${esc(g.title || "(sans titre)")}</div><div class="row__meta">${esc(g.caption || "")}</div>
+        <div class="pills">${g.visible ? '<span class="pill pill--live">VISIBLE</span>' : '<span class="pill pill--hidden">MASQUÉE</span>'}</div></div>
+      <div class="row__controls">
+        <div class="switches"><label class="switch"><input type="checkbox" data-act="visible" ${g.visible ? "checked" : ""}><span class="track"></span> Visible</label></div>
+        <div class="btns">
+          <button class="btn icon-btn" data-act="up" aria-label="Monter" ${i > 0 ? "" : "disabled"}><i class="fa-solid fa-arrow-up"></i></button>
+          <button class="btn icon-btn" data-act="down" aria-label="Descendre" ${i < galList().length - 1 ? "" : "disabled"}><i class="fa-solid fa-arrow-down"></i></button>
+          <button class="btn icon-btn" data-act="edit" aria-label="Modifier"><i class="fa-solid fa-pen"></i></button>
+          <button class="btn icon-btn btn--danger" data-act="delete" aria-label="Supprimer"><i class="fa-regular fa-trash-can"></i></button>
+        </div>
+      </div>
+    </article>`).join("") : `<div class="empty"><i class="fa-solid fa-images"></i><b>Aucune photo</b><p>Ajoutez vos plus belles pièces.</p></div>`;
+
+  $("#rlist").innerHTML = revList().length ? revList().map((r, i) => `
+    <article class="row row--rev ${r.visible ? "" : "is-hidden"}" data-id="${esc(r.id)}">
+      <div><div class="row__title">${esc(r.name)} <span class="stars-a">${"★".repeat(r.stars)}${"☆".repeat(5 - r.stars)}</span></div>
+        <div class="row__quote">« ${esc(r.text)} »</div>
+        <div class="pills">${r.visible ? '<span class="pill pill--live">VISIBLE</span>' : '<span class="pill pill--hidden">MASQUÉ</span>'}</div></div>
+      <div class="row__controls">
+        <div class="switches"><label class="switch"><input type="checkbox" data-act="visible" ${r.visible ? "checked" : ""}><span class="track"></span> Visible</label></div>
+        <div class="btns">
+          <button class="btn icon-btn" data-act="up" aria-label="Monter" ${i > 0 ? "" : "disabled"}><i class="fa-solid fa-arrow-up"></i></button>
+          <button class="btn icon-btn" data-act="down" aria-label="Descendre" ${i < revList().length - 1 ? "" : "disabled"}><i class="fa-solid fa-arrow-down"></i></button>
+          <button class="btn icon-btn" data-act="edit" aria-label="Modifier"><i class="fa-solid fa-pen"></i></button>
+          <button class="btn icon-btn btn--danger" data-act="delete" aria-label="Supprimer"><i class="fa-regular fa-trash-can"></i></button>
+        </div>
+      </div>
+    </article>`).join("") : `<div class="empty"><i class="fa-regular fa-star"></i><b>Aucun avis</b><p>Ajoutez les messages de clients satisfaits.</p></div>`;
+}
+
+/** Actions communes (monter / descendre / modifier / supprimer / visible) pour les deux listes */
+function bindList(sel, listFn, label, edit) {
+  $(sel).addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-act]"); if (!btn) return;
+    const id = btn.closest(".row").dataset.id, arr = listFn(), i = arr.findIndex((x) => x.id === id); if (i < 0) return;
+    const act = btn.dataset.act;
+    if (act === "edit") return edit(id);
+    if (act === "delete") { if (!confirm(`Supprimer cet élément (${label}) ?`)) return; arr.splice(i, 1); renderGallery(); return save("Supprimé"); }
+    if (act === "up" || act === "down") {
+      const j = i + (act === "up" ? -1 : 1); if (j < 0 || j >= arr.length) return;
+      [arr[i], arr[j]] = [arr[j], arr[i]]; renderGallery(); save("Ordre mis à jour");
+    }
+  });
+  $(sel).addEventListener("change", (e) => {
+    const input = e.target.closest("input[data-act=visible]"); if (!input) return;
+    const it = listFn().find((x) => x.id === input.closest(".row").dataset.id); if (!it) return;
+    it.visible = input.checked; renderGallery(); save(it.visible ? "Visible" : "Masqué");
+  });
+}
+bindList("#glist", galList, "photo", (id) => openGalEditor(id));
+bindList("#rlist", revList, "avis", (id) => openRevEditor(id));
+
+/* ----- Éditeur de photo de galerie ----- */
+const gdlg = $("#gal-editor"), gform = $("#gal-form");
+let galEditing = null, galImage = "";
+function openGalEditor(id) {
+  galEditing = id;
+  const g = id ? galList().find((x) => x.id === id) : { title: "", caption: "", image: "", visible: true };
+  $("#gal-editor-title").textContent = id ? "Modifier la photo" : "Nouvelle photo";
+  gform.elements.title.value = g.title || ""; gform.elements.caption.value = g.caption || ""; gform.elements.visible.checked = g.visible !== false;
+  galImage = g.image || ""; $("#gal-preview").src = galImage || PLACEHOLDER; $("#gal-upmsg").textContent = "JPG, PNG ou WebP";
+  gdlg.showModal();
+}
+$("#add-gal").addEventListener("click", () => openGalEditor(null));
+$("#gal-close").addEventListener("click", () => gdlg.close());
+$("#gal-cancel").addEventListener("click", () => gdlg.close());
+$("#gal-pick").addEventListener("click", () => $("#gal-file").click());
+$("#gal-file").addEventListener("change", async (e) => {
+  const file = e.target.files[0]; e.target.value = ""; if (!file) return;
+  const msg = $("#gal-upmsg"); msg.textContent = "Envoi en cours…";
+  try {
+    const { url } = await api("/api/admin/image", { method: "POST", raw: await compress(file) });
+    galImage = url; $("#gal-preview").src = url; msg.textContent = "Photo envoyée ✓";
+  } catch (err) { msg.textContent = "Échec : " + err.message; toast(err.message, true); }
+});
+gform.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  if (!galImage) return toast("Choisissez d'abord une photo", true);
+  const x = gform.elements;
+  const item = { id: galEditing || "g" + Date.now().toString(36), image: galImage, title: x.title.value.trim(), caption: x.caption.value.trim(), visible: x.visible.checked };
+  if (galEditing) galList()[galList().findIndex((g) => g.id === galEditing)] = item; else galList().unshift(item);
+  gdlg.close(); renderGallery(); await save(galEditing ? "Photo modifiée" : "Photo ajoutée");
+});
+
+/* ----- Éditeur d'avis ----- */
+const rdlg = $("#rev-editor"), rform = $("#rev-form");
+let revEditing = null;
+function openRevEditor(id) {
+  revEditing = id;
+  const r = id ? revList().find((x) => x.id === id) : { name: "", text: "", stars: 5, visible: true };
+  $("#rev-editor-title").textContent = id ? "Modifier l'avis" : "Nouvel avis";
+  rform.elements.name.value = r.name || ""; rform.elements.text.value = r.text || ""; rform.elements.stars.value = String(r.stars || 5); rform.elements.visible.checked = r.visible !== false;
+  rdlg.showModal();
+}
+$("#add-rev").addEventListener("click", () => openRevEditor(null));
+$("#rev-close").addEventListener("click", () => rdlg.close());
+$("#rev-cancel").addEventListener("click", () => rdlg.close());
+rform.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const x = rform.elements;
+  const item = { id: revEditing || "r" + Date.now().toString(36), name: x.name.value.trim(), text: x.text.value.trim(), stars: Number(x.stars.value), visible: x.visible.checked };
+  if (revEditing) revList()[revList().findIndex((r) => r.id === revEditing)] = item; else revList().unshift(item);
+  rdlg.close(); renderGallery(); await save(revEditing ? "Avis modifié" : "Avis ajouté");
+});
+
+/* =============================================================
+   SAUVEGARDE / RESTAURATION (fichier JSON, photos incluses)
+   ============================================================= */
+const BACKUP_KEY = "admin_last_backup";
+function renderBackupInfo() {
+  const d = localStorage.getItem(BACKUP_KEY);
+  $("#last-backup").textContent = d ? "Dernière sauvegarde faite depuis cet appareil : " + new Date(d).toLocaleDateString("fr-FR") + "." : "Aucune sauvegarde faite depuis cet appareil.";
+}
+/** Rappel si aucune sauvegarde depuis 30 jours (et au moins un produit) */
+function renderNag() {
+  const d = localStorage.getItem(BACKUP_KEY);
+  const old = !d || Date.now() - new Date(d).getTime() > 30 * 86400_000;
+  $("#backup-nag").hidden = !(old && data.products.length);
+}
+const blobToDataUrl = (blob) => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(blob); });
+const uploadedUrls = () => [...new Set([...data.products.flatMap((p) => [p.image, ...(p.images || [])]), ...galList().map((g) => g.image)].filter((u) => /^\/api\/image\//.test(u || "")))];
+
+async function exportBackup() {
+  const msg = $("#backup-msg"); msg.textContent = "Préparation de la sauvegarde…";
+  setStatus("busy", "Sauvegarde…");
+  try {
+    const images = {};
+    for (const url of uploadedUrls()) {
+      const res = await fetch(url); if (!res.ok) continue;
+      images[url] = await blobToDataUrl(await res.blob());
+    }
+    const payload = { app: "atelier3d-backup", version: 2, exportedAt: new Date().toISOString(), products: data.products, filaments: data.filaments, gallery: galList(), reviews: revList(), settings: data.settings, images };
+    const blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = `sauvegarde-atelier3d-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    localStorage.setItem(BACKUP_KEY, new Date().toISOString());
+    msg.textContent = `Sauvegarde téléchargée (${Math.round(blob.size / 1024)} Ko, ${Object.keys(images).length} photo(s)).`;
+    renderBackupInfo(); renderNag(); setStatus("ok", "À jour");
+  } catch (err) { msg.textContent = "Échec de la sauvegarde : " + err.message; setStatus("err", "Sauvegarde échouée"); }
+}
+async function importBackup(file) {
+  const msg = $("#backup-msg");
+  let payload;
+  try { payload = JSON.parse(await file.text()); } catch { return toast("Fichier illisible : ce n'est pas une sauvegarde valide.", true); }
+  if (payload?.app !== "atelier3d-backup" || !Array.isArray(payload.products)) return toast("Ce fichier n'est pas une sauvegarde de cet atelier.", true);
+  const when = payload.exportedAt ? new Date(payload.exportedAt).toLocaleString("fr-FR") : "date inconnue";
+  if (!confirm(`Restaurer la sauvegarde du ${when} ?\n\n${payload.products.length} produit(s) — cela REMPLACE tout le catalogue, la galerie, les avis et les réglages actuels.`)) return;
+  setStatus("busy", "Restauration…");
+  try {
+    // Les photos de la sauvegarde sont renvoyées au serveur (nouvelles adresses) puis les références sont remplacées
+    const map = {}, entries = Object.entries(payload.images || {});
+    for (let i = 0; i < entries.length; i++) {
+      msg.textContent = `Restauration des photos… ${i + 1}/${entries.length}`;
+      try { const { url } = await api("/api/admin/image", { method: "POST", raw: await (await fetch(entries[i][1])).blob() }); map[entries[i][0]] = url; } catch { /* photo ignorée */ }
+    }
+    const re = (u) => map[u] || u;
+    data.products = payload.products.map((p) => ({ ...p, image: re(p.image || ""), images: (p.images || []).map(re) }));
+    data.filaments = Array.isArray(payload.filaments) ? payload.filaments : data.filaments;
+    data.gallery = (payload.gallery || []).map((g) => ({ ...g, image: re(g.image || "") }));
+    data.reviews = payload.reviews || [];
+    data.settings = { ...DEFAULT_SETTINGS, ...(payload.settings || {}) };
+    $("#first-run").hidden = true; $("#fil-first").hidden = Array.isArray(data.filaments) ? true : $("#fil-first").hidden;
+    renderAll(); fillSettings();
+    if (await save("Sauvegarde restaurée")) msg.textContent = "Sauvegarde restaurée ✓";
+  } catch (err) { msg.textContent = "Échec de la restauration : " + err.message; setStatus("err", "Non enregistré"); }
+}
+$("#backup-export").addEventListener("click", exportBackup);
+$("#nag-backup").addEventListener("click", exportBackup);
+$("#backup-import").addEventListener("click", () => $("#backup-file").click());
+$("#backup-file").addEventListener("change", (e) => { const f = e.target.files[0]; e.target.value = ""; if (f) importBackup(f); });
+
+/* ---------- Go ---------- */
+getToken() ? start() : showLogin();
+</script>
+</body>
+</html>
